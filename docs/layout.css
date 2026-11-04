@@ -241,3 +241,17 @@ html::-webkit-scrollbar { display:none; }
 @media (min-width:761px) { .contact-details { padding-top:44px; } }
 /* Footer lab name stays visible at tablet widths (style.css hides .brand-long ≤1100px) */
 .footer-brand .brand-long, .footer-brand .brand-divider { display:block; }
+
+/* Arrow icons removed site-wide: tidy the components that reserved space for them */
+.publication-row { grid-template-columns:64px minmax(0,1fr); }
+.focus-cta { justify-content:flex-start; }
+.article-bottom { justify-content:flex-start; }
+.outline-button { justify-content:center; }
+.contact-email { padding-right:0; }
+.text-link { gap:0; }
+@media (max-width:760px) {
+  .publication-row { grid-template-columns:minmax(0,1fr); }
+}
+/* Without arrows, keep profile links recognisable as links */
+.contact-profiles a { text-decoration:underline; text-decoration-color:#ffffff40; text-underline-offset:4px; }
+.contact-profiles a:hover, .contact-profiles a:focus-visible { text-decoration-color:currentColor; }
