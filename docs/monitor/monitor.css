@@ -144,3 +144,4 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid 
   .m-table th { white-space: normal; padding: 6px 4px; vertical-align: bottom; }
   .m-table td { padding: 7px 4px; }
 }
+.m-source { margin: 8px 6px 0; font-size: 13px; color: var(--muted); } .m-source a { color: var(--ink); }

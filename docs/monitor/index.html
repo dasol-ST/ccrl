@@ -10,10 +10,10 @@
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=20261104d">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="monitor.css?v=20261105b">
+  <link rel="stylesheet" href="monitor.css?v=20261105c">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js" defer></script>
-  <script src="monitor.js?v=20261105b" defer></script>
+  <script src="monitor.js?v=20261105c" defer></script>
 </head>
 <body>
 <header class="m-header">
@@ -60,6 +60,7 @@
   <section class="wrap m-map-card" aria-label="World map">
     <div class="m-map" id="map" role="img" aria-label="World map of climate-related disasters by country"></div>
     <div class="m-legend" id="legend" aria-label="Map legend"></div>
+    <p class="m-source" id="map-source">Data: <a href="https://www.emdat.be/" target="_blank" rel="noopener">EM-DAT</a>, CRED / UCLouvain, Brussels, Belgium.</p>
     <div class="m-tooltip" id="tooltip" role="status" hidden></div>
   </section>
 

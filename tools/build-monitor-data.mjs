@@ -9,12 +9,14 @@
 // Output:
 //   docs/monitor/data/emdat-summary.json   aggregated statistics
 //   docs/monitor/data/world-110m.json      Natural Earth 1:110m countries (via world-atlas), ids = ISO alpha-3
+//   docs/monitor/data/world-paths.json     the same map pre-projected to SVG paths (homepage teaser)
+//   docs/monitor/data/home.json            one year's figures for the homepage teaser
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import XLSX from 'xlsx';
-import { geoCentroid } from 'd3-geo';
+import { geoCentroid, geoEqualEarth, geoPath } from 'd3-geo';
 import { feature } from 'topojson-client';
 
 const require = createRequire(import.meta.url);
@@ -129,8 +131,37 @@ for (const g of topo50.objects.countries.geometries) {
 Object.assign(centroids, { MTQ: [-61.02, 14.64], GLP: [-61.58, 16.25], SPI: [-15.6, 28.3], REU: [55.53, -21.11], TKL: [-171.85, -9.2], TUV: [179.2, -8.52], GUF: [-53.1, 3.9], MYT: [45.15, -12.83], AZO: [-28.0, 38.6] });
 out.meta.markers = Object.fromEntries(Object.keys(countries).filter(c => !onMap.has(c) && centroids[c]).map(c => [c, centroids[c]]));
 fs.writeFileSync(path.join(outDir, 'emdat-summary.json'), JSON.stringify(out));
+
+// Lightweight files for the homepage teaser: pre-projected map paths (no D3 needed in the browser)
+// and the figures for a single year.
+const W = 960, H = 470;
+const projection = geoEqualEarth().rotate([-150, 0]).fitExtent([[4, 4], [W - 4, H - 4]], { type: 'Sphere' });
+const geoPathGen = geoPath(projection).digits(1);
+const allFeatures = feature(topo, topo.objects.countries).features;
+const worldPaths = {
+  viewBox: [0, 0, W, H],
+  sphere: geoPathGen({ type: 'Sphere' }),
+  countries: allFeatures.map(f => ({ id: f.id, name: f.properties.name, d: geoPathGen(f) })),
+  dots: Object.entries(out.meta.markers).map(([id, lonlat]) => ({ id, xy: projection(lonlat).map(v => +v.toFixed(1)) })),
+};
+fs.writeFileSync(path.join(outDir, 'world-paths.json'), JSON.stringify(worldPaths));
+
+// The homepage shows the current (provisional) year once it holds at least two months of entries,
+// otherwise the last complete year.
+const entryMonth = Number(out.meta.latestEntry.slice(5, 7));
+const homeYear = out.meta.provisionalYear && entryMonth >= 3 ? out.meta.provisionalYear : (out.meta.provisionalYear ? lastYear - 1 : lastYear);
+const home = {
+  year: homeYear,
+  provisional: homeYear === out.meta.provisionalYear,
+  latestEntry: out.meta.latestEntry,
+  accessed,
+  totals: { n: out.totals[homeYear].n, d: out.totals[homeYear].d, a: out.totals[homeYear].a, countries: out.totals[homeYear].countries },
+  countries: Object.fromEntries(out.years[homeYear].map(r => [r.iso, { name: countries[r.iso], n: r.n, d: r.d, a: r.a, top: r.top }])),
+};
+fs.writeFileSync(path.join(outDir, 'home.json'), JSON.stringify(home));
+console.log(`Homepage year: ${homeYear}${home.provisional ? ' (provisional)' : ''}`);
 const missing = Object.keys(countries).filter(c => !onMap.has(c) && !out.meta.markers[c]).map(c => `${c} ${countries[c]}`);
 console.log(`Used ${used} EM-DAT records, ${yearList[0]}-${lastYear}, ${Object.keys(countries).length} countries.`);
 console.log(`Not drawn on the map at all (tables only): ${missing.join('; ') || 'none'}`);
 console.log(`Unmatched map shapes: ${topo.objects.countries.geometries.filter(g => !g.id).map(g => g.properties.name).join(', ') || 'none'}`);
-for (const f of ['emdat-summary.json', 'world-110m.json']) console.log(f, (fs.statSync(path.join(outDir, f)).size / 1024).toFixed(0), 'KB');
+for (const f of ["emdat-summary.json", "world-110m.json", "world-paths.json", "home.json"]) console.log(f, (fs.statSync(path.join(outDir, f)).size / 1024).toFixed(0), 'KB');

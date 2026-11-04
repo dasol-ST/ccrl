@@ -57,6 +57,7 @@
     const range = $('#year-range');
     range.min = firstYear; range.max = lastYear; range.value = state.year;
     $('#citation').textContent = data.meta.citation;
+    $('#map-source').lastChild.textContent = `, CRED / UCLouvain, Brussels, Belgium (accessed ${data.meta.accessed}). Last entry included: ${data.meta.latestEntry}.`;
     $('#current-year').textContent = new Date().getFullYear();
 
     const chips = $('#hazards');
@@ -73,7 +74,7 @@
 
   function drawMap() {
     const W = 960, H = 470;
-    const projection = d3.geoEqualEarth().fitExtent([[4, 4], [W - 4, H - 4]], { type: 'Sphere' });
+    const projection = d3.geoEqualEarth().rotate([-150, 0]).fitExtent([[4, 4], [W - 4, H - 4]], { type: 'Sphere' });
     const path = d3.geoPath(projection);
     svg = d3.select('#map').append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('aria-hidden', 'true');
     svg.append('path').attr('class', 'sphere').attr('d', path({ type: 'Sphere' }));

@@ -267,9 +267,11 @@ npm run check
 "The climate crisis, right now" 페이지입니다. 주소는 `…/ccrl/monitor/`입니다.
 
 - 화면: `docs/monitor/index.html`, `monitor.css`, `monitor.js` (D3·TopoJSON을 cdnjs에서 불러옴)
-- 데이터: `docs/monitor/data/emdat-summary.json`(국가·연도별 집계), `world-110m.json`(국가 경계)
+- 데이터: `docs/monitor/data/emdat-summary.json`(국가·연도별 집계), `world-110m.json`(국가 경계), `world-paths.json`·`home.json`(메인 페이지 지도용: 미리 투영한 지도와 올해 수치)
+- 메인 페이지 섹션: `docs/index.html`의 `#climate-now`, 스크립트 `docs/climate-now.js`. 지도는 150°E 중심(아시아·한국 중심)이며 투영 설정은 `tools/build-monitor-data.mjs`와 `docs/monitor/monitor.js` 두 곳에 있습니다.
+- 갱신 주기: 한 달에 한 번 정도 EM-DAT 자료를 새로 받아 아래 스크립트를 다시 실행합니다(ReliefWeb은 사용하지 않음).
 - 데이터 갱신 방법
   1. EM-DAT(public.emdat.be)에서 자연재해 전체 자료를 엑셀로 내려받아 **저장소 바깥** 폴더에 둡니다. 원본 엑셀은 이용약관상 공개 저장소에 올리면 안 됩니다(`.gitignore`로 막아 둠).
   2. 저장소 폴더에서 `npm install` 후 `node tools/build-monitor-data.mjs "<엑셀 경로>" <내려받은 날짜 YYYY-MM-DD>`를 실행합니다.
-  3. 생성된 두 JSON 파일만 커밋합니다.
+  3. `docs/monitor/data/`에 생성된 JSON 파일 4개만 커밋합니다.
 - 공개되는 것은 국가·연도별 합계(건수, 사망자, 피해 인구, 재해 유형별 합계)와 국가·연도별 최대 피해 이벤트의 이름·월·사망자·피해 인구뿐입니다.

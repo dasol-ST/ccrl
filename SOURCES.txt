@@ -59,3 +59,4 @@ Emblem navigation paths transcribed from user-supplied BS-105 emblem EPS, main m
 2026-11-04  Contact: decorative large arrow removed; details column top-aligned with the heading. Footer lab name now visible at tablet widths.
 2026-11-04  All ↗ arrow icons removed site-wide (nav, links, buttons, highlight cards, contact, publication rows, team dialog); publication rows now two columns; profile links underlined. ↓ (view all) and ↑ (back to top) kept.
 2026-11-05  Climate monitor page (docs/monitor/) built from EM-DAT public export accessed 2026-11-04 (entries to 2026-10-27); aggregation script tools/build-monitor-data.mjs; raw export kept outside the repo. server.mjs serves index.html for directory URLs.
+2026-11-05  Homepage section "The climate crisis, right now" (#climate-now, map-only teaser) between About and Research, linking to monitor/. Maps centred on 150E. EM-DAT source shown under both maps. ReliefWeb dropped (EM-DAT export already covers the current year).
