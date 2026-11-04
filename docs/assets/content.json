@@ -1,0 +1,267 @@
+{
+  "source": "https://dasol-st.github.io/ccrl/",
+  "accessed": "2026-10-14",
+  "name": "Climate Crisis Response Lab",
+  "abbreviation": "CCRL",
+  "institution": "Seoul National University of Science and Technology",
+  "department": "Department of Environmental Engineering",
+  "tagline": "Science and Technology for Climate Action",
+  "subtitle": "Building a Sustainable Future for the Next Generation",
+  "about": "Climate Crisis Response Lab (CCRL) conducts interdisciplinary research on greenhouse gas monitoring, renewable energy optimization, climate prediction, risk assessment, and climate intervention technologies to advance a carbon-neutral and climate-resilient future.",
+  "hero": {
+    "image": "assets/hero.jpg",
+    "sourceImage": "https://dasol-st.github.io/ccrl/img/home.jpg"
+  },
+  "research": [
+    {
+      "id": 1,
+      "title": "GREENHOUSE GAS MONITORING AND CARBON NEUTRALITY",
+      "description": "To mitigate climate change, we quantify greenhouse gas emissions and sinks and develop science-based pathways toward carbon neutrality. Using satellite observations and artificial intelligence, we estimate carbon emissions and sinks across public institutions, industries, and national systems. We further assess long-term trends and evaluate mitigation strategies to support effective climate policy and decision-making.",
+      "summary": "Satellite observations and AI reveal greenhouse gas sources and sinks, supporting science-based pathways to carbon neutrality.",
+      "image": "assets/research-1.jpg",
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/research1.jpg"
+    },
+    {
+      "id": 2,
+      "title": "RENEWABLE ENERGY OPTIMIZATION",
+      "description": "Renewable energy is no longer optional but essential for achieving carbon neutrality. We develop advanced forecasting techniques to optimize renewable energy systems by integrating numerical modeling and artificial intelligence. Our research focuses on predicting the supply and demand of wind and solar power to enhance efficiency, reliability, and grid stability.",
+      "summary": "Numerical modeling and AI improve wind and solar forecasts for more efficient, reliable renewable energy systems.",
+      "image": "assets/research-2.jpg",
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/research2.jpg"
+    },
+    {
+      "id": 3,
+      "title": "EXTREME WEATHER AND CLIMATE PREDICTION",
+      "description": "As climate change intensifies, extreme weather and climate events are becoming more frequent and severe. We develop advanced prediction technologies for typhoons, heatwaves, cold surges, floods, and droughts by integrating satellite observations, numerical models, and artificial intelligence. Our research aims to enhance forecasting accuracy and improve preparedness for climate-related hazards.",
+      "summary": "Satellite data, numerical models, and AI advance forecasts of typhoons, heatwaves, floods, and other climate hazards.",
+      "image": "assets/research-3.jpg",
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/research3.jpg"
+    },
+    {
+      "id": 4,
+      "title": "CLIMATE RISK ASSESSMENT",
+      "description": "To protect ourselves from climate change, we must first understand the risks we face. We assess physical climate risks affecting both private enterprises and the public sector. Our research supports the development of effective risk management and adaptation strategies to enhance climate resilience.",
+      "summary": "Assessing physical climate risks to help businesses and the public sector plan effective adaptation strategies.",
+      "image": "assets/research-4.jpg",
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/research4.jpg"
+    },
+    {
+      "id": 5,
+      "title": "CLIMATE INTERVENTION TECHNOLOGY",
+      "description": "While the climate crisis is accelerating, the pace of mitigation efforts remains limited. We evaluate the effectiveness, sustainability, and potential side effects of emerging climate intervention technologies that may complement conventional carbon reduction strategies. Our research provides scientific evidence to assess their feasibility and long-term implications.",
+      "summary": "Evaluating emerging climate technologies, their effectiveness, sustainability, and long-term implications.",
+      "image": "assets/research-5.jpg",
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/research5.jpg"
+    }
+  ],
+  "professor": {
+    "name": "Dasol Kim",
+    "role": "Assistant Professor",
+    "department": "Department of Environmental Engineering",
+    "institution": "Seoul National University of Science and Technology",
+    "image": "assets/professor.jpg",
+    "sourceImage": "https://dasol-st.github.io/ccrl/img/profile2.jpg",
+    "office": "Room 313, Chungun-Hall",
+    "lab": "Room 138, Chungun-Hall",
+    "telephone": "+82-2-970-6616",
+    "email": "dasol.kim@seoultech.ac.kr",
+    "cv": "assets/cv-dasol-kim.pdf",
+    "sourceCV": "https://dasol-st.github.io/ccrl/img/CV_Kim.pdf"
+  },
+  "members": [
+    {
+      "name": "Jin-Woo Hoe",
+      "role": "Researcher",
+      "field": "AI Modelling",
+      "email": "zerothis84@gmail.com",
+      "image": "assets/member-1.jpg",
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/Jin-Woo_Heo.jpg"
+    },
+    {
+      "name": "Suyeon Jo",
+      "role": "Ph.D. Student",
+      "field": "Climate and Water Quality",
+      "email": "dodo12@seoultech.ac.kr",
+      "image": "assets/member-2.jpg",
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/Suyeon_Jo.jpg"
+    },
+    {
+      "name": "Suyeon Lee",
+      "role": "Ph.D. Student",
+      "field": "Climate Intervention Technology",
+      "email": "sylee@seoultech.ac.kr",
+      "image": "assets/member-3.jpg",
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/Suyeon_Lee.jpg"
+    },
+    {
+      "name": "Yeelin Hong",
+      "role": "MS. Student",
+      "field": "Carbon Monitoring and Management",
+      "email": "yeelinhong@gmail.com",
+      "image": "assets/member-4.jpg",
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/Yeelin_Hong.jpg"
+    },
+    {
+      "name": "Jaeseo Park",
+      "role": "MS. Student",
+      "field": "Air Quality Forecast using AI",
+      "email": "piaocaishu3@naver.com",
+      "image": "assets/member-5.jpg",
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/Jaeseo_Park.jpg"
+    },
+    {
+      "name": "Eunji Lee",
+      "role": "MS. Student",
+      "field": "Renewable Energy Analysis and Forecasting",
+      "email": "dmswl912782@naver.com",
+      "image": "assets/member-6.jpg",
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/Eunji_Lee.jpeg"
+    },
+    {
+      "name": "Yoojae Joo",
+      "role": "Undergraduate Research Intern",
+      "field": "ESG and Physical Risks of Climate Change",
+      "email": "juju69123@naver.com",
+      "image": "assets/member-7.jpg",
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/Yoojae_Joo.jpg"
+    },
+    {
+      "name": "Yeonjun Kim",
+      "role": "Undergraduate Research Intern",
+      "field": "Climate Intervention Technology",
+      "email": "rladuswns01@gmail.com",
+      "image": "assets/member-placeholder.jpg",
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/man.jpg"
+    },
+    {
+      "name": "Gyutae Kang",
+      "role": "Undergraduate Research Intern",
+      "field": "Direct Air Capture and Storage",
+      "email": "taegyutae@naver.com",
+      "image": "assets/member-placeholder.jpg",
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/man.jpg"
+    }
+  ],
+  "publications": [
+    {
+      "year": 2025,
+      "title": "Mechanism of seasonal differences in interdecadal changes in tropical cyclone genesis frequency over the western North Pacific",
+      "journal": "Journal of Climate",
+      "citation": "J. Ju, D.-S. R. Park, D. Kim, M. Chang, C.-K. Park, J.-S. Kug, and D. Youn, 2025: Mechanism of seasonal differences in interdecadal changes in tropical cyclone genesis frequency over the western North Pacific, Journal of Climate, 38(15), 3787–3800."
+    },
+    {
+      "year": 2025,
+      "title": "Four patterns of moisture surrounding Atlantic hurricanes from deep learning",
+      "journal": "Atmospheric Research",
+      "citation": "C. J. Matyas, D. Kim*, S. E. Zick, and K. M. Wood, 2025: Four patterns of moisture surrounding Atlantic hurricanes from deep learning, Atmospheric Research, 322, 108114."
+    },
+    {
+      "year": 2024,
+      "title": "Factors of synoptic circulation associated with high-PM2.5 concentration during wintertime in Seoul, South Korea",
+      "journal": "Atmospheric Environment",
+      "citation": "Oh, H.-R., D.-S. R. Park, D. Kim*, C.-H. Ho, and S. Lee, 2024: Factors of synoptic circulation associated with high-PM2.5 concentration during wintertime in Seoul, South Korea, Atmospheric Environment, 325, 120444."
+    },
+    {
+      "year": 2024,
+      "title": "Sea surface temperature warming to inhibit mitigation of tropical cyclone destructiveness over East Asia in El Nino",
+      "journal": "npj Climate and Atmospheric Science",
+      "citation": "Park, D.-S. R., E. Seo, M. Lee, D,-H. Cha, D. Kim, C.-H. Ho, M.-I. Lee, H.-S. Kim, and S.-K. Min, 2024: Sea surface temperature warming to inhibit mitigation of tropical cyclone destructiveness over East Asia in El Nino. npj Climate and Atmospheric Science, 7, 24."
+    },
+    {
+      "year": 2024,
+      "title": "Classification of tropical cyclone rain patterns using convolutional autoencoder",
+      "journal": "Scientific Reports",
+      "citation": "Kim, D., and C. J. Matyas, 2024: Classification of tropical cyclone rain patterns using convolutional autoencoder, Scientific Reports, 14, 791."
+    },
+    {
+      "year": 2023,
+      "title": "Rainfall strength and area from landfalling tropical cyclones over the North Indian and western North Pacific oceans under increased CO2 conditions",
+      "journal": "Weather and Climate Extremes",
+      "citation": "Moon, M., Ha, K. J., Kim, D., Ho, C. H., et al., 2023: Rainfall strength and area from landfalling tropical cyclones over the North Indian and western North Pacific oceans under increased CO2 conditions. Weather and Climate Extremes, 100581."
+    },
+    {
+      "year": 2023,
+      "title": "Reanalyzing the Relationship of Tropical Cyclone Frequency and Intensity Affecting South Korea with the Pacific Decadal Oscillation",
+      "journal": "Journal of Climate",
+      "citation": "Kim, D., D.-S. R. Park, M. Chang, D.-H. Cha, and M. Lee, 2023: Reanalyzing the Relationship of Tropical Cyclone Frequency and Intensity Affecting South Korea with the Pacific Decadal Oscillation, Journal of Climate, 36(9), 2847–2855."
+    },
+    {
+      "year": 2023,
+      "title": "Spatial Variations in Tropical Cyclone Rainfall over the Western North Pacific According to ENSO Phase",
+      "journal": "Journal of Climate",
+      "citation": "Kim, D., D.-S. R. Park, and C. J. Matyas, 2023: Spatial Variations in Tropical Cyclone Rainfall over the Western North Pacific According to ENSO Phase, Journal of Climate, 36(6), 1697–1710."
+    },
+    {
+      "year": 2022,
+      "title": "The parametric hurricane rainfall model with moisture and its application to climate change projections",
+      "journal": "npj Climate and Atmospheric Science",
+      "citation": "Kim, D., D.-S. R. Park, C. C. Nam, and M. M. Bell, 2022: The parametric hurricane rainfall model with moisture and its application to climate change projections, npj Climate and Atmospheric Science, 5, 86."
+    },
+    {
+      "year": 2022,
+      "title": "Untangling the contribution of input parameters to an artificial intelligence PM2.5 forecast model using the layer-wise relevance propagation method",
+      "journal": "Atmospheric Environment",
+      "citation": "Kim, D., C.-H. Ho, I. Park, J. Kim, L. S. Chang, and M. H. Choi, 2022: Untangling the contribution of input parameters to an artificial intelligence PM2.5 forecast model using the layer-wise relevance propagation method. Atmospheric Environment, 276, 119034."
+    },
+    {
+      "year": 2022,
+      "title": "A possible relation of Pacific Decadal Oscillation with weakened tropical cyclone activity over South Korea",
+      "journal": "Journal of Korean Earth Science Society",
+      "citation": "Chang, M., D.-S. R. Park, D. Kim, and T.-W. Park, 2022: A possible relation of Pacific Decadal Oscillation with weakened tropical cyclone activity over South Korea. Journal of Korean Earth Science Society, 43, 23-29."
+    },
+    {
+      "year": 2021,
+      "title": "Development of a Track-Pattern-Based Medium-Range Tropical Cyclone Forecasting System for the Western North Pacific",
+      "journal": "Weather and Forecasting",
+      "citation": "Cheung, H. M., C.-H. Ho, M. Chang, D. Kim, J. Kim, W. Choi, 2021: Development of a Track-Pattern-Based Medium-Range Tropical Cyclone Forecasting System for the Western North Pacific. Weather and Forecasting, 36, 1505-1518."
+    },
+    {
+      "year": 2021,
+      "title": "Assessing the influence of large-scale environmental conditions on rainfall structure of Atlantic tropical cyclones: An observational study",
+      "journal": "Journal of Climate",
+      "citation": "Kim, D., C.-H. Ho, H. Murakami, and D.-S. R. Park, 2021: Assessing the influence of large-scale environmental conditions on rainfall structure of Atlantic tropical cyclones: An observational study, Journal of Climate, 34, 2093-2106."
+    },
+    {
+      "year": 2019,
+      "title": "Tropical cyclone as a possible remote controller of air quality over the Republic of Korea through poleward propagating Rossby waves",
+      "journal": "Journal of Applied Meteorology and Climatology",
+      "citation": "D.-S. R. Park, C.-H. Ho, D. Kim, N.-Y. Kang, Y. Han, and H.-R. Oh, 2019: Tropical cyclone as a possible remote controller of air quality over the Republic of Korea through poleward propagating Rossby waves, Journal of Applied Meteorology and Climatology, 58(11), 2523–2530."
+    },
+    {
+      "year": 2019,
+      "title": "Influence of vertical wind shear on wind- and rainfall areas of tropical cyclones making landfall over South Korea",
+      "journal": "PLOS One",
+      "citation": "Kim, D., C.-H. Ho, D.-S. R. Park, and J. Kim, 2019: Influence of vertical wind shear on wind- and rainfall areas of tropical cyclones making landfall over South Korea, PLOS One, 14, 1."
+    },
+    {
+      "year": 2018,
+      "title": "The relationship between tropical cyclone rainfall area and environmental conditions over the subtropical oceans",
+      "journal": "Journal of Climate",
+      "citation": "Kim, D., C.-H. Ho, D.-S. R. Park, J. C. L. Chan, and Y. Jung, 2018: The relationship between tropical cyclone rainfall area and environmental conditions over the subtropical oceans, Journal of Climate, 31, 4605–4616."
+    },
+    {
+      "year": 2015,
+      "title": "Climatological features of WRF-simulated tropical cyclones over the western North Pacific",
+      "journal": "Climate Dynamics",
+      "citation": "Kim, D., C.-S. Jin, C.-H. Ho, J. Kim, and J.-H. Kim, 2015: Climatological features of WRF-simulated tropical cyclones over the western North Pacific, Climate Dynamics, 44(11-12), 3223–3235."
+    },
+    {
+      "year": 2014,
+      "title": "Development of the automated prediction system for seasonal tropical cyclone activity over the western North Pacific and its evaluation for early predictability",
+      "journal": "Atmosphere",
+      "citation": "Jin, C.-S., C.-H. Ho, D.-S. R. Park, W. Choi, D. Kim, J.-H. Lee, K.-H. Chang, and K.-R. Kang, 2014: Development of the automated prediction system for seasonal tropical cyclone activity over the western North Pacific and its evaluation for early predictability, Atmosphere, 24, 123–130."
+    }
+  ],
+  "contact": {
+    "description": "The Climate Crisis Response Lab explores science-based solutions to address climate risks and environmental challenges. We welcome collaboration across disciplines and encourage prospective students and researchers to contact us.",
+    "office": "Room 313, Chungun-Hall",
+    "lab": "Room 138, Chungun-Hall",
+    "telephone": "+82-2-970-6616",
+    "email": "dasol.kim@seoultech.ac.kr"
+  },
+  "links": {
+    "scholar": "https://scholar.google.com/citations?user=N4t0Ki8AAAAJ&hl=en",
+    "researchgate": "https://www.researchgate.net/profile/Dasol-Kim-13?ev=hdr_xprf",
+    "linkedin": "https://www.linkedin.com/in/dasol-kim-9a9243281/"
+  }
+}

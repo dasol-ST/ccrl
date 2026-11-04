@@ -1,0 +1,50 @@
+CCRL homepage design concept
+
+Content, photographs, research images, and CV:
+https://dasol-st.github.io/ccrl/
+https://github.com/dasol-ST/ccrl
+Retrieved 2026-10-14. Original asset URLs are recorded in docs/assets/content.json.
+
+Layout reference:
+https://sees.snu.ac.kr/
+The HTML, CSS, and JavaScript implementation and the illustrative CCRL globe mark were newly created for this example. SNU branding is not used.
+
+The page is a design concept. Publications link to Google Scholar searches, not verified publisher landing pages. The people and publication text preserves the original CCRL source. Image and document ownership remains with the original rights holders.
+
+Preview: node server.mjs (http://127.0.0.1:4173)
+Content editing: docs/assets/content.json
+
+Previous hero video added 2026-10-14 from four user-supplied MP4 clips (replaced 2026-10-23):
+1.mp4: main gate, full 10-second video at 2.5x speed, normalized to 4 seconds.
+2.mp4: Cheongun Hall, full 10-second video at 2.5x speed, normalized to 4 seconds.
+3.mp4: Earth, source 0-4 seconds.
+4.mp4: tropical cyclone, source 0-4 seconds.
+Half-second crossfades include the loop seam. Final duration 13.958 seconds.
+1280x720 H.264, 24 fps, audio streams removed, MP4 fast-start enabled.
+The user supplied generated campus and climate imagery; these clips are not documentary observations.
+
+Hero video replaced 2026-10-23 with the user's recently created AABBKds6mCE5zjer1OYI9g.mp4 (Downloads, modified 2026-10-22).
+Full 26.13-second sequence retained: industrial emissions, city, glacier, climate message, planting, and SeoulTech closing scene.
+1280x720 H.264, 30 fps. Video stream copied without re-encoding; audio excluded and MP4 fast-start enabled.
+Poster extracted at 0.3 seconds. Muted looping playback, pause control, and reduced-motion/data-saving behavior retained.
+
+Hero refinement 2026-10-23: the current video is cut at 20.9 seconds, before the university logo appears; subsequent logo and reference scenes are excluded.
+Re-encoded as H.264 yuv420p with no audio and fast-start. The final frame is also saved as ccrl-hero-end.jpg.
+Playback runs once and holds the final frame. Skip shows that frame immediately; Replay restarts. Visible hero copy and emblem navigation removed; navbar retained.
+
+Scroll guidance update 2026-10-23: muted autoplay is the default (reduced-motion preference respected). The native page scrollbar is hidden without disabling scrolling. A clickable seven-section rail shows the current section and page progress. The hero includes an Explore the lab cue and a preview of the next section; Skip, Replay, and the final-frame hold remain available.
+
+Layout update 2026-10-16: Research areas displayed in a centered 3+2 grid; all ten people shown.
+Additional member images use the original CCRL img/Jaeseo_Park.jpg, img/Eunji_Lee.jpeg, img/Yoojae_Joo.jpg and img/man.jpg (shared original placeholder for the final two members).
+Emblem navigation paths transcribed from user-supplied BS-105 emblem EPS, main mark paths at lines 3988-4022. Outer seal and lettering omitted; original central geometry retained. Display colors follow the accompanying JPG preview.
+
+
+2026-10-23: Removed the right-side section rail on desktop and mobile at the user's request. The hidden native scrollbar, normal scrolling, autoplay, and Explore the lab cue are retained.
+
+2026-10-23 mobile optimization: compact 94px mobile header, uncropped 16:9 video below navigation, in-flow video controls and exploration cue, and the About heading visible on the initial screen. Responsive spacing, menu touch targets, cards, publications, dialogs, and small-screen people layout refined. Desktop design and public audience preserved.
+
+2026-10-23 mobile framing revision: mobile video, loading poster, and final-frame image now share a centered 4:3 crop. Height increases by one third relative to 16:9; each side loses 12.5% of the original frame width. Desktop framing remains unchanged.
+
+2026-10-24: Hero replaced with user-supplied warming-v3.mp4 (climate-story). The full 22.5-second, 1280x720, 30fps video is retained without trimming or re-encoding; audio is excluded and MP4 fast-start enabled. The supplied warming-v3-end.jpg is copied unchanged as the final/Skip image. Poster extracted at 0.3 seconds. Mobile centered 4:3 framing and existing playback controls retained.
+
+2026-10-24: Full warming-v3-notitle.mp4 and matching warming-v3-notitle-end.jpg replace baked-in titles. HTML/CSS title motion reproduces warming-v3.html renderTitle: final shot starts at 18.984375s; title delay 350ms, linear opacity 500ms, cubic ease-out tracking .16em to .06em and 12px rise over 900ms; subtitle delay 1300ms, cubic ease-out fade and 14px rise over 700ms. Noto Sans KR 900/400 matches the source title typography; the rest of the site remains Inter. Motion follows decoded video frames, pauses with playback, resets on Replay, and completes immediately on Skip/end.
