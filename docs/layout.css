@@ -194,3 +194,35 @@ html::-webkit-scrollbar { display:none; }
 /* 2026-11-04: academic and social profile links in the contact section */
 .contact-profiles a { display:flex; align-items:center; gap:8px; width:max-content; color:inherit; transition:color .2s; }
 .contact-profiles a:hover,.contact-profiles a:focus-visible { color:#79c3c4; }
+
+/* 2026-11-04: CCRL wordmark logo (white on dark header/footer, colour once the desktop header turns white) */
+.brand .brand-logo { position:relative; display:block; flex-shrink:0; height:46px; aspect-ratio:3.9; }
+.brand .brand-logo img,
+.site-header .brand .brand-logo img { position:absolute; left:0; top:0; width:auto; height:100%; max-width:none; grid-column:auto; grid-row:auto; transition:opacity .25s ease; }
+.brand .logo-on-light { opacity:0; }
+.site-header.scrolled .brand .logo-on-light { opacity:1; }
+.site-header.scrolled .brand .logo-on-dark { opacity:0; }
+.site-header .brand { display:flex; align-items:center; gap:18px; }
+.site-header .brand-divider { display:block; height:38px; margin:0; }
+.brand .brand-long { font-family:'Montserrat','Inter',sans-serif; font-weight:600; text-transform:uppercase; letter-spacing:.07em; line-height:1.3; }
+.site-header .brand-long { display:block; font-size:14px; }
+.footer-brand { display:flex; align-items:center; gap:16px; }
+.footer-brand .brand-logo { height:40px; }
+.footer-brand .brand-divider { display:block; height:34px; margin:0; }
+.footer-brand .brand-long { font-size:12px; }
+@media (max-width:760px) {
+  .site-header .brand { gap:12px; min-width:0; }
+  .site-header .brand .brand-logo { height:34px; }
+  .site-header .brand-divider { height:28px; }
+  .site-header .brand-long { font-size:10.5px; letter-spacing:.06em; }
+  /* mobile header stays navy, so keep the white logo */
+  .site-header.scrolled .brand .logo-on-light { opacity:0; }
+  .site-header.scrolled .brand .logo-on-dark { opacity:1; }
+  .footer-brand .brand-logo { height:34px; }
+}
+@media (max-width:360px) {
+  .site-header .brand { gap:9px; }
+  .site-header .brand .brand-logo { height:28px; }
+  .site-header .brand-divider { height:24px; }
+  .site-header .brand-long { font-size:9.5px; letter-spacing:.04em; }
+}

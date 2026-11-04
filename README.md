@@ -143,6 +143,7 @@ ccrl/  (저장소 루트, 공개되지 않음)
   server.mjs                의존성 없는 로컬 정적 서버
   start-windows.cmd         Windows 실행 도우미
   .gitignore                개발 중 생성 파일 제외 목록
+  design/ccrl-logo-sheet.png  로고 시안 원본 (두 워드마크를 잘라낸 원본, 공개되지 않음)
   reference/
     html-title-desktop.png  마지막 제목 장면의 PC 기준 화면
     html-title-mobile.png   마지막 제목 장면의 모바일 기준 화면
@@ -159,7 +160,9 @@ ccrl/  (저장소 루트, 공개되지 않음)
       ccrl-hero.mp4          타이틀 없는 최종 영상
       ccrl-hero-poster.jpg   영상 로딩 전 이미지
       ccrl-hero-end.jpg      재생 종료/Skip 시 보여줄 이미지
-      mark.svg              현재 사용 중인 CCRL 지구 모양 마크
+      ccrl-logo-white.png   헤더(영상 위·모바일)·푸터용 흰색 워드마크 (투명 배경)
+      ccrl-logo-color.png   스크롤 후 흰 헤더용 청록 워드마크 (투명 배경)
+      mark.svg              지구 모양 마크 (현재 브라우저 탭 아이콘으로만 사용)
       ...                   연구 이미지, 인물 사진, CV PDF 등
 ```
 
