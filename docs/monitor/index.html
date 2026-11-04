@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Climate monitor | CCRL</title>
+  <meta name="description" content="Weather- and climate-related disasters recorded around the world, by country and year, from EM-DAT. A Climate Crisis Response Lab (SeoulTech) project.">
+  <link rel="icon" href="../assets/favicon-32.png?v=20261104d" type="image/png" sizes="32x32">
+  <link rel="icon" href="../assets/favicon-64.png?v=20261104d" type="image/png" sizes="64x64">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=20261104d">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="monitor.css?v=20261105b">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js" defer></script>
+  <script src="monitor.js?v=20261105b" defer></script>
+</head>
+<body>
+<header class="m-header">
+  <a class="m-brand" href="../" aria-label="CCRL home"><img src="../assets/ccrl-logo-color.png" alt="CCRL" width="894" height="229"><span class="m-brand-divider"></span><span class="m-brand-long">Climate Crisis<br> Response Lab</span></a>
+  <a class="m-back" href="../">Lab homepage</a>
+</header>
+
+<main>
+  <section class="m-intro wrap">
+    <p class="eyebrow">CLIMATE MONITOR</p>
+    <h1>The climate crisis, right now</h1>
+    <p class="m-lead">Weather- and climate-related disasters recorded around the world, by country and year. Choose a year and a measure, then hover over or tap a country to see what happened.</p>
+  </section>
+
+  <section class="wrap m-controls" aria-label="Map controls">
+    <div class="m-control m-year">
+      <span class="m-label" id="year-label">Year</span>
+      <div class="m-year-row">
+        <button type="button" class="m-step" id="year-prev" aria-label="Previous year">‹</button>
+        <output id="year-value" aria-live="polite">2025</output>
+        <button type="button" class="m-step" id="year-next" aria-label="Next year">›</button>
+        <input type="range" id="year-range" min="2000" max="2026" step="1" value="2025" aria-labelledby="year-label">
+      </div>
+    </div>
+    <div class="m-control">
+      <span class="m-label" id="measure-label">Measure</span>
+      <div class="m-segment" role="radiogroup" aria-labelledby="measure-label" id="measure">
+        <button type="button" role="radio" data-measure="n" aria-checked="true">Disasters</button>
+        <button type="button" role="radio" data-measure="d" aria-checked="false">Deaths</button>
+        <button type="button" role="radio" data-measure="a" aria-checked="false">People affected</button>
+      </div>
+    </div>
+    <div class="m-control m-hazards">
+      <span class="m-label" id="hazard-label">Hazard</span>
+      <div class="m-chips" role="radiogroup" aria-labelledby="hazard-label" id="hazards"></div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-label="Summary for the selected year">
+    <p class="m-provisional" id="provisional" hidden></p>
+    <div class="m-stats" id="stats"></div>
+  </section>
+
+  <section class="wrap m-map-card" aria-label="World map">
+    <div class="m-map" id="map" role="img" aria-label="World map of climate-related disasters by country"></div>
+    <div class="m-legend" id="legend" aria-label="Map legend"></div>
+    <div class="m-tooltip" id="tooltip" role="status" hidden></div>
+  </section>
+
+  <section class="wrap m-lower">
+    <div class="m-panel">
+      <div class="m-panel-head">
+        <h2 id="table-title">Most affected countries</h2>
+      </div>
+      <div class="m-table-wrap">
+        <table class="m-table" id="table">
+          <thead><tr><th scope="col">Country</th><th scope="col" class="num">Disasters</th><th scope="col" class="num">Deaths</th><th scope="col" class="num">People affected</th><th scope="col">Most severe event</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <button type="button" class="m-more" id="table-more"></button>
+    </div>
+    <div class="m-panel">
+      <div class="m-panel-head">
+        <h2 id="trend-title">Disasters per year</h2>
+        <p class="m-hint">Select a bar to change the year.</p>
+      </div>
+      <div class="m-trend" id="trend"></div>
+    </div>
+  </section>
+
+  <section class="wrap m-notes" aria-labelledby="notes-title">
+    <h2 id="notes-title">About the data</h2>
+    <div class="m-notes-grid">
+      <div>
+        <h3>What is counted</h3>
+        <p>Storms, floods, droughts, heatwaves, cold waves, wildfires, and rain-triggered landslides recorded in EM-DAT since 2000. Earthquakes, volcanic eruptions, and epidemics are excluded. EM-DAT records an event when it meets at least one criterion: 10 or more deaths, 100 or more people affected, a declared state of emergency, or a call for international assistance. An event that affects several countries is counted once for each country.</p>
+      </div>
+      <div>
+        <h3>How to read it</h3>
+        <p>Counts reflect how disasters are reported as well as how often they occur, so large countries and countries with strong reporting systems tend to show more events. Changes in reporting also affect long-term trends. Figures for the current year are provisional and grow as new events are entered.</p>
+      </div>
+      <div>
+        <h3>Source</h3>
+        <p id="citation">Emergency Events Database (EM-DAT), UCLouvain / CRED, Brussels, Belgium, https://www.emdat.be/</p>
+        <p>Country boundaries: Natural Earth (public domain). Boundaries are approximate and do not imply any judgement on the legal status of a territory. Small states are shown as dots.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="m-footer">
+  <div class="wrap m-footer-inner">
+    <span>© <span id="current-year">2026</span> Climate Crisis Response Lab, Seoul National University of Science and Technology</span>
+    <a href="../">Back to the lab homepage</a>
+  </div>
+</footer>
+<noscript><p class="wrap">This page needs JavaScript to draw the map.</p></noscript>
+</body>
+</html>

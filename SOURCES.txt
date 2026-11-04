@@ -58,3 +58,4 @@ Emblem navigation paths transcribed from user-supplied BS-105 emblem EPS, main m
 2026-11-04  Research 04 image replaced: docs/assets/research-4-flood.jpg = "South Jersey winter storm flooding [Image 1 of 3]" by DVIDSHUB, CC BY 2.0, https://www.flickr.com/photos/28650594@N03/8537851886 (credited in footer). Old drought image removed.
 2026-11-04  Contact: decorative large arrow removed; details column top-aligned with the heading. Footer lab name now visible at tablet widths.
 2026-11-04  All ↗ arrow icons removed site-wide (nav, links, buttons, highlight cards, contact, publication rows, team dialog); publication rows now two columns; profile links underlined. ↓ (view all) and ↑ (back to top) kept.
+2026-11-05  Climate monitor page (docs/monitor/) built from EM-DAT public export accessed 2026-11-04 (entries to 2026-10-27); aggregation script tools/build-monitor-data.mjs; raw export kept outside the repo. server.mjs serves index.html for directory URLs.

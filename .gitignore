@@ -4,3 +4,8 @@ Thumbs.db
 *.log
 .env
 .env.*
+
+# Raw EM-DAT exports must never be committed (EM-DAT terms of use)
+*.xlsx
+*.xls
+*.csv
