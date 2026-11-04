@@ -111,7 +111,7 @@ dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog
 dialog.addEventListener('close',()=>{document.body.style.overflow='';returnFocus?.focus({preventScroll:true});});
 $('#current-year').textContent = new Date().getFullYear();
 async function init(){
-  const response=await fetch('assets/content.json?v=20261104d');if(!response.ok)throw new Error('Could not load lab content');const data=await response.json();
+  const response=await fetch('assets/content.json?v=20261104e');if(!response.ok)throw new Error('Could not load lab content');const data=await response.json();
   const track=$('#research-track');
   track.innerHTML=data.research.map((item,index)=>`<article class="research-card"><div class="research-image"><img src="${escapeHTML(item.image)}" alt="${escapeHTML(shortTitles[index])}" loading="lazy"><span class="research-number">0${index+1}</span></div><div class="research-card-copy"><h3>${escapeHTML(shortTitles[index])}</h3><p>${escapeHTML(item.summary)}</p><button class="research-read" data-research="${index}">Explore research <span aria-hidden="true">↗</span></button></div></article>`).join('');
   track.addEventListener('click',event=>{const button=event.target.closest('[data-research]');if(!button)return;const index=Number(button.dataset.research),item=data.research[index];openDialog(`<p class="eyebrow">RESEARCH AREA · 0${index+1}</p><h2 id="dialog-title">${escapeHTML(shortTitles[index])}</h2><img src="${escapeHTML(item.image)}" alt="${escapeHTML(shortTitles[index])}"><p>${escapeHTML(item.description)}</p><a class="text-link" href="mailto:${escapeHTML(data.contact.email)}">Discuss this research <span aria-hidden="true">↗</span></a>`);});
