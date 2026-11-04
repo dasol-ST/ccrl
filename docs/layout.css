@@ -234,3 +234,10 @@ html::-webkit-scrollbar { display:none; }
 .footer-bottom .footer-credits, .footer-bottom span.footer-credits:nth-child(2) { display:inline; }
 .footer-credits a { color:inherit; text-decoration:underline; text-underline-offset:2px; }
 .footer-credits a:hover { color:#79c3c4; }
+
+/* Contact: decorative arrow removed; details column aligned with the heading */
+.contact-inner { align-items:flex-start; }
+.contact-details dl { flex-direction:column; flex-wrap:nowrap; gap:30px; }
+@media (min-width:761px) { .contact-details { padding-top:44px; } }
+/* Footer lab name stays visible at tablet widths (style.css hides .brand-long ≤1100px) */
+.footer-brand .brand-long, .footer-brand .brand-divider { display:block; }
