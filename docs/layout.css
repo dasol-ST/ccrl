@@ -229,3 +229,8 @@ html::-webkit-scrollbar { display:none; }
 
 /* Research card category tag (Mitigation / Adaptation / Intervention) */
 .research-card-copy .research-tag { margin:0 0 10px; font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--teal); }
+
+/* Image credits in footer (CC BY attribution) */
+.footer-bottom .footer-credits, .footer-bottom span.footer-credits:nth-child(2) { display:inline; }
+.footer-credits a { color:inherit; text-decoration:underline; text-underline-offset:2px; }
+.footer-credits a:hover { color:#79c3c4; }

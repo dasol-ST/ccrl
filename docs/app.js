@@ -111,7 +111,7 @@ dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog
 dialog.addEventListener('close',()=>{document.body.style.overflow='';returnFocus?.focus({preventScroll:true});});
 $('#current-year').textContent = new Date().getFullYear();
 async function init(){
-  const response=await fetch('assets/content.json?v=20261104f');if(!response.ok)throw new Error('Could not load lab content');const data=await response.json();
+  const response=await fetch('assets/content.json?v=20261104g');if(!response.ok)throw new Error('Could not load lab content');const data=await response.json();
   const track=$('#research-track');
   track.innerHTML=data.research.map((item,index)=>`<article class="research-card"><div class="research-image"><img src="${escapeHTML(item.image)}" alt="${escapeHTML(shortTitles[index])}" loading="lazy"><span class="research-number">0${index+1}</span></div><div class="research-card-copy">${item.tag?`<p class="research-tag">${escapeHTML(item.tag)}</p>`:''}<h3>${escapeHTML(shortTitles[index])}</h3><p>${escapeHTML(item.summary)}</p></div></article>`).join('');
   const visiblePeople=[data.professor,...data.members];
