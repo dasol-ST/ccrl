@@ -57,6 +57,7 @@
   "professor": {
     "name": "Dasol Kim",
     "role": "Assistant Professor",
+    "field": "Lab Leader",
     "department": "Department of Environmental Engineering",
     "institution": "Seoul National University of Science and Technology",
     "image": "assets/professor.jpg",

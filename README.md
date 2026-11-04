@@ -54,6 +54,7 @@
 
 ### 교수 정보·CV — `docs/assets/content.json`의 `"professor"`
 
+- 사진 아래 두 줄: `"role"`(직위, 예: Assistant Professor)과 `"field"`(연구실 내 역할, 예: Lab Leader).
 - CV 교체: `docs/assets/cv-dasol-kim.pdf`를 같은 이름으로 다시 업로드합니다. 예전 주소 유지를 위해 `docs/img/CV_Kim.pdf`도 같은 파일로 교체합니다.
 
 ### HTML에 직접 적힌 문구 — `docs/index.html`
@@ -162,7 +163,7 @@ ccrl/  (저장소 루트, 공개되지 않음)
       ccrl-hero-end.jpg      재생 종료/Skip 시 보여줄 이미지
       ccrl-logo-white.png   헤더(영상 위·모바일)·푸터용 흰색 워드마크 (투명 배경)
       ccrl-logo-color.png   스크롤 후 흰 헤더용 청록 워드마크 (투명 배경)
-      mark.svg              지구 모양 마크 (현재 브라우저 탭 아이콘으로만 사용)
+      favicon-32.png, favicon-64.png, apple-touch-icon.png   브라우저 탭·홈 화면 아이콘 (로고의 첫 "C")
       ...                   연구 이미지, 인물 사진, CV PDF 등
 ```
 
@@ -250,7 +251,7 @@ npm run check
 - 인물/논문 콘텐츠는 기존 연구실 홈페이지에서 가져온 2026-10-14 기준 자료입니다. 이후 변경 내용은 별도 확인해야 합니다.
 - 사진, 문서, 제공 영상의 권리는 각 원저작자에게 있습니다. 이 패키지는 새로운 재사용 라이선스를 부여하지 않습니다. 상세 출처와 변경 이력은 `SOURCES.txt`를 참고하세요.
 - `SOURCES.txt`에는 이전 버전의 역사도 포함됩니다. 현재 구현은 이 README와 `docs`가 기준입니다.
-- 현재 `mark.svg`는 CCRL용 지구 마크이며 서울과기대 원본 EPS가 아닙니다. 이전에 사용했던 학교 EPS와 삭제된 문양 버튼은 실행에 필요하지 않아 포함하지 않았습니다.
+- 브라우저 탭 아이콘은 로고 시안(`design/ccrl-logo-sheet.png`)의 첫 "C"를 잘라 만든 PNG입니다. 예전 지구 모양 `mark.svg`는 삭제했습니다.
 
 ## 9. 문제 해결
 
