@@ -70,7 +70,7 @@
   },
   "members": [
     {
-      "name": "Jin-Woo Hoe",
+      "name": "Jin-Woo Heo",
       "role": "Researcher",
       "field": "AI Modelling",
       "email": "zerothis84@gmail.com",
@@ -147,109 +147,127 @@
       "year": 2025,
       "title": "Mechanism of seasonal differences in interdecadal changes in tropical cyclone genesis frequency over the western North Pacific",
       "journal": "Journal of Climate",
-      "citation": "J. Ju, D.-S. R. Park, D. Kim, M. Chang, C.-K. Park, J.-S. Kug, and D. Youn, 2025: Mechanism of seasonal differences in interdecadal changes in tropical cyclone genesis frequency over the western North Pacific, Journal of Climate, 38(15), 3787–3800."
+      "citation": "J. Ju, D.-S. R. Park, D. Kim, M. Chang, C.-K. Park, J.-S. Kug, and D. Youn, 2025: Mechanism of seasonal differences in interdecadal changes in tropical cyclone genesis frequency over the western North Pacific, Journal of Climate, 38(15), 3787–3800.",
+      "doi": "10.1175/jcli-d-24-0604.1"
     },
     {
       "year": 2025,
       "title": "Four patterns of moisture surrounding Atlantic hurricanes from deep learning",
       "journal": "Atmospheric Research",
-      "citation": "C. J. Matyas, D. Kim*, S. E. Zick, and K. M. Wood, 2025: Four patterns of moisture surrounding Atlantic hurricanes from deep learning, Atmospheric Research, 322, 108114."
+      "citation": "C. J. Matyas, D. Kim*, S. E. Zick, and K. M. Wood, 2025: Four patterns of moisture surrounding Atlantic hurricanes from deep learning, Atmospheric Research, 322, 108114.",
+      "doi": "10.1016/j.atmosres.2025.108114"
     },
     {
       "year": 2024,
       "title": "Factors of synoptic circulation associated with high-PM2.5 concentration during wintertime in Seoul, South Korea",
       "journal": "Atmospheric Environment",
-      "citation": "Oh, H.-R., D.-S. R. Park, D. Kim*, C.-H. Ho, and S. Lee, 2024: Factors of synoptic circulation associated with high-PM2.5 concentration during wintertime in Seoul, South Korea, Atmospheric Environment, 325, 120444."
+      "citation": "Oh, H.-R., D.-S. R. Park, D. Kim*, C.-H. Ho, and S. Lee, 2024: Factors of synoptic circulation associated with high-PM2.5 concentration during wintertime in Seoul, South Korea, Atmospheric Environment, 325, 120444.",
+      "doi": "10.1016/j.atmosenv.2024.120444"
     },
     {
       "year": 2024,
       "title": "Sea surface temperature warming to inhibit mitigation of tropical cyclone destructiveness over East Asia in El Nino",
       "journal": "npj Climate and Atmospheric Science",
-      "citation": "Park, D.-S. R., E. Seo, M. Lee, D,-H. Cha, D. Kim, C.-H. Ho, M.-I. Lee, H.-S. Kim, and S.-K. Min, 2024: Sea surface temperature warming to inhibit mitigation of tropical cyclone destructiveness over East Asia in El Nino. npj Climate and Atmospheric Science, 7, 24."
+      "citation": "Park, D.-S. R., E. Seo, M. Lee, D,-H. Cha, D. Kim, C.-H. Ho, M.-I. Lee, H.-S. Kim, and S.-K. Min, 2024: Sea surface temperature warming to inhibit mitigation of tropical cyclone destructiveness over East Asia in El Nino. npj Climate and Atmospheric Science, 7, 24.",
+      "doi": "10.1038/s41612-023-00556-3"
     },
     {
       "year": 2024,
       "title": "Classification of tropical cyclone rain patterns using convolutional autoencoder",
       "journal": "Scientific Reports",
-      "citation": "Kim, D., and C. J. Matyas, 2024: Classification of tropical cyclone rain patterns using convolutional autoencoder, Scientific Reports, 14, 791."
+      "citation": "Kim, D., and C. J. Matyas, 2024: Classification of tropical cyclone rain patterns using convolutional autoencoder, Scientific Reports, 14, 791.",
+      "doi": "10.1038/s41598-023-50994-5"
     },
     {
       "year": 2023,
       "title": "Rainfall strength and area from landfalling tropical cyclones over the North Indian and western North Pacific oceans under increased CO2 conditions",
       "journal": "Weather and Climate Extremes",
-      "citation": "Moon, M., Ha, K. J., Kim, D., Ho, C. H., et al., 2023: Rainfall strength and area from landfalling tropical cyclones over the North Indian and western North Pacific oceans under increased CO2 conditions. Weather and Climate Extremes, 100581."
+      "citation": "Moon, M., Ha, K. J., Kim, D., Ho, C. H., et al., 2023: Rainfall strength and area from landfalling tropical cyclones over the North Indian and western North Pacific oceans under increased CO2 conditions. Weather and Climate Extremes, 100581.",
+      "doi": "10.1016/j.wace.2023.100581"
     },
     {
       "year": 2023,
       "title": "Reanalyzing the Relationship of Tropical Cyclone Frequency and Intensity Affecting South Korea with the Pacific Decadal Oscillation",
       "journal": "Journal of Climate",
-      "citation": "Kim, D., D.-S. R. Park, M. Chang, D.-H. Cha, and M. Lee, 2023: Reanalyzing the Relationship of Tropical Cyclone Frequency and Intensity Affecting South Korea with the Pacific Decadal Oscillation, Journal of Climate, 36(9), 2847–2855."
+      "citation": "Kim, D., D.-S. R. Park, M. Chang, D.-H. Cha, and M. Lee, 2023: Reanalyzing the Relationship of Tropical Cyclone Frequency and Intensity Affecting South Korea with the Pacific Decadal Oscillation, Journal of Climate, 36(9), 2847–2855.",
+      "doi": "10.1175/jcli-d-22-0302.1"
     },
     {
       "year": 2023,
       "title": "Spatial Variations in Tropical Cyclone Rainfall over the Western North Pacific According to ENSO Phase",
       "journal": "Journal of Climate",
-      "citation": "Kim, D., D.-S. R. Park, and C. J. Matyas, 2023: Spatial Variations in Tropical Cyclone Rainfall over the Western North Pacific According to ENSO Phase, Journal of Climate, 36(6), 1697–1710."
+      "citation": "Kim, D., D.-S. R. Park, and C. J. Matyas, 2023: Spatial Variations in Tropical Cyclone Rainfall over the Western North Pacific According to ENSO Phase, Journal of Climate, 36(6), 1697–1710.",
+      "doi": "10.1175/jcli-d-22-0231.1"
     },
     {
       "year": 2022,
       "title": "The parametric hurricane rainfall model with moisture and its application to climate change projections",
       "journal": "npj Climate and Atmospheric Science",
-      "citation": "Kim, D., D.-S. R. Park, C. C. Nam, and M. M. Bell, 2022: The parametric hurricane rainfall model with moisture and its application to climate change projections, npj Climate and Atmospheric Science, 5, 86."
+      "citation": "Kim, D., D.-S. R. Park, C. C. Nam, and M. M. Bell, 2022: The parametric hurricane rainfall model with moisture and its application to climate change projections, npj Climate and Atmospheric Science, 5, 86.",
+      "doi": "10.1038/s41612-022-00308-9"
     },
     {
       "year": 2022,
       "title": "Untangling the contribution of input parameters to an artificial intelligence PM2.5 forecast model using the layer-wise relevance propagation method",
       "journal": "Atmospheric Environment",
-      "citation": "Kim, D., C.-H. Ho, I. Park, J. Kim, L. S. Chang, and M. H. Choi, 2022: Untangling the contribution of input parameters to an artificial intelligence PM2.5 forecast model using the layer-wise relevance propagation method. Atmospheric Environment, 276, 119034."
+      "citation": "Kim, D., C.-H. Ho, I. Park, J. Kim, L. S. Chang, and M. H. Choi, 2022: Untangling the contribution of input parameters to an artificial intelligence PM2.5 forecast model using the layer-wise relevance propagation method. Atmospheric Environment, 276, 119034.",
+      "doi": "10.1016/j.atmosenv.2022.119034"
     },
     {
       "year": 2022,
       "title": "A possible relation of Pacific Decadal Oscillation with weakened tropical cyclone activity over South Korea",
       "journal": "Journal of Korean Earth Science Society",
-      "citation": "Chang, M., D.-S. R. Park, D. Kim, and T.-W. Park, 2022: A possible relation of Pacific Decadal Oscillation with weakened tropical cyclone activity over South Korea. Journal of Korean Earth Science Society, 43, 23-29."
+      "citation": "Chang, M., D.-S. R. Park, D. Kim, and T.-W. Park, 2022: A possible relation of Pacific Decadal Oscillation with weakened tropical cyclone activity over South Korea. Journal of Korean Earth Science Society, 43, 23-29.",
+      "doi": "10.5467/jkess.2022.43.1.23"
     },
     {
       "year": 2021,
       "title": "Development of a Track-Pattern-Based Medium-Range Tropical Cyclone Forecasting System for the Western North Pacific",
       "journal": "Weather and Forecasting",
-      "citation": "Cheung, H. M., C.-H. Ho, M. Chang, D. Kim, J. Kim, W. Choi, 2021: Development of a Track-Pattern-Based Medium-Range Tropical Cyclone Forecasting System for the Western North Pacific. Weather and Forecasting, 36, 1505-1518."
+      "citation": "Cheung, H. M., C.-H. Ho, M. Chang, D. Kim, J. Kim, W. Choi, 2021: Development of a Track-Pattern-Based Medium-Range Tropical Cyclone Forecasting System for the Western North Pacific. Weather and Forecasting, 36, 1505-1518.",
+      "doi": "10.1175/waf-d-20-0102.1"
     },
     {
       "year": 2021,
       "title": "Assessing the influence of large-scale environmental conditions on rainfall structure of Atlantic tropical cyclones: An observational study",
       "journal": "Journal of Climate",
-      "citation": "Kim, D., C.-H. Ho, H. Murakami, and D.-S. R. Park, 2021: Assessing the influence of large-scale environmental conditions on rainfall structure of Atlantic tropical cyclones: An observational study, Journal of Climate, 34, 2093-2106."
+      "citation": "Kim, D., C.-H. Ho, H. Murakami, and D.-S. R. Park, 2021: Assessing the influence of large-scale environmental conditions on rainfall structure of Atlantic tropical cyclones: An observational study, Journal of Climate, 34, 2093-2106.",
+      "doi": "10.1175/jcli-d-20-0376.1"
     },
     {
       "year": 2019,
       "title": "Tropical cyclone as a possible remote controller of air quality over the Republic of Korea through poleward propagating Rossby waves",
       "journal": "Journal of Applied Meteorology and Climatology",
-      "citation": "D.-S. R. Park, C.-H. Ho, D. Kim, N.-Y. Kang, Y. Han, and H.-R. Oh, 2019: Tropical cyclone as a possible remote controller of air quality over the Republic of Korea through poleward propagating Rossby waves, Journal of Applied Meteorology and Climatology, 58(11), 2523–2530."
+      "citation": "D.-S. R. Park, C.-H. Ho, D. Kim, N.-Y. Kang, Y. Han, and H.-R. Oh, 2019: Tropical cyclone as a possible remote controller of air quality over the Republic of Korea through poleward propagating Rossby waves, Journal of Applied Meteorology and Climatology, 58(11), 2523–2530.",
+      "doi": "10.1175/jamc-d-19-0058.1"
     },
     {
       "year": 2019,
       "title": "Influence of vertical wind shear on wind- and rainfall areas of tropical cyclones making landfall over South Korea",
       "journal": "PLOS One",
-      "citation": "Kim, D., C.-H. Ho, D.-S. R. Park, and J. Kim, 2019: Influence of vertical wind shear on wind- and rainfall areas of tropical cyclones making landfall over South Korea, PLOS One, 14, 1."
+      "citation": "Kim, D., C.-H. Ho, D.-S. R. Park, and J. Kim, 2019: Influence of vertical wind shear on wind- and rainfall areas of tropical cyclones making landfall over South Korea, PLOS One, 14, 1.",
+      "doi": "10.1371/journal.pone.0209885"
     },
     {
       "year": 2018,
       "title": "The relationship between tropical cyclone rainfall area and environmental conditions over the subtropical oceans",
       "journal": "Journal of Climate",
-      "citation": "Kim, D., C.-H. Ho, D.-S. R. Park, J. C. L. Chan, and Y. Jung, 2018: The relationship between tropical cyclone rainfall area and environmental conditions over the subtropical oceans, Journal of Climate, 31, 4605–4616."
+      "citation": "Kim, D., C.-H. Ho, D.-S. R. Park, J. C. L. Chan, and Y. Jung, 2018: The relationship between tropical cyclone rainfall area and environmental conditions over the subtropical oceans, Journal of Climate, 31, 4605–4616.",
+      "doi": "10.1175/jcli-d-17-0712.1"
     },
     {
       "year": 2015,
       "title": "Climatological features of WRF-simulated tropical cyclones over the western North Pacific",
       "journal": "Climate Dynamics",
-      "citation": "Kim, D., C.-S. Jin, C.-H. Ho, J. Kim, and J.-H. Kim, 2015: Climatological features of WRF-simulated tropical cyclones over the western North Pacific, Climate Dynamics, 44(11-12), 3223–3235."
+      "citation": "Kim, D., C.-S. Jin, C.-H. Ho, J. Kim, and J.-H. Kim, 2015: Climatological features of WRF-simulated tropical cyclones over the western North Pacific, Climate Dynamics, 44(11-12), 3223–3235.",
+      "doi": "10.1007/s00382-014-2410-3"
     },
     {
       "year": 2014,
       "title": "Development of the automated prediction system for seasonal tropical cyclone activity over the western North Pacific and its evaluation for early predictability",
       "journal": "Atmosphere",
-      "citation": "Jin, C.-S., C.-H. Ho, D.-S. R. Park, W. Choi, D. Kim, J.-H. Lee, K.-H. Chang, and K.-R. Kang, 2014: Development of the automated prediction system for seasonal tropical cyclone activity over the western North Pacific and its evaluation for early predictability, Atmosphere, 24, 123–130."
+      "citation": "Jin, C.-S., C.-H. Ho, D.-S. R. Park, W. Choi, D. Kim, J.-H. Lee, K.-H. Chang, and K.-R. Kang, 2014: Development of the automated prediction system for seasonal tropical cyclone activity over the western North Pacific and its evaluation for early predictability, Atmosphere, 24, 123–130.",
+      "doi": "10.14191/atmos.2014.24.1.123"
     }
   ],
   "contact": {

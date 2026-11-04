@@ -134,8 +134,8 @@ CSS 적용 순서는 **style.css → readability.css → layout.css**입니다. 
 - 네이티브 스크롤바는 숨기지만 스크롤 자체는 가능합니다. `Explore the lab`이 아래 내용을 안내합니다.
 - 상단의 별도 큰 연구실 제목은 없으며 접근성을 위한 숨김 h1은 유지되어 있습니다.
 - 연구 상세 대화상자, 팀 연락처/CV, 논문 검색·연도 필터·더 보기, 모바일 메뉴가 구현되어 있습니다.
-- 논문 링크는 Google Scholar 검색 링크입니다. DOI/출판사 링크로 검증된 목록은 아닙니다.
-- 푸터에는 현재 `Homepage design concept` 표시가 남아 있습니다.
+- 논문 링크는 `content.json`의 각 논문 `doi` 값으로 `https://doi.org/…` 출판사 페이지에 연결됩니다(2026-11-04 Crossref로 18편 확인). `doi`가 없는 논문은 Google Scholar 검색 링크로 대체됩니다. 대표 논문 카드 3개의 링크는 `index.html`에 직접 적혀 있습니다.
+- 연락처(Contact)의 FIND US ONLINE 항목에 Google Scholar·ResearchGate·LinkedIn 링크가 있으며 `index.html`에 직접 적혀 있습니다.
 
 ## 5. 영상과 HTML 제목 모션
 
@@ -189,7 +189,7 @@ npm run check
 
 - 영상·사진·PDF·JSON은 패키지에 포함되어 있습니다.
 - Google Fonts의 Inter/Noto Sans KR은 온라인으로 불러옵니다. 인터넷이 끊기면 대체 글꼴로 표시되므로 글꼴까지 완전히 오프라인인 패키지는 아닙니다.
-- Google Scholar, 기존 연구실 홈페이지, 이메일·전화 링크는 외부 서비스를 사용합니다.
+- DOI(출판사), Google Scholar·ResearchGate·LinkedIn, 이메일·전화 링크는 외부 서비스를 사용합니다.
 - 인물/논문 콘텐츠는 기존 연구실 홈페이지에서 가져온 2026-10-14 기준 자료입니다. 이후 변경 내용은 별도 확인해야 합니다.
 - 사진, 문서, 제공 영상의 권리는 각 원저작자에게 있습니다. 이 패키지는 새로운 재사용 라이선스를 부여하지 않습니다. 상세 출처와 변경 이력은 `SOURCES.txt`를 참고하세요.
 - `SOURCES.txt`에는 이전 버전의 역사도 포함됩니다. 현재 구현은 이 README와 `docs`가 기준입니다.

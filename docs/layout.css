@@ -190,3 +190,7 @@ html::-webkit-scrollbar { display:none; }
   .film-title { font-size:5.4vw; }
   .film-subtitle { margin-top:2.2vw; font-size:clamp(11px,2.9vw,18px); max-width:90%; text-wrap:balance; }
 }
+
+/* 2026-11-04: academic and social profile links in the contact section */
+.contact-profiles a { display:flex; align-items:center; gap:8px; width:max-content; color:inherit; transition:color .2s; }
+.contact-profiles a:hover,.contact-profiles a:focus-visible { color:#79c3c4; }

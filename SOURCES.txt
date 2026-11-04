@@ -1,4 +1,4 @@
-CCRL homepage design concept
+CCRL homepage
 
 Content, photographs, research images, and CV:
 https://dasol-st.github.io/ccrl/
@@ -9,7 +9,7 @@ Layout reference:
 https://sees.snu.ac.kr/
 The HTML, CSS, and JavaScript implementation and the illustrative CCRL globe mark were newly created for this example. SNU branding is not used.
 
-The page is a design concept. Publications link to Google Scholar searches, not verified publisher landing pages. The people and publication text preserves the original CCRL source. Image and document ownership remains with the original rights holders.
+Publications link to publisher pages via DOI (verified against Crossref 2026-11-04). The people and publication text preserves the original CCRL source. Image and document ownership remains with the original rights holders.
 
 Preview: node server.mjs (http://127.0.0.1:4173)
 Content editing: docs/assets/content.json
@@ -48,3 +48,5 @@ Emblem navigation paths transcribed from user-supplied BS-105 emblem EPS, main m
 2026-10-24: Hero replaced with user-supplied warming-v3.mp4 (climate-story). The full 22.5-second, 1280x720, 30fps video is retained without trimming or re-encoding; audio is excluded and MP4 fast-start enabled. The supplied warming-v3-end.jpg is copied unchanged as the final/Skip image. Poster extracted at 0.3 seconds. Mobile centered 4:3 framing and existing playback controls retained.
 
 2026-10-24: Full warming-v3-notitle.mp4 and matching warming-v3-notitle-end.jpg replace baked-in titles. HTML/CSS title motion reproduces warming-v3.html renderTitle: final shot starts at 18.984375s; title delay 350ms, linear opacity 500ms, cubic ease-out tracking .16em to .06em and 12px rise over 900ms; subtitle delay 1300ms, cubic ease-out fade and 14px rise over 700ms. Noto Sans KR 900/400 matches the source title typography; the rest of the site remains Inter. Motion follows decoded video frames, pauses with playback, resets on Replay, and completes immediately on Skip/end.
+
+2026-11-04: Moved into the dasol-ST/ccrl repository (published from docs/), replacing the Jekyll Grayscale theme. Added DOIs for all 18 publications (Crossref), switched publication and featured-card links to doi.org, added Google Scholar / ResearchGate / LinkedIn links to the contact section, corrected member name to Jin-Woo Heo, and removed the "Homepage design concept" and "Visit the current lab website" footer items.
