@@ -226,3 +226,6 @@ html::-webkit-scrollbar { display:none; }
   .site-header .brand-divider { height:24px; }
   .site-header .brand-long { font-size:9.5px; letter-spacing:.04em; }
 }
+
+/* Research card category tag (Mitigation / Adaptation / Intervention) */
+.research-card-copy .research-tag { margin:0 0 10px; font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--teal); }

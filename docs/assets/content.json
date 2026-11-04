@@ -17,41 +17,46 @@
       "id": 1,
       "title": "GREENHOUSE GAS MONITORING AND CARBON NEUTRALITY",
       "description": "To mitigate climate change, we quantify greenhouse gas emissions and sinks and develop science-based pathways toward carbon neutrality. Using satellite observations and artificial intelligence, we estimate carbon emissions and sinks across public institutions, industries, and national systems. We further assess long-term trends and evaluate mitigation strategies to support effective climate policy and decision-making.",
-      "summary": "Satellite observations and AI reveal greenhouse gas sources and sinks, supporting science-based pathways to carbon neutrality.",
+      "summary": "How much greenhouse gas do we emit, and how much does nature absorb? We estimate emissions and sinks from individual facilities to the national scale and evaluate pathways toward carbon neutrality.",
       "image": "assets/research-1.jpg",
-      "sourceImage": "https://dasol-st.github.io/ccrl/img/research1.jpg"
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/research1.jpg",
+      "tag": "Mitigation"
     },
     {
       "id": 2,
       "title": "RENEWABLE ENERGY OPTIMIZATION",
       "description": "Renewable energy is no longer optional but essential for achieving carbon neutrality. We develop advanced forecasting techniques to optimize renewable energy systems by integrating numerical modeling and artificial intelligence. Our research focuses on predicting the supply and demand of wind and solar power to enhance efficiency, reliability, and grid stability.",
-      "summary": "Numerical modeling and AI improve wind and solar forecasts for more efficient, reliable renewable energy systems.",
+      "summary": "Wind and solar power rise and fall with the weather. We forecast renewable power supply and electricity demand so that clean energy can be used more efficiently while keeping the grid stable.",
       "image": "assets/research-2.jpg",
-      "sourceImage": "https://dasol-st.github.io/ccrl/img/research2.jpg"
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/research2.jpg",
+      "tag": "Mitigation"
     },
     {
       "id": 3,
-      "title": "EXTREME WEATHER AND CLIMATE PREDICTION",
+      "title": "EXTREME WEATHER AND AIR QUALITY",
       "description": "As climate change intensifies, extreme weather and climate events are becoming more frequent and severe. We develop advanced prediction technologies for typhoons, heatwaves, cold surges, floods, and droughts by integrating satellite observations, numerical models, and artificial intelligence. Our research aims to enhance forecasting accuracy and improve preparedness for climate-related hazards.",
-      "summary": "Satellite data, numerical models, and AI advance forecasts of typhoons, heatwaves, floods, and other climate hazards.",
+      "summary": "What will strike, when, and how hard? We study and predict typhoons, heatwaves, floods, droughts, and high-pollution episodes, and how climate change is reshaping them.",
       "image": "assets/research-3.jpg",
-      "sourceImage": "https://dasol-st.github.io/ccrl/img/research3.jpg"
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/research3.jpg",
+      "tag": "Adaptation"
     },
     {
       "id": 4,
       "title": "CLIMATE RISK ASSESSMENT",
       "description": "To protect ourselves from climate change, we must first understand the risks we face. We assess physical climate risks affecting both private enterprises and the public sector. Our research supports the development of effective risk management and adaptation strategies to enhance climate resilience.",
-      "summary": "Assessing physical climate risks to help businesses and the public sector plan effective adaptation strategies.",
+      "summary": "Hazards become disasters when they meet people and assets. We assess how physical climate hazards affect communities, businesses, and public infrastructure, and support risk management and adaptation planning.",
       "image": "assets/research-4.jpg",
-      "sourceImage": "https://dasol-st.github.io/ccrl/img/research4.jpg"
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/research4.jpg",
+      "tag": "Adaptation"
     },
     {
       "id": 5,
       "title": "CLIMATE INTERVENTION TECHNOLOGY",
       "description": "While the climate crisis is accelerating, the pace of mitigation efforts remains limited. We evaluate the effectiveness, sustainability, and potential side effects of emerging climate intervention technologies that may complement conventional carbon reduction strategies. Our research provides scientific evidence to assess their feasibility and long-term implications.",
-      "summary": "Evaluating emerging climate technologies, their effectiveness, sustainability, and long-term implications.",
+      "summary": "Can emerging climate technologies help where emission cuts fall short? We assess their effectiveness, side effects, and long-term implications to provide scientific evidence for responsible decisions.",
       "image": "assets/research-5.jpg",
-      "sourceImage": "https://dasol-st.github.io/ccrl/img/research5.jpg"
+      "sourceImage": "https://dasol-st.github.io/ccrl/img/research5.jpg",
+      "tag": "Intervention"
     }
   ],
   "professor": {

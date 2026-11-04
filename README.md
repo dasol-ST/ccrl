@@ -171,7 +171,7 @@ ccrl/  (저장소 루트, 공개되지 않음)
 | --- | --- |
 | 상단 메뉴, About, 연구 하이라이트, 하단 연락처, 푸터 | `docs/index.html` |
 | 마지막 영상 위 제목·부제 문구 | `docs/index.html`의 `film-title-layer` |
-| 연구 설명, 멤버, 논문 목록 | `docs/assets/content.json` |
+| 연구 카드 문구(`"summary"`, 2문장)·분류 태그(`"tag"`: Mitigation/Adaptation/Intervention), 멤버, 논문 목록 | `docs/assets/content.json` (`"description"`은 예전 긴 설명으로, 화면에는 표시되지 않고 추후 연구 분야 안내판용으로 보관) |
 | 연구 카드에 실제 표시되는 짧은 제목 | `docs/app.js`의 `shortTitles` 배열 |
 | 영상 재생·제목 등장 시점 | `docs/app.js`의 `titleSceneStart`, `renderFilmTitle` |
 | 영상 제목의 크기·위치·색상 | `docs/layout.css`의 `.film-title*` |
@@ -191,7 +191,7 @@ CSS 적용 순서는 **style.css → readability.css → layout.css**입니다. 
 - 우측 슬라이더·섹션 레일·학교 문양 링크 버튼은 현재 화면에서 제거되어 있습니다.
 - 네이티브 스크롤바는 숨기지만 스크롤 자체는 가능합니다. `Explore the lab`이 아래 내용을 안내합니다.
 - 상단의 별도 큰 연구실 제목은 없으며 접근성을 위한 숨김 h1은 유지되어 있습니다.
-- 연구 상세 대화상자, 팀 연락처/CV, 논문 검색·연도 필터·더 보기, 모바일 메뉴가 구현되어 있습니다.
+- 연구 카드(상세 대화상자 없음, 추후 "연구 분야 안내판"으로 다시 추가 예정), 팀 연락처/CV, 논문 검색·연도 필터·더 보기, 모바일 메뉴가 구현되어 있습니다.
 - 논문 링크는 `content.json`의 각 논문 `doi` 값으로 `https://doi.org/…` 출판사 페이지에 연결됩니다(2026-11-04 Crossref로 18편 확인). `doi`가 없는 논문은 Google Scholar 검색 링크로 대체됩니다. 대표 논문 카드 3개의 링크는 `index.html`에 직접 적혀 있습니다.
 - 연락처(Contact)의 FIND US ONLINE 항목에 Google Scholar·ResearchGate·LinkedIn 링크가 있으며 `index.html`에 직접 적혀 있습니다.
 
@@ -228,7 +228,7 @@ npm run check
 2. 영상이 무음 자동재생되고 약 19.33초부터 큰 제목이 나타나는지 확인합니다.
 3. Pause/Play, Skip, Replay 및 종료 후 정지 상태를 확인합니다.
 4. 모바일에서 영상 위 제목과 조작 버튼이 잘리지 않는지 확인합니다.
-5. 연구 5개, 인원 10명이 표시되고 상세 대화상자가 열리고 닫히는지 확인합니다.
+5. 연구 5개, 인원 10명이 표시되는지 확인합니다.
 6. 논문 검색·연도 필터·더 보기, 메뉴 및 연락처 링크를 확인합니다.
 
 `reference`의 PNG는 2026-10-24에 캡처한 제목 완료 상태입니다. 로딩 직후에는 제목이 숨겨져 있는 것이 정상이며, Skip을 누르면 비교하기 쉽습니다.
