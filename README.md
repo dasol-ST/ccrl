@@ -10,6 +10,60 @@
 - 프레임워크, npm 의존성 설치, 빌드, API 키, 데이터베이스가 필요하지 않습니다.
 - **웹사이트의 문구는 영어로 유지합니다.** 이 README는 작업자를 위해 한국어로 작성했습니다.
 
+## 0. 자주 하는 수정 (GitHub 웹에서 바로 하기)
+
+프로그램 설치 없이 GitHub 웹사이트에서 수정할 수 있습니다. `master`에 저장(Commit)하면 1~2분 뒤 공개 사이트에 반영됩니다.
+
+**공통 방법:** 저장소(https://github.com/dasol-ST/ccrl)에서 파일을 열고 연필 아이콘(Edit) → 수정 → 오른쪽 위 **Commit changes** → 메시지 작성 후 Commit.
+
+> `content.json`은 형식이 엄격합니다. 따옴표 `"`, 쉼표 `,`, 중괄호 `{ }`를 빠뜨리거나 마지막 항목 뒤에 쉼표를 남기면 **연구·인원·논문이 모두 사라집니다.** 기존 항목을 통째로 복사해 값만 바꾸는 방식을 권장합니다. 사이트가 비어 보이면 직전 수정을 되돌리면 됩니다(History → 이전 버전 확인).
+
+### 구성원 추가·수정·삭제 — `docs/assets/content.json`의 `"members"`
+
+```json
+{
+  "name": "Gildong Hong",
+  "role": "MS. Student",
+  "field": "Climate Risk Assessment",
+  "email": "gildong@seoultech.ac.kr",
+  "image": "assets/member-8.jpg"
+},
+```
+
+- 화면 순서 = 목록 순서(교수님은 `"professor"`에 따로 있고 항상 맨 앞).
+- 삭제(졸업 등): 해당 `{ … },` 블록 전체를 지웁니다. 목록의 **마지막** 항목 뒤에는 쉼표가 없어야 합니다.
+- 사진: `docs/assets` 폴더에서 **Add file → Upload files**로 올린 뒤 `"image"`에 파일명을 적습니다. 세로가 약간 긴 정사각형(약 1:1.08)으로 잘려 보이며 얼굴은 위쪽 25% 지점 기준으로 맞춰집니다. 600×650px 정도, 300KB 이하 JPG를 권장합니다. 사진이 없으면 `"assets/member-placeholder.jpg"`.
+- 파일명은 영문·숫자·하이픈만 사용합니다(공백·한글 X).
+
+### 논문 추가 — `docs/assets/content.json`의 `"publications"`
+
+최신 논문을 목록 **맨 위**에 추가합니다.
+
+```json
+{
+  "year": 2026,
+  "title": "출판된 제목 그대로",
+  "journal": "Journal of Climate",
+  "citation": "Kim, D., …, 2026: 제목, Journal of Climate, 39, 1–10.",
+  "doi": "10.1175/jcli-d-25-0000.1"
+},
+```
+
+- `doi`는 `https://doi.org/` 뒤의 부분만 적습니다. 있으면 출판사 페이지로, 없으면(줄 삭제) Google Scholar 검색으로 연결됩니다.
+- **새 연도(예: 2026) 첫 논문일 때:** `docs/index.html`에서 `data-year="2025"`를 찾아 그 앞에 `<button data-year="2026" aria-pressed="false">2026</button>`를 추가합니다. 연도 버튼을 3개로 유지하려면 가장 오래된 버튼(`2023`)을 지우고 `docs/app.js`의 `Number(p.year)<2023`을 `<2024`로 바꿉니다("Earlier" 기준).
+
+### 교수 정보·CV — `docs/assets/content.json`의 `"professor"`
+
+- CV 교체: `docs/assets/cv-dasol-kim.pdf`를 같은 이름으로 다시 업로드합니다. 예전 주소 유지를 위해 `docs/img/CV_Kim.pdf`도 같은 파일로 교체합니다.
+
+### HTML에 직접 적힌 문구 — `docs/index.html`
+
+About 문단, 대표 논문 카드 3개(Research in Focus), 연락처·Google Scholar/ResearchGate/LinkedIn 링크, 푸터는 `content.json`이 아니라 `index.html`에 있습니다. 파일 안에서 바꿀 문구를 검색(Ctrl+F)해 수정합니다.
+
+### 수정 후 반영이 안 보일 때
+
+GitHub 저장소의 **Actions** 탭에서 `pages build and deployment`가 초록 체크인지 확인하고, 브라우저에서 강력 새로고침(Ctrl+F5)합니다. 이미지·CSS를 바꿨는데 그대로라면 `index.html`의 `?v=20261104` 값을 오늘 날짜로 바꿉니다.
+
 ## 1. 가장 빠른 실행 방법
 
 1. 저장소를 내려받습니다: `git clone https://github.com/dasol-ST/ccrl.git`
