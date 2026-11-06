@@ -275,3 +275,8 @@ npm run check
   2. 저장소 폴더에서 `npm install` 후 `node tools/build-monitor-data.mjs "<엑셀 경로>" <내려받은 날짜 YYYY-MM-DD>`를 실행합니다.
   3. `docs/monitor/data/`에 생성된 JSON 파일 4개만 커밋합니다.
 - 공개되는 것은 국가·연도별 합계(건수, 사망자, 피해 인구, 재해 유형별 합계)와 국가·연도별 최대 피해 이벤트의 이름·월·사망자·피해 인구뿐입니다.
+
+## 공유 미리보기·검색 설정 (2026-11-06)
+- 카카오톡·슬랙 등 링크 미리보기 이미지: `docs/assets/og-image.jpg`(홈), `docs/monitor/og-image.jpg`(상황판). 1200×630 JPG로 교체하면 됩니다. 문구는 각 `index.html`의 `og:` 태그.
+- 검색엔진: `docs/sitemap.xml`. 페이지를 추가하면 여기에도 한 줄 추가합니다. Google Search Console에 https://dasol-st.github.io/ccrl/ 을 등록하고 사이트맵을 제출하면 색인이 빨라집니다. (robots.txt는 도메인 최상위에만 유효해서 이 저장소에는 두지 않습니다.)
+- 사진을 새로 넣을 때는 가로 800px 안팎(구성원), 300KB 이하로 줄여서 넣는 것을 권장합니다.
