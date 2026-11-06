@@ -63,3 +63,4 @@ Emblem navigation paths transcribed from user-supplied BS-105 emblem EPS, main m
 2026-11-06  Search and sharing: page title "Climate Crisis Response Lab (CCRL) | SeoulTech", fuller description (incl. Korean university/department name), canonical URL, Open Graph/Twitter preview tags and schema.org ResearchOrganization data; docs/sitemap.xml. Preview images docs/assets/og-image.jpg (from ccrl-hero-end.jpg + logo) and docs/monitor/og-image.jpg (homepage map render).
 2026-11-06  Contact: "Prospective students" note, postal address (232 Gongneung-ro, Nowon-gu, Seoul 01811) and Google Maps link.
 2026-11-06  Images recompressed (member photos max 800px, mozjpeg q80; logos palette PNG) with sharp (devDependency): page weight of photos/logos cut from ~2.1 MB to ~0.6 MB.
+2026-11-06  Official Korean lab name 기후위기대응연구실 added to meta description and structured data.
