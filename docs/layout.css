@@ -298,3 +298,22 @@ html::-webkit-scrollbar { display:none; }
 .contact-address { display:block; margin-top:12px; font-size:14px; line-height:1.55; color:#9fb6c3; }
 .contact-map { display:inline-block; margin-top:8px; font-size:14px; color:inherit; text-decoration:underline; text-decoration-color:#ffffff40; text-underline-offset:4px; }
 .contact-map:hover, .contact-map:focus-visible { text-decoration-color:currentColor; color:#79c3c4; }
+
+/* Classroom teaser (2026-11-15) */
+.classroom-section { background:var(--paper); }
+.classroom-card { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); background:#fff; border:1px solid var(--line); }
+.classroom-media { display:block; background:#05080a; overflow:hidden; }
+.classroom-media img { width:100%; height:100%; object-fit:contain; display:block; transition:transform .4s ease; }
+.classroom-media:hover img { transform:scale(1.02); }
+.classroom-copy { padding:36px 38px; display:flex; flex-direction:column; align-items:flex-start; gap:14px; }
+.classroom-copy .classroom-tag { margin:0; font-size:11px; font-weight:700; letter-spacing:.12em; color:var(--teal); }
+.classroom-copy h3 { margin:0; font-size:26px; line-height:1.25; letter-spacing:-.6px; }
+.classroom-copy p { margin:0; color:var(--muted); font-size:15px; line-height:1.65; }
+.classroom-copy p.classroom-credit { font-size:13px; }
+.classroom-button { margin-top:auto; }
+@media (max-width:900px) {
+  .classroom-card { grid-template-columns:minmax(0,1fr); }
+  .classroom-media { aspect-ratio:16/7.5; }
+  .classroom-copy { padding:24px 20px; }
+  .classroom-copy h3 { font-size:22px; }
+}

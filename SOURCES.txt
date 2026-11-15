@@ -65,3 +65,4 @@ Emblem navigation paths transcribed from user-supplied BS-105 emblem EPS, main m
 2026-11-06  Images recompressed (member photos max 800px, mozjpeg q80; logos palette PNG) with sharp (devDependency): page weight of photos/logos cut from ~2.1 MB to ~0.6 MB.
 2026-11-06  Official Korean lab name 기후위기대응연구실 added to meta description and structured data.
 2026-11-14  Gyutae Kang photo added (docs/assets/member-9.jpg, supplied by PI; resized 800px mozjpeg q80).
+2026-11-15  Classroom added: docs/classroom/ (list page) + radiative-equilibrium/ (Earth radiative equilibrium model, original ClimateBlab energy-balance MIT (c) 2014 Haulashore Limited, modified by Jin-Woo Heo; Solar System Scope textures CC BY 4.0; three.js MIT; Pretendard/Allura/Nanum Pen Script OFL). Homepage #classroom teaser + nav item; sitemap updated.

@@ -280,3 +280,19 @@ npm run check
 - 카카오톡·슬랙 등 링크 미리보기 이미지: `docs/assets/og-image.jpg`(홈), `docs/monitor/og-image.jpg`(상황판). 1200×630 JPG로 교체하면 됩니다. 문구는 각 `index.html`의 `og:` 태그.
 - 검색엔진: `docs/sitemap.xml`. 페이지를 추가하면 여기에도 한 줄 추가합니다. Google Search Console에 https://dasol-st.github.io/ccrl/ 을 등록하고 사이트맵을 제출하면 색인이 빨라집니다. (robots.txt는 도메인 최상위에만 유효해서 이 저장소에는 두지 않습니다.)
 - 사진을 새로 넣을 때는 가로 800px 안팎(구성원), 300KB 이하로 줄여서 넣는 것을 권장합니다.
+
+## Classroom (`docs/classroom/`, 2026-11-15)
+
+수업에서 시연하는 교육용 인터랙티브 자료 모음입니다. 주소는 `…/ccrl/classroom/`입니다.
+
+- 목록 페이지: `docs/classroom/index.html`, `classroom.css`. 자료 하나 = `<article class="c-card">` 하나입니다(카드 이미지·태그·학습 목표·"Questions to try"·열기/다운로드 버튼·출처).
+- 메인 페이지 소개란: `docs/index.html`의 `#classroom`(대표 자료 1개 + "All classroom materials" 링크), 스타일은 `docs/layout.css` 맨 끝 "Classroom teaser". 상단 메뉴에 `Classroom` 항목이 있습니다.
+- 자료마다 폴더 하나: 예) `docs/classroom/radiative-equilibrium/index.html` + `licenses/`. 주소가 고정되므로 수업 슬라이드에 QR 코드로 넣기 좋습니다.
+- 지구 복사 평형 모델: 원본 작업 파일은 저장소 바깥 `D:\Dropbox\My\CCRL_hompage\classroom\earth-radiative-equilibrium-classroom\classroom.html`입니다. 그 파일을 고친 뒤 `docs/classroom/radiative-equilibrium/index.html`로 **복사**해서 올립니다(파일 하나에 글꼴·그림이 모두 들어 있어 오프라인에서도 작동).
+  - 출처: 원본 ClimateBlab energy-balance(MIT License, © 2014 Haulashore Limited), 수정 허진우. 모델의 "시각화 설명", 파일 맨 위 주석, `licenses/`에 표기되어 있으니 지우지 마세요.
+- 새 자료 추가 순서
+  1. `docs/classroom/<영문-이름>/index.html`(+ 필요한 라이선스 파일)을 넣습니다. 외부 코드·그림을 썼다면 라이선스와 출처를 자료 안에 표기합니다.
+  2. 카드 이미지(가로 1600px JPG, 약 2:1)를 `docs/classroom/<영문-이름>-card.jpg`로 넣습니다.
+  3. `docs/classroom/index.html`에 `c-card`를 하나 복사해 내용을 바꿉니다. 메인 페이지 대표 자료를 바꾸려면 `#classroom` 부분을 고칩니다.
+  4. `docs/sitemap.xml`에 새 주소를 한 줄 추가합니다.
+- 원칙: 교육용 단순화 모델임을 밝히고 예보·예측처럼 보이지 않게 합니다. 제작·수정자의 공개 동의를 받은 자료만 올립니다.
