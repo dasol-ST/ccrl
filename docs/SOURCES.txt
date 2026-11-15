@@ -1,0 +1,2 @@
+
+2026-11-15  Desktop nav font 28.8px -> 20.16px (70%), >=1280px only; mobile/hamburger menu unchanged.
