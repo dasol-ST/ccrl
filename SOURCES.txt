@@ -69,3 +69,4 @@ Emblem navigation paths transcribed from user-supplied BS-105 emblem EPS, main m
 2026-11-15  Classroom: removed "Download for offline use" button and offline-download wording (PI request).
 2026-11-16  Classroom: added Stack plumes and atmospheric stability simulator (docs/classroom/plume-dispersion/, card, sitemap). Archive photo CC BY-SA 2.0 (N T Stobbs/Geograph), 1953 mortality chart public domain.
 2026-11-16  Homepage #classroom teaser now shows two cards (radiative model + plume simulator), layout.css classroom-grid. Radiative model header logo replaced with the original white logo (was a filtered colour logo).
+2026-11-16  Radiative model logo moved to top left. Plume simulator intro now shows on every new visit (sessionStorage), not once per browser.

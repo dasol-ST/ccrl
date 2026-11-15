@@ -23,6 +23,7 @@
       text: T('같은 굴뚝이라도 대기의 상태에 따라 연기는 하늘로 흩어지기도, 사람들 곁으로 내려오기도 합니다. 기온의 연직 분포를 바꿔 가며 그 차이를 직접 확인해 보세요.',
         'From the same chimney, smoke can scatter into the sky or come down among people, depending on the state of the atmosphere. Change the temperature profile and see the difference for yourself.'), smog: 0.12, lid: 0, clear: 1, last: true }
   ];
+  // shown on every new visit; not repeated within the same tab session (reloads, language switch)
   var KEY = 'ccrl-plume-intro-seen';
   var box = document.getElementById('intro'), cv = document.getElementById('introCanvas'), ctx = cv.getContext('2d');
   var elK = document.getElementById('introKicker'), elT = document.getElementById('introTitle'), elX = document.getElementById('introText');
@@ -189,7 +190,7 @@
   }
   function close() {
     running = false; box.hidden = true; document.body.classList.remove('intro-open');
-    try { localStorage.setItem(KEY, '1'); } catch (e) {}
+    try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
     var rp = document.getElementById('introReplay'); if (rp) rp.focus();
     if (window.__plumeTour) window.__plumeTour.maybeStart();
   }
@@ -209,7 +210,7 @@
   var rp = document.getElementById('introReplay'); if (rp) rp.addEventListener('click', open);
 
   var seen = false;
-  try { seen = localStorage.getItem(KEY) === '1'; } catch (e) {}
+  try { seen = sessionStorage.getItem(KEY) === '1'; } catch (e) {}
   if (/[?&]intro=0/.test(location.search)) seen = true;
   if (/[?&]intro=1/.test(location.search)) seen = false;
   if (!seen) open(); else if (window.__plumeTour && !/[?&]tour=0/.test(location.search)) window.__plumeTour.maybeStart();
