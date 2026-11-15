@@ -4,7 +4,7 @@
 .site-header .brand-long { display:block; font-size:18px; }
 .site-header nav { gap:20px; }
 .site-header nav a { font-size:28.8px; white-space:nowrap; }
-@media (min-width:1280px) { .site-header nav a { font-size:20.16px; } } /* desktop nav 70% (2026-11-15) */
+@media (min-width:1280px) { .site-header nav a { font-size:23px; } } /* desktop nav (2026-11-15) */
 .site-header .nav-contact { margin-left:0; }
 @media (max-width:1279px) {
   .site-header nav { display:none; position:absolute; left:0; right:0; top:100%; background:#fff; color:var(--ink); padding:16px 25px 24px; box-shadow:0 12px 20px #0002; max-height:calc(100svh - 120px); overflow-y:auto; }
