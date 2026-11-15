@@ -83,11 +83,11 @@
   function close() {
     if (!ov) return;
     ov.hidden = true; open = false; document.body.classList.remove('tour-open');
-    try { localStorage.setItem(KEY, '1'); } catch (e) {}
+    try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
     var b = document.getElementById('tourBtn'); if (b) b.focus();
   }
   function maybeStart() {
-    var seen = false; try { seen = localStorage.getItem(KEY) === '1'; } catch (e) {}
+    var seen = false; try { seen = sessionStorage.getItem(KEY) === '1'; } catch (e) {}
     if (!seen) setTimeout(start, 400);
   }
   var btn = document.getElementById('tourBtn'); if (btn) btn.addEventListener('click', start);
