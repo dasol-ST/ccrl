@@ -67,3 +67,4 @@ Emblem navigation paths transcribed from user-supplied BS-105 emblem EPS, main m
 2026-11-14  Gyutae Kang photo added (docs/assets/member-9.jpg, supplied by PI; resized 800px mozjpeg q80).
 2026-11-15  Classroom added: docs/classroom/ (list page) + radiative-equilibrium/ (Earth radiative equilibrium model, original ClimateBlab energy-balance MIT (c) 2014 Haulashore Limited, modified by Jin-Woo Heo; Solar System Scope textures CC BY 4.0; three.js MIT; Pretendard/Allura/Nanum Pen Script OFL). Homepage #classroom teaser + nav item; sitemap updated.
 2026-11-15  Classroom: removed "Download for offline use" button and offline-download wording (PI request).
+2026-11-16  Classroom: added Stack plumes and atmospheric stability simulator (docs/classroom/plume-dispersion/, card, sitemap). Archive photo CC BY-SA 2.0 (N T Stobbs/Geograph), 1953 mortality chart public domain.

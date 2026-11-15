@@ -1,0 +1,238 @@
+/* Gloomy storybook skin: sooty dusk outside, parchment pages with ink frames inside */
+:root{
+  --night:#22222a; --parch:#f0e7d2; --parch2:#e6d9bd; --ink:#241f1c; --ink2:#4a4037; --muted:#6c604f;
+  --line:#c3b190; --frame:#6b5536; --brass:#a3823f; --brass-d:#6d5420; --dark:#2a2521; --gap:12px;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.15 0 0 0 0 0.1 0 0 0 .10 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --corner:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%236b5536' stroke-width='1.2' stroke-linecap='round'%3E%3Cpath d='M3 37V12Q3 3 12 3H37'/%3E%3Cpath d='M8 30Q8 8 30 8' opacity='.7'/%3E%3Cpath d='M8 30q0-5 4-5t3 4-4 3' /%3E%3Cpath d='M30 8q-5 0-5 4t4 3 3-4'/%3E%3C/g%3E%3Ccircle cx='12' cy='12' r='1.6' fill='%236b5536'/%3E%3C/svg%3E");
+  --skyline:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='54' viewBox='0 0 320 54'%3E%3Cpath fill='%2314131a' d='M0 44h320v10H0z'/%3E%3Cpath fill='%2314131a' d='M0 54V38h9l1-9 8-6 8 6v9h7V18l2-1 2 1v20h10v-8q6-7 12 0v8h6l1-14h3l1 14h10V30l7-8 7 8v8h9V9h4l1 29h9V28q5-6 10 0v10h6l4-17 4 17h9v-9h16l1-6h2l1 6v9h11V26l8-7 8 7v12h7V6h2l1-3 1 3h2v32h10V31q6-6 12 0v7h8V22l3-1 2 1v16h10V33l6-5 6 5v5h4v16z'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{color:var(--ink);font-family:"Pretendard Variable",Pretendard,"Inter",system-ui,-apple-system,"Segoe UI","Malgun Gothic",sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  background:var(--grain),radial-gradient(ellipse 120% 70% at 50% -10%,#55556a 0%,#34343f 40%,#1e1e25 100%) fixed;background-color:var(--night);min-height:100vh}
+button{font:inherit;color:inherit}
+h1,h2,h3{margin:0;font-family:"Gowun Batang","Nanum Myeongjo",Georgia,serif;font-weight:700}
+.wrap{max-width:1760px;margin:0 auto;padding:0 16px}
+
+/* header: town silhouette against the dusk */
+.top{background:var(--skyline) repeat-x left bottom/320px 54px;padding-bottom:30px}
+.top-in{display:flex;align-items:center;gap:16px;padding-top:12px}
+.brand{display:block}
+.brand img{height:30px;width:auto;display:block}
+.titles h1{font-size:1.45rem;color:#f1e6cc;letter-spacing:.01em;line-height:1.25;text-shadow:0 2px 8px #000a}
+.byline{margin:0;color:#b8ad97;font-size:.8rem;letter-spacing:.03em}
+
+.app{display:grid;gap:var(--gap);grid-template-columns:450px minmax(0,1fr);padding-top:2px;padding-bottom:var(--gap)}
+
+/* parchment page with an ink double frame and corner flourishes */
+.panel{position:relative;background:var(--grain),linear-gradient(170deg,#f3ebd8,#e9dec5);border:1px solid var(--frame);border-radius:4px;padding:14px 16px;min-width:0;
+  box-shadow:inset 0 0 0 3px #f3ebd8,inset 0 0 0 4px rgba(107,85,54,.5),inset 0 0 40px rgba(120,90,50,.18),0 14px 32px rgba(0,0,0,.5)}
+.panel::before{content:"";position:absolute;inset:7px;pointer-events:none;
+  background:var(--corner) left top/24px no-repeat}
+.panel::after{content:"";position:absolute;inset:7px;pointer-events:none;
+  background:var(--corner) left top/24px no-repeat;transform:scale(-1,-1)}
+.panel > *{position:relative;z-index:1}
+
+.step{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#a64a37,#5d2119);color:#f6e2b6;font:700 .8rem/1 "Gowun Batang",Georgia,serif;margin-right:9px;vertical-align:1px;box-shadow:0 1px 0 #fff6,0 0 0 2px rgba(93,33,25,.25)}
+h2{font-size:1.08rem;white-space:nowrap;color:var(--ink)}
+.sub-head{display:flex;align-items:center;gap:4px;height:30px}
+.sub-head h3{font-size:.92rem;color:var(--ink2)}
+
+/* info buttons + tooltip */
+.ih{display:inline-flex}
+.info-button{display:inline-grid;place-items:center;width:24px;height:24px;padding:0;border:0;border-radius:50%;background:transparent;color:var(--brass-d);font-size:0;cursor:help;flex:none}
+.info-button::before{content:"i";display:grid;place-items:center;width:15px;height:15px;border:1.4px solid currentColor;border-radius:50%;font:italic 700 10.5px/1 Georgia,"Times New Roman",serif}
+.info-button:hover,.info-button:focus-visible,.info-button[aria-expanded="true"]{color:#3c2c10;background:rgba(163,130,63,.18);outline:none}
+.stat .info-button{color:#b89a5d;width:20px;height:20px}
+.stat .info-button:hover,.stat .info-button[aria-expanded="true"]{color:#f3d48f;background:#ffffff14}
+.tip{position:fixed;z-index:50;max-width:320px;background:linear-gradient(#2c2724,#211d1b);color:#efe3c9;border:1px solid #8f6f35;border-radius:4px;padding:11px 13px;font-size:.84rem;line-height:1.6;box-shadow:inset 0 0 0 2px #211d1b,inset 0 0 0 3px rgba(201,162,89,.3),0 10px 28px #000a}
+.tip strong{display:block;color:#f0cf86;font:700 .9rem/1.4 "Gowun Batang",Georgia,serif;margin-bottom:4px}
+.tip p{margin:0}
+.tip p+p{margin-top:6px}
+.tip b{color:#f0cf86;font-weight:600}
+.tip.wide{max-width:400px}
+.tip table{border-collapse:collapse;width:100%;margin:6px 0 2px;font-size:.8rem}
+.tip th,.tip td{text-align:left;padding:3px 6px;border-bottom:1px solid #ffffff1a;white-space:nowrap}
+.tip th{color:#c9b98f;font-weight:600}
+.tip .pg{display:inline-block;width:18px;text-align:center;border-radius:3px;color:#fff;font-weight:700}
+
+/* 1. scenario strip */
+.strip{grid-column:1/-1;padding:12px 16px}
+.strip-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px}
+.scn-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.scn-sep{background:var(--line);margin:4px 2px}
+.scn-btn{border:1px solid #8f7a55;background:linear-gradient(#f8f2e3,#ece1c8);border-radius:3px;padding:5px 8px;cursor:pointer;line-height:1.2;text-align:center;min-width:0;box-shadow:inset 0 0 0 2px #f8f2e3,0 1px 2px rgba(60,40,20,.25)}
+.scn-btn b{display:block;font:700 .95rem/1.25 "Gowun Batang",Georgia,serif;white-space:nowrap}
+.scn-btn span{font-size:.7rem;color:var(--muted);white-space:nowrap;letter-spacing:.02em}
+.scn-btn:hover{border-color:var(--brass-d);background:linear-gradient(#fbf6ea,#f0e6cf)}
+.scn-btn[aria-pressed="true"]{background:linear-gradient(#352f2a,#231f1c);color:#f1e3c3;border-color:#231f1c;box-shadow:inset 0 0 0 2px #231f1c,inset 0 0 0 3px rgba(201,162,89,.45)}
+.scn-btn[aria-pressed="true"] span{color:#c9b98f}
+.scn-card{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:var(--gap);margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);align-items:center;min-height:46px}
+.scn-main{display:flex;align-items:center;gap:6px;min-width:0}
+.scn-main h3{font-size:1rem;white-space:nowrap;color:var(--ink)}
+.scn-main p{margin:0;font-size:.87rem;color:var(--ink2);min-width:0}
+.scn-main .dash{color:var(--line)}
+.q{display:flex;gap:8px;align-items:baseline;background:rgba(163,130,63,.14);border-left:3px solid var(--brass);padding:6px 10px;border-radius:0 3px 3px 0;font-size:.86rem;font-style:normal}
+.q b{font:700 .74rem/1 "Gowun Batang",Georgia,serif;color:var(--brass-d);white-space:nowrap}
+.badge{display:inline-block;font-size:.68rem;background:rgba(163,130,63,.22);color:var(--brass-d);border-radius:20px;padding:1px 8px;font-weight:600;white-space:nowrap}
+
+/* 2/3 panels */
+.inputs,.results{display:flex;flex-direction:column}
+.panel-head{display:flex;align-items:center;gap:4px;height:62px;border-bottom:1px solid var(--line);margin:-4px 0 6px;padding-bottom:8px}
+.stage{height:clamp(270px,38vh,470px);position:relative;flex:none}
+.stage svg,.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#scene{border-radius:2px;box-shadow:0 0 0 2px #2a2521,0 0 0 4px #e3d5b6,0 0 0 5px var(--frame),0 6px 14px rgba(40,25,10,.3)}
+#profile{touch-action:none}
+.lever-block,.chart-block{margin-top:auto;padding-top:8px}
+.lever-block{border-top:1px solid var(--line);margin-top:10px}
+
+/* stats: iron plaques with brass rivets */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 0 14px;flex:1}
+.stat{border-radius:3px;padding:5px 9px 5px 13px;min-width:0;border:1px solid #8f6f35;
+  background:radial-gradient(circle at 5px 5px,#d4b06a 1.3px,transparent 1.9px),radial-gradient(circle at calc(100% - 5px) 5px,#d4b06a 1.3px,transparent 1.9px),radial-gradient(circle at 5px calc(100% - 5px),#d4b06a 1.3px,transparent 1.9px),radial-gradient(circle at calc(100% - 5px) calc(100% - 5px),#d4b06a 1.3px,transparent 1.9px),linear-gradient(#383330,#1f1c1a);
+  box-shadow:inset 0 0 0 2px #1f1c1a,inset 0 0 0 3px rgba(201,162,89,.35),0 2px 5px rgba(0,0,0,.35)}
+.stat dt{display:flex;align-items:center;justify-content:space-between;font-size:.7rem;color:#c9b98f;white-space:nowrap}
+.stat dd{margin:0;font:700 1.12rem/1.25 "Pretendard Variable",Pretendard,sans-serif;font-variant-numeric:tabular-nums;color:#f0cf86;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stat.hot dd{color:#f2a07e}
+.chip{display:inline-block;min-width:20px;text-align:center;color:#fff;border-radius:3px;padding:0 5px;font-size:.8rem;margin-right:5px;vertical-align:2px}
+
+/* profile svg */
+.p-guide{stroke:#b49a6c;stroke-width:1;stroke-dasharray:3 4;fill:none}
+.p-grid{stroke:#d9caab;stroke-width:1}
+.p-bound{stroke:#a8957a;stroke-width:1;stroke-dasharray:4 3}
+.p-axis{fill:var(--muted);font-size:11px}
+.p-seg{stroke-width:4;stroke-linecap:round}
+.p-pt{fill:#f8f1e1;stroke:var(--ink);stroke-width:2.2;cursor:ew-resize}
+.p-pt:focus{outline:none;stroke:#8a3a2c;stroke-width:3}
+.p-pt-hit{fill:transparent;cursor:ew-resize}
+.p-tval{font-size:11px;fill:var(--ink);font-weight:600}
+.p-lapse{font-size:12px;fill:var(--ink);font-variant-numeric:tabular-nums}
+.p-chip{font-size:11px;font-weight:700;fill:#fff}
+.p-label{font-size:10.5px;fill:var(--muted)}
+
+/* levers */
+.stack-types{display:flex;gap:5px;margin-left:auto}
+.levers{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+.lever{display:flex;flex-direction:column;align-items:center;user-select:none;min-width:0}
+.lever-label{display:flex;align-items:center;font-size:.74rem;font-weight:600;white-space:nowrap;height:24px;color:var(--ink2)}
+.lever-label .info-button{width:20px;height:20px}
+.lever-label .info-button::before{width:13px;height:13px;font-size:9.5px}
+.lever svg{width:100%;max-width:88px;height:auto;aspect-ratio:130/96;touch-action:none;cursor:grab;display:block;filter:drop-shadow(0 2px 2px rgba(40,25,10,.3))}
+.lever svg:focus{outline:2px solid var(--brass);outline-offset:2px;border-radius:8px}
+.lever svg.drag{cursor:grabbing}
+.lever-read{font-variant-numeric:tabular-nums;font-weight:700;font-size:.8rem;background:linear-gradient(#383330,#1f1c1a);color:#f0cf86;border:1px solid #8f6f35;border-radius:3px;padding:0 4px;margin-top:3px;width:100%;max-width:80px;white-space:nowrap;text-align:center}
+
+/* chart */
+#chart{width:100%;height:136px;display:block}
+.c-axis{fill:var(--muted);font-size:11px}
+.c-grid{stroke:#ddcfb2;stroke-width:1}
+.c-line{fill:none;stroke:#8a2d22;stroke-width:2.4}
+.c-area{fill:#8a2d22;opacity:.12}
+.c-ghost{fill:none;stroke:#4f463c;stroke-width:1.6;stroke-dasharray:5 4}
+.c-max{fill:#8a2d22}
+.c-maxlab{font-size:11.5px;fill:#8a2d22;font-weight:700}
+.chart-tools{margin-left:auto;display:flex;gap:6px}
+.tool{border:1px solid #8f7a55;background:linear-gradient(#f8f2e3,#ece1c8);border-radius:3px;padding:3px 10px;font-size:.78rem;cursor:pointer;white-space:nowrap;color:var(--ink)}
+.tool[aria-pressed="true"]{background:linear-gradient(#352f2a,#231f1c);color:#f1e3c3;border-color:#231f1c}
+.tool:hover{border-color:var(--brass-d)}
+.sub-right{margin-left:auto;display:inline-flex;align-items:center;font-size:.76rem;color:var(--muted)}
+.sub-head .motion{margin-left:auto}
+
+.foot{color:#a69a84;font-size:.75rem;padding-bottom:20px}
+.foot p{margin:0}
+
+@media (max-width:1280px){
+}
+@media (max-width:1100px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .panel-head{height:auto;flex-wrap:wrap;row-gap:8px}
+  .stats{margin-left:0;flex-basis:100%}
+  .scn-card{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .wrap{padding:0 8px}
+  .app{--gap:8px}
+  .panel{padding:12px}
+  .strip-row{grid-template-columns:1fr auto}
+  .scn-list{grid-column:1/-1;grid-row:2;grid-template-columns:repeat(3,minmax(0,1fr))}
+
+  .scn-main{flex-wrap:wrap}
+  .scn-main .dash{display:none}
+  .scn-main p{flex-basis:100%;order:3}
+  .stage{height:300px}
+  .stats{grid-template-columns:1fr 1fr}
+  .levers{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:8px}
+  .stack-types{margin-left:0;flex-basis:100%}
+  .titles h1{font-size:1.15rem}
+}
+
+/* intro: the Great Smog of London, 1952 */
+.intro-replay{margin-left:auto;border:1px solid rgba(201,162,89,.55);background:rgba(20,18,22,.55);color:#e6d6b2;border-radius:3px;padding:4px 12px;font:600 .8rem/1.3 "Gowun Batang",Georgia,serif;cursor:pointer}
+.intro-replay:hover{background:rgba(40,34,30,.8);border-color:#c9a259}
+body.intro-open{overflow:hidden}
+.intro{position:fixed;inset:0;z-index:100;background:#17151a}
+.intro canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.intro-card{position:absolute;left:clamp(16px,6vw,96px);bottom:clamp(16px,8vh,90px);max-width:560px;width:calc(100% - 32px);
+  background:var(--grain),linear-gradient(170deg,#f3ebd8,#e6d9bd);border:1px solid var(--frame);border-radius:4px;padding:22px 26px 18px;color:var(--ink);
+  box-shadow:inset 0 0 0 3px #f3ebd8,inset 0 0 0 4px rgba(107,85,54,.5),0 18px 50px rgba(0,0,0,.6);transition:opacity .26s ease, transform .26s ease}
+.intro.fading .intro-card{opacity:.15;transform:translateY(4px)}
+.intro-kicker{margin:0 0 4px;font:700 .8rem/1.3 "Gowun Batang",Georgia,serif;color:var(--brass-d);letter-spacing:.04em}
+.intro-card h2{font-size:1.65rem;line-height:1.3;margin:0 0 10px;white-space:normal}
+.intro-text{margin:0 0 16px;font-size:.98rem;line-height:1.75;color:#3a322b;min-height:5.2em}
+.intro-ctl{display:flex;align-items:center;gap:10px}
+.intro-dots{display:flex;gap:7px;margin-right:auto}
+.intro-dot{width:10px;height:10px;border-radius:50%;border:1px solid var(--frame);background:transparent;padding:0;cursor:pointer}
+.intro-dot.on{background:#8a3a2c;border-color:#5d2119}
+.intro-skip{border:0;background:none;color:var(--muted);font-size:.85rem;cursor:pointer;padding:6px 8px;text-decoration:underline;text-underline-offset:3px}
+.intro-next{border:1px solid #5d2119;background:radial-gradient(circle at 35% 30%,#a64a37,#6a261c);color:#f6e2b6;border-radius:3px;padding:8px 22px;font:700 .95rem/1 "Gowun Batang",Georgia,serif;cursor:pointer;box-shadow:0 2px 6px rgba(60,20,10,.4)}
+.intro-next:hover{filter:brightness(1.1)}
+.intro-next:focus-visible,.intro-skip:focus-visible,.intro-dot:focus-visible{outline:2px solid #c9a259;outline-offset:2px}
+@media (max-width:760px){
+  .intro-card{padding:16px 16px 14px}
+  .intro-card h2{font-size:1.3rem}
+  .intro-text{font-size:.9rem}
+  .intro-replay{padding:3px 8px;font-size:.72rem}
+}
+.intro-photo{position:absolute;right:clamp(16px,6vw,96px);top:clamp(16px,9vh,110px);width:min(30vw,380px);margin:0;padding:10px 10px 8px;background:#efe8d8;
+  box-shadow:0 0 0 1px #8f7a55,0 16px 40px rgba(0,0,0,.6);transform:rotate(1.6deg);transition:opacity .26s ease}
+.intro-photo.wide{width:min(40vw,560px);transform:rotate(-1deg)}
+.intro-photo img{display:block;width:100%;height:auto}
+.intro-photo figcaption{margin-top:7px;font-size:.74rem;line-height:1.45;color:#4a4037}
+.intro-photo figcaption a{color:inherit}
+.intro.fading .intro-photo{opacity:.1}
+@media (max-width:760px){
+  .intro-photo,.intro-photo.wide{left:16px;right:16px;width:auto;top:16px;transform:none;padding:6px}
+  .intro-photo img{max-height:28vh;object-fit:contain}
+}
+
+/* header tools */
+.top-tools{margin-left:auto;display:flex;gap:6px;align-items:center}
+.top-tools .intro-replay{margin-left:0}
+.intro-replay.lang{min-width:44px;font-family:"Pretendard Variable",Pretendard,sans-serif}
+
+/* guided tour */
+body.tour-open{overflow:hidden}
+.tour{position:fixed;inset:0;z-index:90}
+.tour-hole{position:fixed;border-radius:6px;box-shadow:0 0 0 9999px rgba(14,12,14,.72),0 0 0 2px #c9a259 inset;pointer-events:none;transition:all .3s ease}
+.tour-card{position:fixed;background:var(--grain),linear-gradient(170deg,#f3ebd8,#e6d9bd);border:1px solid var(--frame);border-radius:4px;padding:16px 18px 14px;color:var(--ink);
+  box-shadow:inset 0 0 0 3px #f3ebd8,inset 0 0 0 4px rgba(107,85,54,.5),0 18px 40px rgba(0,0,0,.55);transition:left .3s ease, top .3s ease}
+.tour-step{margin:0 0 2px;font:700 .74rem/1.3 "Gowun Batang",Georgia,serif;color:var(--brass-d)}
+.tour-card h2{font-size:1.15rem;margin:0 0 6px;white-space:normal}
+.tour-card p{margin:0 0 12px;font-size:.9rem;line-height:1.65}
+.tour-ctl{display:flex;gap:8px;align-items:center}
+.tour-skip{margin-right:auto;border:0;background:none;color:var(--muted);font-size:.84rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px}
+.tour-prev{border:1px solid #8f7a55;background:linear-gradient(#f8f2e3,#ece1c8);border-radius:3px;padding:6px 14px;font-size:.85rem;cursor:pointer}
+.tour-next{border:1px solid #5d2119;background:radial-gradient(circle at 35% 30%,#a64a37,#6a261c);color:#f6e2b6;border-radius:3px;padding:7px 18px;font:700 .9rem/1 "Gowun Batang",Georgia,serif;cursor:pointer}
+.tour button:focus-visible{outline:2px solid #c9a259;outline-offset:2px}
+
+/* credits */
+.credits{margin:6px 0}
+.credits summary{cursor:pointer;color:#c9b98f}
+.credits ul{margin:6px 0 4px;padding-left:18px;line-height:1.6}
+.credits a{color:#d8c79e}
+@media (max-width:760px){
+  .top-in{flex-wrap:wrap;row-gap:6px}
+  .top-tools{margin-left:0;flex-basis:100%}
+}
+html[lang=en] .stack-types .tool{padding:3px 8px}
+html[lang=en] .lever-label{font-size:.7rem}

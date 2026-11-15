@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>굴뚝 연기와 대기 안정도 | CCRL Classroom</title>
+<meta name="description" content="대기 안정도와 기온의 연직 분포에 따라 굴뚝 연기가 어떻게 퍼지는지 살펴보는 교육용 시뮬레이터 (CCRL, 서울과학기술대학교)." data-en="An interactive teaching model of how stack plumes spread under different atmospheric stability and temperature profiles (CCRL, SeoulTech).">
+<link rel="canonical" href="https://dasol-st.github.io/ccrl/classroom/plume-dispersion/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Climate Crisis Response Lab">
+<meta property="og:title" content="Stack plumes and atmospheric stability | CCRL Classroom">
+<meta property="og:description" content="Drag the temperature profile and watch a Victorian mill chimney's plume loop, cone, fan, loft or fumigate.">
+<meta property="og:url" content="https://dasol-st.github.io/ccrl/classroom/plume-dispersion/">
+<meta property="og:image" content="https://dasol-st.github.io/ccrl/classroom/plume-dispersion-card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="plume.css?v=11">
+</head>
+<body data-en-title="Stack plumes and atmospheric stability | CCRL Classroom">
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="https://dasol-st.github.io/ccrl/classroom/" aria-label="CCRL Classroom"><img src="https://dasol-st.github.io/ccrl/assets/ccrl-logo-white.png" alt="CCRL" width="600" height="155"></a>
+    <div class="titles">
+      <h1 data-en="Stack plumes and atmospheric stability">굴뚝 연기와 대기 안정도</h1>
+      <p class="byline" data-en="CCRL Classroom · a simplified teaching model">CCRL Classroom · 교육용 단순화 모델</p>
+    </div>
+    <div class="top-tools">
+      <button type="button" class="intro-replay" id="tourBtn" data-en="How to use">사용법</button>
+      <button type="button" class="intro-replay" id="introReplay" data-en="Replay intro">인트로 다시 보기</button>
+      <button type="button" class="intro-replay lang" id="langBtn" lang="en" data-en="한국어" data-en-label="한국어로 보기" aria-label="View in English">EN</button>
+    </div>
+  </div>
+</header>
+
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="introTitle" hidden>
+  <canvas id="introCanvas" aria-hidden="true"></canvas>
+  <figure class="intro-photo" id="introPhoto" hidden><img id="introImg" alt=""><figcaption id="introCap"></figcaption></figure>
+  <div class="intro-card">
+    <p class="intro-kicker" id="introKicker"></p>
+    <h2 id="introTitle"></h2>
+    <p class="intro-text" id="introText"></p>
+    <div class="intro-ctl">
+      <div class="intro-dots" id="introDots" role="group" aria-label="장면" data-en-label="Scenes"></div>
+      <button type="button" class="intro-skip" id="introSkip" data-en="Skip">건너뛰기</button>
+      <button type="button" class="intro-next" id="introNext" data-en="Next">다음</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap app">
+  <section class="panel strip" id="pScn" aria-labelledby="scn-h">
+    <div class="strip-row">
+      <h2 id="scn-h"><span class="step">1</span><span data-en="Scenarios">시나리오</span></h2>
+      <div class="scn-list" id="scnList" role="group" aria-label="시나리오" data-en-label="Scenarios"></div>
+      <button type="button" class="tool reset" id="resetBtn" data-en="↺ Reset">↺ 처음 상태로</button>
+    </div>
+    <div class="scn-card" id="scnCard" aria-live="polite"></div>
+  </section>
+
+  <section class="panel inputs" aria-labelledby="in-h">
+    <div class="panel-head"><h2 id="in-h"><span class="step">2</span><span data-en="Conditions">조건 바꾸기</span></h2><span class="ih" data-tip="inputs"></span>
+      <div class="stack-types" id="stackTypes" role="group" aria-label="굴뚝 종류" data-en-label="Stack type"></div>
+    </div>
+    <div id="pProf">
+      <div class="sub-head"><h3 data-en="Temperature profile">기온의 연직 분포</h3><span class="ih" data-tip="profile"></span>
+        <span class="sub-right"><span data-en="Stability class A–F">안정도 등급 A–F</span><span class="ih" data-tip="pg" data-name="Pasquill–Gifford"></span></span></div>
+      <div class="stage"><svg id="profile" role="group" aria-label="기온 연직 분포 편집" data-en-label="Edit the temperature profile"></svg></div>
+    </div>
+    <div class="lever-block" id="pLev">
+      <div class="sub-head"><h3 data-en="Wind · stack · emission">바람 · 굴뚝 · 배출</h3><span class="ih" data-tip="levers"></span></div>
+      <div class="levers" id="levers"></div>
+    </div>
+  </section>
+
+  <section class="panel results" aria-labelledby="out-h">
+    <div class="panel-head" id="pStats"><h2 id="out-h"><span class="step">3</span><span data-en="Results">결과</span></h2><span class="ih" data-tip="results"></span>
+      <dl class="stats" id="stats"></dl>
+    </div>
+    <div id="pScene">
+      <div class="sub-head"><h3 data-en="Plume">연기 확산</h3><span class="ih" data-tip="scene"></span>
+        <button type="button" class="tool motion" id="motionBtn" aria-pressed="true">배경 움직임 켜짐</button></div>
+      <div class="stage"><canvas id="scene" aria-label="굴뚝 연기 애니메이션" data-en-label="Animated stack plume"></canvas></div>
+    </div>
+    <div class="chart-block" id="pChart">
+      <div class="sub-head"><h3 data-en="Ground-level concentration">지표 농도</h3><span class="ih" data-tip="chart"></span>
+        <div class="chart-tools">
+          <button type="button" class="tool" id="pinBtn" aria-pressed="false" data-en="Pin this curve">현재 곡선 고정</button>
+          <button type="button" class="tool" id="lockBtn" aria-pressed="false" data-en="Lock y-axis">세로축 고정</button>
+        </div>
+      </div>
+      <svg id="chart" role="img" aria-label="지표 농도 그래프" data-en-label="Ground-level concentration chart"></svg>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <p data-en="A simplified teaching model. It is not for predicting real concentrations or for regulatory assessment.">교육용으로 단순화한 모델로, 실제 농도 예측이나 규제 평가에 쓰는 모델이 아닙니다.</p>
+  <details class="credits">
+    <summary data-en="Credits and licences">출처와 라이선스</summary>
+    <ul>
+      <li data-en="Model, illustrations and code: Climate Crisis Response Lab (CCRL), SeoulTech. Physics: Gaussian plume with Pasquill–Gifford classes, Briggs rural dispersion coefficients and plume rise, US EPA ΔT/Δz stability method.">모델·그림·코드: 서울과학기술대학교 기후위기대응연구실(CCRL). 계산: 가우시안 플룸, Pasquill–Gifford 안정도, Briggs 확산 계수(농촌)·연기 상승식, 미국 환경청 ΔT/Δz 안정도 판정법.</li>
+      <li>Photo: “Nelson’s Column during the Great Smog of 1952” by N T Stobbs, <a href="https://www.geograph.org.uk/photo/765606" target="_blank" rel="noopener">Geograph</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener">CC BY-SA 2.0</a> (unmodified).</li>
+      <li>Chart: weekly deaths in Greater London 1952/53, Committee on Air Pollution, Interim Report (HMSO, 1953). Public domain (Crown copyright expired), via <a href="https://commons.wikimedia.org/wiki/File:1952_Great_London_Smog_mortality-2.png" target="_blank" rel="noopener">Wikimedia Commons</a>.</li>
+      <li>Fonts: <a href="https://github.com/orioncactus/pretendard" target="_blank" rel="noopener">Pretendard</a> and <a href="https://fonts.google.com/specimen/Gowun+Batang" target="_blank" rel="noopener">Gowun Batang</a>, SIL Open Font License 1.1.</li>
+    </ul>
+  </details>
+  <p>© 2026 Climate Crisis Response Lab, Seoul National University of Science and Technology</p>
+</footer>
+
+<script src="plume-i18n.js?v=11"></script>
+<script src="plume-core.js?v=11"></script>
+<script src="plume-art.js?v=11"></script>
+<script src="plume-app.js?v=11"></script>
+<script src="plume-tour.js?v=11"></script>
+<script src="plume-intro.js?v=11"></script>
+</body>
+</html>
