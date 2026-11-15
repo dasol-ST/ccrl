@@ -318,3 +318,11 @@ html::-webkit-scrollbar { display:none; }
   .classroom-copy { padding:24px 20px; }
   .classroom-copy h3 { font-size:22px; }
 }
+/* Classroom teaser: two materials side by side (2026-11-16) */
+.classroom-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+.classroom-grid .classroom-card { grid-template-columns:minmax(0,1fr); grid-template-rows:auto 1fr; }
+.classroom-grid .classroom-media { aspect-ratio:1600/740; }
+.classroom-grid .classroom-media img { object-fit:cover; }
+.classroom-grid .classroom-copy { padding:28px 30px 30px; }
+.classroom-grid .classroom-copy h3 { font-size:23px; }
+@media (max-width:900px) { .classroom-grid { grid-template-columns:minmax(0,1fr); } }
