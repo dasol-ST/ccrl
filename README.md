@@ -285,10 +285,10 @@ npm run check
 
 수업에서 시연하는 교육용 인터랙티브 자료 모음입니다. 주소는 `…/ccrl/classroom/`입니다.
 
-- 목록 페이지: `docs/classroom/index.html`, `classroom.css`. 자료 하나 = `<article class="c-card">` 하나입니다(카드 이미지·태그·학습 목표·"Questions to try"·열기/다운로드 버튼·출처).
+- 목록 페이지: `docs/classroom/index.html`, `classroom.css`. 자료 하나 = `<article class="c-card">` 하나입니다(카드 이미지·태그·학습 목표·"Questions to try"·열기 버튼·출처).
 - 메인 페이지 소개란: `docs/index.html`의 `#classroom`(대표 자료 1개 + "All classroom materials" 링크), 스타일은 `docs/layout.css` 맨 끝 "Classroom teaser". 상단 메뉴에 `Classroom` 항목이 있습니다.
 - 자료마다 폴더 하나: 예) `docs/classroom/radiative-equilibrium/index.html` + `licenses/`. 주소가 고정되므로 수업 슬라이드에 QR 코드로 넣기 좋습니다.
-- 지구 복사 평형 모델: 원본 작업 파일은 저장소 바깥 `D:\Dropbox\My\CCRL_hompage\classroom\earth-radiative-equilibrium-classroom\classroom.html`입니다. 그 파일을 고친 뒤 `docs/classroom/radiative-equilibrium/index.html`로 **복사**해서 올립니다(파일 하나에 글꼴·그림이 모두 들어 있어 오프라인에서도 작동).
+- 지구 복사 평형 모델: 원본 작업 파일은 저장소 바깥 `D:\Dropbox\My\CCRL_hompage\classroom\earth-radiative-equilibrium-classroom\classroom.html`입니다. 그 파일을 고친 뒤 `docs/classroom/radiative-equilibrium/index.html`로 **복사**해서 올립니다(파일 하나에 글꼴·그림이 모두 들어 있음).
   - 출처: 원본 ClimateBlab energy-balance(MIT License, © 2014 Haulashore Limited), 수정 허진우. 모델의 "시각화 설명", 파일 맨 위 주석, `licenses/`에 표기되어 있으니 지우지 마세요.
 - 새 자료 추가 순서
   1. `docs/classroom/<영문-이름>/index.html`(+ 필요한 라이선스 파일)을 넣습니다. 외부 코드·그림을 썼다면 라이선스와 출처를 자료 안에 표기합니다.
