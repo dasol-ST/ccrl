@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>단열선도와 공기덩어리 상승 | CCRL Classroom</title>
+<meta name="description" content="단열선도(Skew-T) 위에서 공기덩어리를 들어 올려 구름 밑면, CAPE, 대기 안정도를 확인하는 교육용 시뮬레이터 (CCRL, 서울과학기술대학교)." data-en="Lift an air parcel on a Skew-T diagram and see cloud base, CAPE and atmospheric stability (CCRL, SeoulTech).">
+<link rel="canonical" href="https://dasol-st.github.io/ccrl/classroom/skewt/">
+<meta property="og:title" content="Skew-T diagram and rising air parcels | CCRL Classroom">
+<meta property="og:image" content="https://dasol-st.github.io/ccrl/classroom/skewt-card.jpg">
+<link rel="icon" href="../../assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="kit.css?v=1">
+<link rel="stylesheet" href="skewt.css?v=1">
+</head>
+<body data-en-title="Skew-T diagram and rising air parcels | CCRL Classroom">
+<header class="ck-top">
+  <div class="wrap ck-top-in">
+    <a class="ck-brand" href="https://dasol-st.github.io/ccrl/classroom/" aria-label="CCRL Classroom"><img src="https://dasol-st.github.io/ccrl/assets/ccrl-logo-color.png" alt="CCRL" width="894" height="229"></a>
+    <div class="ck-titles">
+      <h1 data-en="Skew-T diagram and rising air parcels">단열선도와 공기덩어리 상승</h1>
+      <p data-en="CCRL Classroom · a simplified teaching model">CCRL Classroom · 교육용 단순화 모델</p>
+    </div>
+    <div class="ck-top-tools">
+      <button type="button" class="ck-top-btn" id="tourBtn" data-en="How to use">사용법</button>
+      <button type="button" class="ck-top-btn" id="introBtn" data-en="Replay intro">인트로 다시 보기</button>
+      <button type="button" class="ck-top-btn" id="langBtn" lang="en" data-en="한국어" aria-label="View in English" data-en-label="한국어로 보기">EN</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap ck-app sk-app">
+  <section class="ck-panel ck-strip" id="pScn" aria-labelledby="scn-h">
+    <div class="ck-strip-row">
+      <h2 id="scn-h"><span class="ck-step">1</span><span data-en="Soundings">관측 사례</span></h2>
+      <div class="ck-scn-list" id="scnList" role="group" aria-label="관측 사례" data-en-label="Soundings"></div>
+      <button type="button" class="ck-tool" id="resetBtn" data-en="↺ Reset">↺ 처음 상태로</button>
+    </div>
+    <div class="ck-card" id="scnCard" aria-live="polite"></div>
+  </section>
+
+  <section class="ck-panel sk-inputs" aria-labelledby="in-h">
+    <div class="ck-head" data-head><h2 id="in-h"><span class="ck-step">2</span><span data-en="Skew-T diagram">단열선도 (Skew-T)</span></h2><span class="ck-ih" data-tip="diagram"></span>
+      <div class="ck-right sk-legend"><span class="lg t" data-en="Temperature">기온</span><span class="lg d" data-en="Dew point">이슬점</span><span class="lg p" data-en="Parcel">공기덩어리</span></div>
+    </div>
+    <div id="pDiag"><svg id="diagram" class="sk-diag" role="group" aria-label="단열선도 편집" data-en-label="Edit the sounding"></svg></div>
+    <div id="pLev">
+      <div class="ck-sub" data-head><h3 data-en="Levers">조절 장치</h3><span class="ck-ih" data-tip="levers"></span>
+        <span class="ck-right"><button type="button" class="ck-tool" id="linesBtn" aria-pressed="true" data-en="Guide lines on">보조선 켜짐</button></span></div>
+      <div class="ck-levers" id="levers" style="--lev-n:4"></div>
+    </div>
+  </section>
+
+  <section class="ck-panel sk-results" aria-labelledby="out-h">
+    <div class="ck-head" id="pStats" data-head><h2 id="out-h"><span class="ck-step">3</span><span data-en="Results">결과</span></h2><span class="ck-ih" data-tip="results"></span>
+      <dl class="ck-stats" id="stats"></dl>
+    </div>
+    <div class="sk-verdict" id="verdict" aria-live="polite"></div>
+    <div id="pScene">
+      <div class="ck-sub" data-head><h3 data-en="The sky above the station">관측소 위의 하늘</h3><span class="ck-ih" data-tip="scene"></span>
+        <span class="ck-right"><button type="button" class="ck-tool" id="liftBtn" data-en="↻ Restart">↻ 처음부터</button></span></div>
+      <div class="sk-stage"><canvas id="scene" aria-label="구름과 공기덩어리 그림" data-en-label="Cloud and parcel illustration"></canvas></div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap ck-foot">
+  <p data-en="A simplified teaching model. Real soundings and forecasts need full radiosonde data and virtual-temperature corrections.">교육용으로 단순화한 모델입니다. 실제 분석과 예보에는 전체 고층관측 자료와 가온도 보정이 필요합니다.</p>
+  <details>
+    <summary data-en="Methods, credits and licences">계산 방법·출처와 라이선스</summary>
+    <ul>
+      <li data-en="Lifting condensation level: D. Bolton (1980), Monthly Weather Review 108, 1046–1053. Saturation vapour pressure: Bolton (1980). Pseudo-adiabats integrated numerically; CAPE/CIN from parcel minus environment temperature (no virtual-temperature correction).">상승응결고도: D. Bolton (1980), Monthly Weather Review 108, 1046–1053. 포화수증기압: Bolton (1980). 습윤단열선은 수치 적분, CAPE·CIN은 공기덩어리와 환경의 기온 차로 계산(가온도 보정 생략).</li>
+      <li data-en="The soundings are idealised examples made for teaching, not real observations.">관측 사례는 교육용으로 만든 이상화된 예시이며 실제 관측값이 아닙니다.</li>
+      <li>Photographs (Wikimedia Commons, shown unmodified):
+      <ul>
+        <li>Weather balloon launch: <a href="https://commons.wikimedia.org/wiki/File:Launching_a_weather_balloon_at_Mammoth_Hot_Springs_(29433370445).jpg" target="_blank" rel="noopener">Yellowstone National Park (NPS)</a>, public domain</li>
+        <li>Radiosondes: <a href="https://commons.wikimedia.org/wiki/File:Vaisala_RS92_and_RS41_radiosondes.jpg" target="_blank" rel="noopener">FW</a>, CC BY-SA 4.0</li>
+        <li>Cumulus congestus: <a href="https://commons.wikimedia.org/wiki/File:2016_Chmura_Cumulus_congestus_01.jpg" target="_blank" rel="noopener">Jacek Halicki</a>, CC BY-SA 4.0</li>
+        <li>Cumulonimbus: <a href="https://commons.wikimedia.org/wiki/File:Cumulonimbus_incus_over_Warsaw,_Poland.jpg" target="_blank" rel="noopener">Kamil Nowacki</a>, CC BY-SA 4.0</li>
+        <li>Virga: <a href="https://commons.wikimedia.org/wiki/File:Virga_in_the_early_morning.jpg" target="_blank" rel="noopener">Rivervictorlauramarie</a>, CC0 1.0</li>
+        <li>Rain clouds: <a href="https://commons.wikimedia.org/wiki/File:Dark_rain_clouds_departing_over_Brofjorden.jpg" target="_blank" rel="noopener">W.carter</a>, CC BY-SA 4.0</li>
+        <li>Cumulus humilis: <a href="https://commons.wikimedia.org/wiki/File:Cumulus_humilis_clouds.jpg" target="_blank" rel="noopener">Toby Hudson</a>, CC BY-SA 3.0</li>
+        <li>Smoggy Seoul: <a href="https://commons.wikimedia.org/wiki/File:Smoggy_Seoul_(6907570245).jpg" target="_blank" rel="noopener">Jimmy McIntyre</a> (<a href="http://strange-lands.com" target="_blank" rel="noopener">strange-lands.com</a>), CC BY-SA 2.0</li>
+        <li>Cheomseongdae under a blue sky: <a href="https://commons.wikimedia.org/wiki/File:Cheomseongdae_Observatory_under_blue_sky_in_Gyeongju_South_Korea.jpg" target="_blank" rel="noopener">Basile Morin</a>, CC BY-SA 4.0</li>
+      </ul></li>
+      <li data-en="Model, illustrations and code: Climate Crisis Response Lab (CCRL), SeoulTech. Font: Pretendard (SIL OFL 1.1).">모델·그림·코드: 서울과학기술대학교 기후위기대응연구실(CCRL). 글꼴: Pretendard (SIL OFL 1.1).</li>
+    </ul>
+  </details>
+  <p>© 2026 Climate Crisis Response Lab, Seoul National University of Science and Technology</p>
+</footer>
+
+<script src="kit.js?v=1"></script>
+<script src="skewt-core.js?v=1"></script>
+<script src="skewt-app.js?v=3"></script>
+</body>
+</html>

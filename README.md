@@ -295,6 +295,7 @@ npm run check
   - 인트로 사진(N T Stobbs, CC BY-SA 2.0)과 사망자 그래프(1953년 보고서, 퍼블릭 도메인)의 출처는 페이지 하단 "출처와 라이선스"와 `media/CREDITS.txt`에 있으니 지우지 마세요.
   - 주소 끝에 `?intro=1`(인트로 다시), `?lang=en`(영어)을 붙일 수 있습니다.
 - 탄소예산과 배출 경로 시뮬레이터(`carbon-budget/`), 온실가스 인벤토리 계산기(`ghg-inventory/`)(2026-11-16): 원본 작업 폴더는 저장소 바깥 `D:\Dropbox\My\CCRL_hompage\classroom\<폴더>\`입니다. 거기서 고친 뒤 `index.html`, `*.js`, `*.css`, `media/`, (탄소예산은 `data/`도)를 `docs/classroom/<폴더>/`로 **복사**하고 `?v=` 숫자를 올립니다.
+- 단열선도와 공기덩어리 시뮬레이터(`skewt/`)(2026-11-16): 원본은 `D:\Dropbox\My\CCRL_hompage\classroom\skewt\`입니다. `index.html`, `*.js`(skewt-core.js 포함), `*.css`, `media/`를 `docs/classroom/skewt/`로 복사하고 `?v=` 숫자를 올립니다. 결과의 하늘 사진은 계산 결과(안정도·CAPE·구름 밑면)로 자동 선택되며, 사진 출처는 `media/CREDITS.txt`에 있습니다.
   - 두 자료는 공통 부품 `kit.js`/`kit.css`(원본: `classroom\_kit\`)를 각 폴더에 복사해 씁니다(한/영 전환, ⓘ 설명, 레버, 인트로, 사용법 안내).
   - 탄소예산: 남은 예산은 IGCC 2025(Table 8, 2026년 초 기준), 관측 기온은 Berkeley Earth(CC BY 4.0). 서울 사진(잠실·롯데월드타워, CC0)과 하늘 마스크는 `media/`에 있습니다. 한국 2024년 순배출 약 6.5억 톤은 추정값입니다.
   - 인벤토리: IPCC 2006 Tier 1 계수, 2023 국가 전력배출계수. 인트로 사진 4장(CC0/CC BY/CC BY-SA)의 출처는 페이지 하단과 `media/CREDITS.txt`에 있으니 지우지 마세요.
