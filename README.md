@@ -296,8 +296,8 @@ npm run check
   - 주소 끝에 `?intro=1`(인트로 다시), `?lang=en`(영어)을 붙일 수 있습니다.
 - 탄소예산과 배출 경로 시뮬레이터(`carbon-budget/`), 온실가스 인벤토리 계산기(`ghg-inventory/`)(2026-11-16): 원본 작업 폴더는 저장소 바깥 `D:\Dropbox\My\CCRL_hompage\classroom\<폴더>\`입니다. 거기서 고친 뒤 `index.html`, `*.js`, `*.css`, `media/`, (탄소예산은 `data/`도)를 `docs/classroom/<폴더>/`로 **복사**하고 `?v=` 숫자를 올립니다.
 - 단열선도와 공기덩어리 시뮬레이터(`skewt/`)(2026-11-16): 원본은 `D:\Dropbox\My\CCRL_hompage\classroom\skewt\`입니다. `index.html`, `*.js`(skewt-core.js 포함), `*.css`, `media/`를 `docs/classroom/skewt/`로 복사하고 `?v=` 숫자를 올립니다. 결과의 하늘 사진은 계산 결과(안정도·CAPE·구름 밑면)로 자동 선택되며, 사진 출처는 `media/CREDITS.txt`에 있습니다.
-  - 두 자료는 공통 부품 `kit.js`/`kit.css`(원본: `classroom\_kit\`)를 각 폴더에 복사해 씁니다(한/영 전환, ⓘ 설명, 레버, 인트로, 사용법 안내).
-  - 탄소예산: 남은 예산은 IGCC 2025(Table 8, 2026년 초 기준), 관측 기온은 Berkeley Earth(CC BY 4.0). 서울 사진(잠실·롯데월드타워, CC0)과 하늘 마스크는 `media/`에 있습니다. 한국 2024년 순배출 약 6.5억 톤은 추정값입니다.
+  - 두 자료는 공통 부품 `kit.js`/`kit.css`(원본: `classroom\_kit\`)를 각 폴더에 복사해 씁니다(한/영 전환, ⓘ 설명, 슬라이더·버튼 입력, 인트로, 사용법 안내). 입력은 슬라이더(기준값 눈금 포함)나 버튼, 결과는 어두운 숫자 칸과 그림으로 구분합니다.
+  - 탄소예산: 남은 예산은 IGCC 2025(Table 8, 2026년 초 기준), 관측 기온은 Berkeley Earth(CC BY 4.0). 서울 사진(잠실·롯데월드타워, CC0)은 색을 바꾸지 않고 그대로 씁니다(`media/`). 온난화 정도는 IPCC AR6 SPM.6의 극한 현상 빈도 카드와 온난화 줄무늬(1850–2100)로만 보여 줍니다. 한국 2024년 순배출 약 6.5억 톤은 추정값입니다.
   - 인벤토리: IPCC 2006 Tier 1 계수, 2023 국가 전력배출계수. 인트로 사진 4장(CC0/CC BY/CC BY-SA)의 출처는 페이지 하단과 `media/CREDITS.txt`에 있으니 지우지 마세요.
 - 새 자료 추가 순서
   1. `docs/classroom/<영문-이름>/index.html`(+ 필요한 라이선스 파일)을 넣습니다. 외부 코드·그림을 썼다면 라이선스와 출처를 자료 안에 표기합니다.

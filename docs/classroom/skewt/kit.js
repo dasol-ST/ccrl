@@ -1,5 +1,5 @@
 /* CCRL Classroom kit — shared pieces for teaching interactives (copy this file into each material).
- * CK.T('한국어','English')  language, CK.info()  ⓘ tooltips, CK.lever()  brass levers,
+ * CK.T('한국어','English')  language, CK.info()  ⓘ tooltips, CK.lever()  input sliders / segmented switches,
  * CK.intro()  story intro (every visit), CK.tour()  spotlight guide (after the intro, every visit). */
 (function () {
   'use strict';
@@ -77,41 +77,69 @@
     });
   }
 
-  /* ---- brass lever (semicircular dial with a handle) ---- */
+  /* ---- input control: a slider for numbers, a segmented switch for categories ----
+   * Inputs look like controls, outputs look like instruments: values the student SETS use these;
+   * computed results stay in the dark stat tiles and the scenes.
+   * L: {label, min, max, step, dec, unit, fmt(v), tip, seg (categories → buttons),
+   *     marks: [{v, label}] or function () → marks   (reference values: observed, scenario, policy targets)} */
   function lever(wrap, L, get, set) {
-    var box = document.createElement('div'); box.className = 'ck-lever';
-    var lab = document.createElement('div'); lab.className = 'ck-lever-label'; lab.textContent = L.label; box.appendChild(lab);
+    var box = document.createElement('div'); box.className = 'ck-ctl';
+    var head = document.createElement('div'); head.className = 'ck-ctl-head'; box.appendChild(head);
+    var lab = document.createElement('span'); lab.className = 'ck-ctl-label'; lab.textContent = L.label; head.appendChild(lab);
     if (L.tip) info(lab, L.tip, L.label);
-    var s = svg('svg', { viewBox: '0 0 130 96', tabindex: 0, role: 'slider', 'aria-label': L.label, 'aria-valuemin': L.min, 'aria-valuemax': L.max }, box);
-    var id = 'g' + Math.random().toString(36).slice(2, 8), defs = svg('defs', {}, s), gr = svg('linearGradient', { id: id, x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
-    svg('stop', { offset: 0, 'stop-color': 'var(--ck-dial-hi)' }, gr); svg('stop', { offset: 1, 'stop-color': 'var(--ck-dial-lo)' }, gr);
-    var px = 65, py = 84, R0 = 62;
-    svg('path', { d: 'M' + (px - R0 - 4) + ',' + py + ' A' + (R0 + 4) + ',' + (R0 + 4) + ' 0 0 1 ' + (px + R0 + 4) + ',' + py + ' Z', fill: 'var(--ck-dial-rim)' }, s);
-    svg('path', { d: 'M' + (px - R0) + ',' + py + ' A' + R0 + ',' + R0 + ' 0 0 1 ' + (px + R0) + ',' + py + ' Z', fill: 'url(#' + id + ')' }, s);
-    for (var a = -60; a <= 60; a += 10) {
-      var rad = a * Math.PI / 180, r1 = R0 - 3, r2 = a % 30 === 0 ? R0 - 12 : R0 - 8;
-      svg('line', { x1: px + r1 * Math.sin(rad), y1: py - r1 * Math.cos(rad), x2: px + r2 * Math.sin(rad), y2: py - r2 * Math.cos(rad), stroke: 'var(--ck-dial-tick)', 'stroke-width': a % 30 === 0 ? 2 : 1 }, s);
-    }
-    var arm = svg('g', {}, s);
-    svg('rect', { x: px - 3, y: py - 64, width: 6, height: 64, rx: 3, fill: 'var(--ck-dial-arm)' }, arm);
-    svg('circle', { cx: px, cy: py - 66, r: 9.5, fill: 'var(--ck-knob)', stroke: 'var(--ck-dial-arm)', 'stroke-width': 2 }, arm);
-    svg('circle', { cx: px, cy: py, r: 8, fill: 'var(--ck-dial-arm)' }, s);
-    svg('rect', { x: 0, y: py, width: 130, height: 12, fill: 'var(--ck-dial-rim)', rx: 2 }, s);
-    var read = document.createElement('div'); read.className = 'ck-lever-read'; box.appendChild(read);
-    wrap.appendChild(box);
+    function fmt(v) { return L.fmt ? L.fmt(v) : (+v).toFixed(L.dec || 0) + (L.unit ? ' ' + L.unit : ''); }
     function put(v) { v = Math.round(clamp(v, L.min, L.max) / L.step) * L.step; set(+v.toFixed(4)); }
-    function fromPointer(ev) {
-      var r = s.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width * 130, y = (ev.clientY - r.top) / r.height * 96;
-      var ang = clamp(Math.atan2(x - px, py - y) * 180 / Math.PI, -60, 60);
-      put(L.min + (ang + 60) / 120 * (L.max - L.min));
+    wrap.appendChild(box);
+
+    if (L.seg) {                                    // categories: one button per value
+      box.classList.add('seg'); if ((L.max - L.min) / L.step >= 3) box.classList.add('wide');
+      var grp = document.createElement('div'); grp.className = 'ck-seg'; grp.setAttribute('role', 'radiogroup'); grp.setAttribute('aria-label', L.label); box.appendChild(grp);
+      var btns = [];
+      for (var v = L.min; v <= L.max + 1e-9; v += L.step) (function (val) {
+        var b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'radio'); b.textContent = fmt(val);
+        b.addEventListener('click', function () { put(val); });
+        b.addEventListener('keydown', function (e) {
+          var d = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1 : (e.key === 'ArrowLeft' || e.key === 'ArrowUp') ? -1 : 0;
+          if (d) { e.preventDefault(); put(get() + d * L.step); setTimeout(function () { var on = grp.querySelector('[aria-checked="true"]'); if (on) on.focus(); }, 0); }
+        });
+        grp.appendChild(b); btns.push([val, b]);
+      })(+v.toFixed(4));
+      return { sync: function () {
+        var cur = get();
+        btns.forEach(function (p) { var on = Math.abs(p[0] - cur) < 1e-6; p[1].setAttribute('aria-checked', on); p[1].tabIndex = on ? 0 : -1; p[1].textContent = fmt(p[0]); });
+      } };
     }
-    s.addEventListener('pointerdown', function (e) {
-      e.preventDefault(); s.focus(); s.setPointerCapture(e.pointerId); fromPointer(e);
+
+    var out = document.createElement('output'); out.className = 'ck-ctl-val'; head.appendChild(out);
+    var tr = document.createElement('div'); tr.className = 'ck-sl'; tr.tabIndex = 0;
+    tr.setAttribute('role', 'slider'); tr.setAttribute('aria-label', L.label); tr.setAttribute('aria-valuemin', L.min); tr.setAttribute('aria-valuemax', L.max);
+    tr.innerHTML = '<div class="ck-sl-rail"><div class="ck-sl-fill"></div></div><div class="ck-sl-marks"></div><div class="ck-sl-thumb"></div>';
+    box.appendChild(tr);
+    var scale = document.createElement('div'); scale.className = 'ck-sl-scale'; box.appendChild(scale);
+    var fill = tr.querySelector('.ck-sl-fill'), thumb = tr.querySelector('.ck-sl-thumb'), mk = tr.querySelector('.ck-sl-marks');
+    function pct(v) { return (clamp(v, L.min, L.max) - L.min) / (L.max - L.min) * 100; }
+    var markKey = null;
+    function drawMarks() {
+      var ms = (typeof L.marks === 'function' ? L.marks() : L.marks) || [];
+      var key = JSON.stringify(ms); if (key === markKey) return; markKey = key;
+      mk.innerHTML = ''; scale.innerHTML = '';
+      var ends = [[L.min, 'l'], [L.max, 'r']].filter(function (e) { return !ms.some(function (m) { return Math.abs(pct(m.v) - pct(e[0])) < 30; }); });
+      ends.forEach(function (e) { var s = document.createElement('span'); s.className = 'end ' + e[1]; s.textContent = fmt(e[0]); scale.appendChild(s); });
+      ms.forEach(function (m) {
+        var p = pct(m.v), t = document.createElement('i'); t.style.left = p + '%'; mk.appendChild(t);
+        var s = document.createElement('span'); s.className = 'mark'; s.style.left = p + '%'; s.textContent = m.label;
+        if (p < 12) s.classList.add('l'); else if (p > 88) s.classList.add('r');
+        scale.appendChild(s);
+      });
+    }
+    function fromPointer(ev) { var r = tr.getBoundingClientRect(); put(L.min + clamp((ev.clientX - r.left) / r.width, 0, 1) * (L.max - L.min)); }
+    tr.addEventListener('pointerdown', function (e) {
+      e.preventDefault(); tr.focus(); tr.setPointerCapture(e.pointerId); tr.classList.add('drag'); fromPointer(e);
       function mv(ev) { fromPointer(ev); }
-      function up() { s.removeEventListener('pointermove', mv); s.removeEventListener('pointerup', up); s.removeEventListener('pointercancel', up); }
-      s.addEventListener('pointermove', mv); s.addEventListener('pointerup', up); s.addEventListener('pointercancel', up);
+      function up() { tr.classList.remove('drag'); tr.removeEventListener('pointermove', mv); tr.removeEventListener('pointerup', up); tr.removeEventListener('pointercancel', up); }
+      tr.addEventListener('pointermove', mv); tr.addEventListener('pointerup', up); tr.addEventListener('pointercancel', up);
     });
-    s.addEventListener('keydown', function (e) {
+    tr.addEventListener('keydown', function (e) {
       var st = L.step * (e.shiftKey ? 10 : 1);
       if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { put(get() + st); e.preventDefault(); }
       if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { put(get() - st); e.preventDefault(); }
@@ -120,10 +148,10 @@
     });
     return {
       sync: function () {
-        var v = clamp(get(), L.min, L.max), ang = -60 + 120 * (v - L.min) / (L.max - L.min);
-        arm.setAttribute('transform', 'rotate(' + ang.toFixed(2) + ' 65 84)');
-        var txt = L.fmt ? L.fmt(get()) : get().toFixed(L.dec || 0) + (L.unit ? ' ' + L.unit : '');
-        read.textContent = txt; s.setAttribute('aria-valuenow', get()); s.setAttribute('aria-valuetext', txt);
+        var v = get(), p = pct(v), txt = fmt(v);
+        fill.style.width = p + '%'; thumb.style.left = p + '%';
+        out.textContent = txt; tr.setAttribute('aria-valuenow', v); tr.setAttribute('aria-valuetext', txt);
+        drawMarks();
       }
     };
   }

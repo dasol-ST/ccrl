@@ -14,7 +14,7 @@
       T: [31, 25, 19, 7, -9, -38, -56, -62], Td: [22, 19, 14, -1, -20, -48, -66, -80],
       sum: T('덥고 습한 하층 + 차가운 상층 → 큰 CAPE, 적란운이 대류권계면까지 솟습니다.', 'Hot, humid low levels under cold air aloft → large CAPE; a cumulonimbus towers to the tropopause.'),
       text: T('한여름 오후, 햇볕에 데워진 습한 공기 위에 차가운 공기가 놓였습니다. 자유대류고도(LFC)를 지난 공기덩어리는 주변보다 계속 따뜻해 12 km 넘게 솟아오르고, 소나기·번개·우박을 동반한 적란운이 만들어집니다.', 'On a summer afternoon, sun-warmed humid air lies beneath cold air. Past the level of free convection (LFC) the parcel stays warmer than its surroundings and rises above 12 km, building a cumulonimbus with showers, lightning and hail.'),
-      q: T('지상 이슬점 레버를 낮추면 CAPE와 구름 밑면 높이는 어떻게 변하나요? 수증기가 왜 중요할까요?', 'Lower the surface dew point lever. How do CAPE and cloud base change? Why does water vapour matter?') },
+      q: T('지상 이슬점 슬라이더를 낮추면 CAPE와 구름 밑면 높이는 어떻게 변하나요? 수증기가 왜 중요할까요?', 'Lower the surface dew point slider. How do CAPE and cloud base change? Why does water vapour matter?') },
     { id: 'monsoon', name: T('장마', 'Changma (monsoon)'), sub: T('습윤·약한 불안정', 'moist, weakly unstable'),
       T: [24, 21, 17, 8, -6, -34, -54, -62], Td: [23, 20, 16, 7, -8, -38, -60, -80],
       sum: T('기온과 이슬점이 거의 붙어 있음 → 구름 밑면이 매우 낮고 두꺼운 구름이 생깁니다.', 'Temperature and dew point almost touch → a very low cloud base and deep cloud.'),
@@ -39,7 +39,7 @@
 
   function Teff() { return S.Tb.map(function (v, i) { return LV[i] <= 500 ? v + S.su : v; }); }
   function Tdeff() { var t = Teff(); return S.Tdb.map(function (v, i) { var w = LV[i] <= 925 && LV[i] >= 700 ? v + S.mo : v; return Math.min(w, t[i]); }); }
-  function recompute() { A = C.analyse(Teff(), Tdeff()); drawDiag(); drawStats(); syncLevers(); }
+  function recompute() { A = C.analyse(Teff(), Tdeff()); drawDiag(); drawStats(); syncSliders(); }
   function userChanged() { if (active && !modified) { modified = true; renderCard(); } recompute(); }
 
   /* ---------------- diagram ---------------- */
@@ -174,21 +174,21 @@
   }
   function fmtZ(z) { return z >= 1000 ? (z / 1000).toFixed(1) + ' km' : Math.round(z) + ' m'; }
 
-  /* ---------------- levers ---------------- */
+  /* ---------------- sliders ---------------- */
   var LEV = [
-    { k: 'ts', label: T('지상 기온', 'Surface temp.'), min: -10, max: 40, step: 0.5, dec: 1, unit: '°C', tip: 'lev_ts', get: function () { return Teff()[0]; },
+    { k: 'ts', label: T('지상 기온', 'Surface temp.'), min: -10, max: 40, step: 0.5, dec: 1, unit: '°C', tip: 'lev_ts', marks: function () { return active ? [{ v: active.T[0], label: T('사례 관측값', 'case value') }] : []; }, get: function () { return Teff()[0]; },
       set: function (v) { S.Tb[0] = v; if (S.Tdb[0] > v) S.Tdb[0] = v; } },
-    { k: 'td', label: T('지상 이슬점', 'Surface dew point'), min: -20, max: 30, step: 0.5, dec: 1, unit: '°C', tip: 'lev_td', get: function () { return Tdeff()[0]; },
+    { k: 'td', label: T('지상 이슬점', 'Surface dew point'), min: -20, max: 30, step: 0.5, dec: 1, unit: '°C', tip: 'lev_td', marks: function () { return active ? [{ v: active.Td[0], label: T('사례 관측값', 'case value') }] : []; }, get: function () { return Tdeff()[0]; },
       set: function (v) { S.Tdb[0] = Math.min(v, Teff()[0]); } },
-    { k: 'mo', label: T('하층 습도', 'Low-level moisture'), min: -10, max: 10, step: 0.5, dec: 1, tip: 'lev_mo', fmt: function (v) { return (v > 0 ? '+' : '') + v.toFixed(1) + ' °C'; }, get: function () { return S.mo; }, set: function (v) { S.mo = v; } },
-    { k: 'su', label: T('상층 기온', 'Upper-air temp.'), min: -10, max: 10, step: 0.5, dec: 1, tip: 'lev_su', fmt: function (v) { return (v > 0 ? '+' : '') + v.toFixed(1) + ' °C'; }, get: function () { return S.su; }, set: function (v) { S.su = v; } }
+    { k: 'mo', label: T('하층 습도', 'Low-level moisture'), min: -10, max: 10, step: 0.5, dec: 1, tip: 'lev_mo', marks: [{ v: 0, label: T('관측 그대로', 'as observed') }], fmt: function (v) { return (v > 0 ? '+' : '') + v.toFixed(1) + ' °C'; }, get: function () { return S.mo; }, set: function (v) { S.mo = v; } },
+    { k: 'su', label: T('상층 기온', 'Upper-air temp.'), min: -10, max: 10, step: 0.5, dec: 1, tip: 'lev_su', marks: [{ v: 0, label: T('관측 그대로', 'as observed') }], fmt: function (v) { return (v > 0 ? '+' : '') + v.toFixed(1) + ' °C'; }, get: function () { return S.su; }, set: function (v) { S.su = v; } }
   ];
   var levs = [];
-  function buildLevers() {
+  function buildSliders() {
     var wrap = document.getElementById('levers');
     LEV.forEach(function (L) { levs.push(CK.lever(wrap, L, L.get, function (v) { L.set(v); userChanged(); kickLift(); })); });
   }
-  function syncLevers() { levs.forEach(function (l) { l.sync(); }); }
+  function syncSliders() { levs.forEach(function (l) { l.sync(); }); }
 
   /* ---------------- scenarios ---------------- */
   function buildScenarios() {
@@ -364,7 +364,7 @@
       diagram: [T('단열선도 (Skew-T log-P)', 'Skew-T log-P diagram'), [T('세로축은 기압(로그 눈금, 위로 갈수록 높은 곳), 가로축은 기온입니다. 등온선이 오른쪽 위로 <b>기울어져</b> 있어 “Skew-T”라고 부릅니다.', 'Pressure on the vertical axis (log scale, higher up = lower pressure), temperature across. Isotherms <b>slant</b> up to the right, hence “Skew-T”.'),
         T('<b>빨간 선</b>은 관측된 기온, <b>초록 선</b>은 이슬점, <b>검은 점선</b>은 지상에서 들어 올린 공기덩어리의 기온입니다. 점을 좌우로 끌어 관측값을 바꿀 수 있습니다(방향키 0.5 °C, Shift 5 °C).', '<b>Red</b>: observed temperature; <b>green</b>: dew point; <b>black dashed</b>: temperature of a parcel lifted from the surface. Drag the points left or right (arrow keys 0.5 °C, Shift 5 °C).'),
         T('보조선: 주황 실선 = 건조단열선, 초록 점선 = 습윤단열선, 보라 점선 = 혼합비선(1·2·4·8·16 g/kg). 주황 영역은 CAPE, 파란 영역은 CIN입니다.', 'Guides: orange = dry adiabats, green dashed = moist adiabats, purple dotted = mixing-ratio lines (1, 2, 4, 8, 16 g/kg). Orange area = CAPE, blue area = CIN.')]],
-      levers: [T('조절 장치', 'Levers'), [T('지상 기온과 이슬점은 공기덩어리의 출발 조건입니다. “하층 습도”는 925–700 hPa 이슬점을, “상층 기온”은 500 hPa 위의 기온을 한꺼번에 올리거나 내립니다.', 'Surface temperature and dew point set the parcel’s starting point. “Low-level moisture” shifts the 925–700 hPa dew points; “upper-air temperature” shifts temperatures above 500 hPa.')]],
+      levers: [T('조절 장치', 'Controls'), [T('지상 기온과 이슬점은 공기덩어리의 출발 조건입니다. “하층 습도”는 925–700 hPa 이슬점을, “상층 기온”은 500 hPa 위의 기온을 한꺼번에 올리거나 내립니다.', 'Surface temperature and dew point set the parcel’s starting point. “Low-level moisture” shifts the 925–700 hPa dew points; “upper-air temperature” shifts temperatures above 500 hPa.')]],
       lev_ts: [T('지상 기온', 'Surface temperature'), [T('햇볕으로 지면이 데워지면 공기덩어리가 더 따뜻하게 출발해 더 쉽게 떠오릅니다.', 'Sun-warmed ground starts the parcel warmer, so it rises more easily.')]],
       lev_td: [T('지상 이슬점', 'Surface dew point'), [T('공기 속 수증기량을 나타냅니다. 기온과 이슬점의 차이가 클수록 구름 밑면(LCL)이 높습니다(대략 1 °C당 125 m).', 'How much water vapour the air holds. The bigger the temperature–dew point gap, the higher the cloud base (about 125 m per °C).')]],
       lev_mo: [T('하층 습도', 'Low-level moisture'), [T('925–700 hPa 이슬점을 함께 바꿉니다. 이 층이 건조하면 구름 주변으로 건조한 공기가 섞여 들어 실제 대류가 약해지는데, 이 모델은 섞임을 계산하지 않으므로 그림의 이슬점선만 바뀝니다.', 'Shifts the 925–700 hPa dew points. Dry air here weakens real convection by mixing (entrainment); this model ignores mixing, so only the dew-point line changes.')]],
@@ -392,8 +392,11 @@
     { src: 'cumulonimbus.jpg', fx: 0.35, fy: 0.4, cr: 'Cumulonimbus incus over Warsaw · Kamil Nowacki · CC BY-SA 4.0' }
   ].map(function (p) { p.img = new Image(); p.img.src = 'media/' + p.src; return p; });
   var iPrev = -1, iCur = 0, iSwitch = 0;
+  // phones: fit the photo into the space above the story card, so the card does not hide the subject
+  function photoH(w, h) { if (w >= 700) return h; var el = document.querySelector('.ck-intro-card'), t = el ? el.getBoundingClientRect().top : h * 0.55; return Math.max(h * 0.35, Math.min(h, t - 8)); }
   function iPhoto(c, w, h, p, age, alpha) {
     if (!p.img.complete || !p.img.naturalWidth) return;
+    h = photoH(w, h);
     var iw = p.img.naturalWidth, ih = p.img.naturalHeight, z = 1.04 + Math.min(age, 14) * 0.006;
     var s2 = Math.max(w / iw, h / ih) * z, dw = iw * s2, dh = ih * s2;
     var x = Math.max(w - dw, Math.min(0, w / 2 - p.fx * dw)), y = Math.max(h - dh, Math.min(0, h / 2 - p.fy * dh));
@@ -422,7 +425,7 @@
       var g2 = c.createLinearGradient(0, 0, w * 0.6, 0); g2.addColorStop(0, 'rgba(6,12,20,.32)'); g2.addColorStop(1, 'rgba(6,12,20,0)');
       c.fillStyle = g2; c.fillRect(0, 0, w, h);
       // one quiet readout per page, on a glass card at the upper right
-      var fa = Math.min(1, Math.max(0, (age - 0.5) / 0.6)), cw = Math.min(400, w * 0.32), cx = w - cw - Math.max(16, w * 0.06), cy = Math.max(16, h * 0.1), u = cw / 400;
+      var fa = Math.min(1, Math.max(0, (age - 0.5) / 0.6)), narrow = w < 700, cw = narrow ? Math.min(340, w - 32) : Math.min(400, w * 0.32), cx = narrow ? 16 : w - cw - Math.max(16, w * 0.06), cy = narrow ? 16 : Math.max(16, h * 0.1), u = cw / 400;
       var F = 'Pretendard Variable, Pretendard, sans-serif';
       function card(hh) { c.fillStyle = 'rgba(8,16,28,.66)'; c.beginPath(); if (c.roundRect) c.roundRect(cx, cy, cw, hh, 12); else c.rect(cx, cy, cw, hh); c.fill(); c.strokeStyle = 'rgba(255,255,255,.18)'; c.lineWidth = 1; c.stroke(); }
       c.globalAlpha = fa; c.textAlign = 'left';
@@ -450,7 +453,10 @@
       }
       c.globalAlpha = 1;
       c.font = '500 11px ' + F; c.textAlign = 'right'; c.fillStyle = 'rgba(255,255,255,.75)';
-      c.fillText(T('사진: ', 'Photo: ') + IPH[iCur].cr, w - 14, h - 12);
+      var crT = T('사진: ', 'Photo: ') + IPH[iCur].cr;
+      if (c.measureText(crT).width > w - 28) {          // phones: break the credit at its last ' · ' onto two lines
+        var cut = crT.lastIndexOf(' · ', crT.length - 6); c.fillText(crT.slice(cut + 3), w - 14, h - 10); c.fillText(crT.slice(0, cut), w - 14, h - 24);
+      } else c.fillText(crT, w - 14, h - 12);
     },
     onClose: function () { tour.maybeStart(); }
   });
@@ -459,7 +465,7 @@
     steps: [
       { sel: '#pScn', title: T('① 관측 사례', '① Soundings'), text: T('겨울 역전층부터 여름 뇌우까지 다섯 가지 대표 사례입니다. 누르면 그 날의 관측값이 단열선도에 그려집니다.', 'Five typical cases, from a winter inversion to a summer thunderstorm. Each one plots that day’s sounding.') },
       { sel: '#pDiag', title: T('② 단열선도', '② Skew-T diagram'), text: T('빨간 점(기온)과 초록 점(이슬점)을 좌우로 끌어 관측값을 바꿔 보세요. 검은 점선이 들어 올린 공기덩어리, 주황 영역이 CAPE입니다.', 'Drag the red (temperature) and green (dew point) points. The black dashed line is the lifted parcel; the orange area is CAPE.') },
-      { sel: '#pLev', title: T('레버', 'Levers'), text: T('지상 기온·이슬점, 하층 습도, 상층 기온을 한 번에 바꿉니다. 보조선 버튼으로 단열선을 숨길 수 있습니다.', 'Change surface temperature and dew point, low-level moisture and upper-air temperature. The guide-line button hides the adiabats.') },
+      { sel: '#pLev', title: T('조절 장치', 'Controls'), text: T('지상 기온·이슬점, 하층 습도, 상층 기온을 한 번에 바꿉니다. 보조선 버튼으로 단열선을 숨길 수 있습니다.', 'Change surface temperature and dew point, low-level moisture and upper-air temperature. The guide-line button hides the adiabats.') },
       { sel: '#pStats', title: T('③ 결과', '③ Results'), text: T('구름 밑면(LCL), 구름 꼭대기(EL), CAPE, CIN과 안정도 판정이 바로 계산됩니다. ⓘ에 자세한 설명이 있습니다.', 'Cloud base (LCL), cloud top (EL), CAPE, CIN and a stability verdict update instantly. See ⓘ for details.') },
       { sel: '#pScene', title: T('관측소 위의 하늘', 'The sky above the station'), text: T('계산한 높이에 구름이 그려지고, 공기덩어리가 떠오르며 주변보다 따뜻한지 차가운지 보여 줍니다.', 'Clouds appear at the computed heights, and the rising parcel shows whether it is warmer or colder than its surroundings.') },
       { sel: '.ck-top-tools', title: T('언제든 다시', 'Any time'), text: T('사용법과 인트로를 다시 보거나 언어를 바꿀 수 있습니다.', 'Replay the guide or intro, or switch language.') }
@@ -468,7 +474,7 @@
 
   /* ---------------- init ---------------- */
   CK.initTips(tips);
-  buildScenarios(); buildLevers(); buildStats();
+  buildScenarios(); buildSliders(); buildStats();
   document.getElementById('tourBtn').addEventListener('click', function () { tour.start(); });
   document.getElementById('introBtn').addEventListener('click', function () { intro.open(); });
   document.getElementById('langBtn').addEventListener('click', function () { CK.setLang(EN ? 'ko' : 'en', { S: S, scn: active && active.id, modified: modified }, STATE_KEY); });

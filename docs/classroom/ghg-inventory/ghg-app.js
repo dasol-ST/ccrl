@@ -22,7 +22,7 @@
       a: { elec: 30000, lng: 2500000, dsl_s: 20000, gas_m: 30000, dsl_m: 25000, hfc: 150, fert: 500 },
       sum: T('전력(Scope 2)이 전체의 약 3분의 2 → 캠퍼스 감축은 전력에서 시작합니다.', 'Electricity (Scope 2) is about two thirds of the total → campus cuts start with power.'),
       text: T('강의동·연구실·기숙사를 가진 중형 대학을 가정한 연간 활동자료입니다. 냉난방과 실험 장비 때문에 전력 비중이 큽니다.', 'Annual activity data for a mid-sized university with lecture halls, labs and dormitories. Heating, cooling and lab equipment make electricity dominant.'),
-      q: T('재생에너지 전력 비율 레버를 50%로 올리면 총배출은 몇 % 줄어드나요? 왜 그만큼일까요?', 'Raise renewable electricity to 50%. By what percentage does the total fall, and why?') },
+      q: T('재생에너지 전력 비율 슬라이더를 50%로 올리면 총배출은 몇 % 줄어드나요? 왜 그만큼일까요?', 'Raise renewable electricity to 50%. By what percentage does the total fall, and why?') },
     { id: 'home', name: T('4인 가정', 'Family of four'), sub: T('아파트 한 가구', 'one apartment'),
       a: { elec: 4, lng: 1000, gas_m: 1200, hfc: 0.2 },
       sum: T('자동차 휘발유와 난방 가스가 전기보다 큰 몫 → 한 가구 약 7 tCO₂eq/년.', 'Car fuel and heating gas outweigh electricity → about 7 tCO₂eq a year.'),
@@ -49,7 +49,7 @@
   var saved = CK.takeState(STATE_KEY);
   if (saved && saved.S) { S = saved.S; active = SCN.filter(function (x) { return x.id === saved.scn; })[0] || null; modified = !!saved.modified; }
   function gkey() { return G.GWP_KEYS[S.g]; }
-  function recompute() { R = G.calc(S.a, gkey(), { green: S.green, leakCut: S.cut }); syncRows(); drawBars(); drawStats(); drawTrace(); drawPine(); syncLevers(); }
+  function recompute() { R = G.calc(S.a, gkey(), { green: S.green, leakCut: S.cut }); syncRows(); drawBars(); drawStats(); drawTrace(); drawPine(); syncSliders(); }
   function userChanged() { if (active && !modified) { modified = true; renderCard(); } recompute(); }
   function fmt(v, d) { if (d == null) d = v >= 100 ? 0 : v >= 10 ? 1 : v >= 1 ? 2 : 3; return v.toLocaleString(EN ? 'en-US' : 'ko-KR', { minimumFractionDigits: d, maximumFractionDigits: d }); }
 
@@ -183,16 +183,16 @@
       'What <b>' + fmt(trees, 0) + ' thirty-year-old pine trees</b> absorb in a year. (1 icon = ' + fmt(per, 0) + ' trees)') : '';
   }
 
-  /* ---------------- levers ---------------- */
+  /* ---------------- sliders ---------------- */
   var GWP_SHORT = ['SAR 100', 'AR5 100', 'AR6 100', T('AR6 20년', 'AR6 20-yr')];
   var LEV = [
-    { label: T('GWP 기준', 'GWP basis'), min: 0, max: 3, step: 1, tip: 'lev_gwp', fmt: function (v) { return GWP_SHORT[v]; }, get: function () { return S.g; }, set: function (v) { S.g = v; } },
-    { label: T('재생에너지 전력', 'Renewable power'), min: 0, max: 100, step: 5, tip: 'lev_green', fmt: function (v) { return v + '%'; }, get: function () { return Math.round(S.green * 100); }, set: function (v) { S.green = v / 100; } },
+    { label: T('GWP 기준', 'GWP basis'), min: 0, max: 3, step: 1, seg: true, tip: 'lev_gwp', fmt: function (v) { return GWP_SHORT[v]; }, get: function () { return S.g; }, set: function (v) { S.g = v; } },
+    { label: T('재생에너지 전력', 'Renewable power'), min: 0, max: 100, step: 5, tip: 'lev_green', marks: [{ v: 10, label: T('한국 2023 ≈10%', 'Korea 2023 ≈10%') }], fmt: function (v) { return v + '%'; }, get: function () { return Math.round(S.green * 100); }, set: function (v) { S.green = v / 100; } },
     { label: T('냉매 누출 저감', 'Leak reduction'), min: 0, max: 100, step: 10, tip: 'lev_cut', fmt: function (v) { return v + '%'; }, get: function () { return Math.round(S.cut * 100); }, set: function (v) { S.cut = v / 100; } }
   ];
   var levs = [];
-  function buildLevers() { var wrap = document.getElementById('levers'); LEV.forEach(function (L) { levs.push(CK.lever(wrap, L, L.get, function (v) { L.set(v); userChanged(); })); }); }
-  function syncLevers() { levs.forEach(function (l) { l.sync(); }); }
+  function buildSliders() { var wrap = document.getElementById('levers'); LEV.forEach(function (L) { levs.push(CK.lever(wrap, L, L.get, function (v) { L.set(v); userChanged(); })); }); }
+  function syncSliders() { levs.forEach(function (l) { l.sync(); }); }
 
   /* ---------------- scenarios ---------------- */
   function buildScenarios() {
@@ -256,8 +256,11 @@
     { src: 'media/seoul-city.jpg', fx: 0.5, fy: 0.5, cr: 'Seoul from Inwangsan · Arturbraun · CC BY-SA 4.0' }
   ].map(function (p) { p.img = new Image(); p.img.src = p.src; return p; });
   var iPrev = -1, iCur = 0, iSwitch = 0, iFont = 'Pretendard Variable, Pretendard, sans-serif';
+  // phones: fit the photo into the space above the story card, so the card does not hide the subject
+  function photoH(w, h) { if (w >= 700) return h; var el = document.querySelector('.ck-intro-card'), t = el ? el.getBoundingClientRect().top : h * 0.55; return Math.max(h * 0.35, Math.min(h, t - 8)); }
   function drawPhoto(c, w, h, p, age, alpha) {
     if (!p.img.complete || !p.img.naturalWidth) return;
+    h = photoH(w, h);
     var iw = p.img.naturalWidth, ih = p.img.naturalHeight, z = 1.04 + Math.min(age, 14) * 0.006;   // slow push-in
     var s = Math.max(w / iw, h / ih) * z, dw = iw * s, dh = ih * s;
     var x = Math.max(w - dw, Math.min(0, w / 2 - p.fx * dw)), y = Math.max(h - dh, Math.min(0, h / 2 - p.fy * dh));
@@ -291,7 +294,7 @@
       var g2 = c.createLinearGradient(0, 0, w * 0.6, 0); g2.addColorStop(0, 'rgba(8,14,10,.35)'); g2.addColorStop(1, 'rgba(8,14,10,0)');
       c.fillStyle = g2; c.fillRect(0, 0, w, h);
       // one quiet number per page, on a glass card at the upper right
-      var fa = Math.min(1, Math.max(0, (t - iSwitch - 0.5) / 0.6)), cw = Math.min(460, w * 0.36), cx = w - cw - Math.max(16, w * 0.06), cy = Math.max(16, h * 0.1), u = cw / 460;
+      var fa = Math.min(1, Math.max(0, (t - iSwitch - 0.5) / 0.6)), narrow = w < 700, cw = narrow ? Math.min(380, w - 32) : Math.min(460, w * 0.36), cx = narrow ? 16 : w - cw - Math.max(16, w * 0.06), cy = narrow ? 16 : Math.max(16, h * 0.1), u = cw / 460;
       c.globalAlpha = fa; c.textAlign = 'left';
       if (page === 1) {
         glassCard(c, cx, cy, cw, 150 * u);
@@ -313,7 +316,10 @@
       c.globalAlpha = 1;
       // photo credit
       c.font = '500 11px ' + iFont; c.textAlign = 'right'; c.fillStyle = 'rgba(255,255,255,.75)';
-      c.fillText(T('사진: ', 'Photo: ') + PH[iCur].cr, w - 14, h - 12);
+      var crT = T('사진: ', 'Photo: ') + PH[iCur].cr;
+      if (c.measureText(crT).width > w - 28) {          // phones: break the credit at its last ' · ' onto two lines
+        var cut = crT.lastIndexOf(' · ', crT.length - 6); c.fillText(crT.slice(cut + 3), w - 14, h - 10); c.fillText(crT.slice(0, cut), w - 14, h - 24);
+      } else c.fillText(crT, w - 14, h - 12);
     },
     onClose: function () { tour.maybeStart(); }
   });
@@ -332,7 +338,7 @@
 
   /* ---------------- init ---------------- */
   CK.initTips(tips);
-  buildRows(); buildLevers(); buildStats(); buildScenarios();
+  buildRows(); buildSliders(); buildStats(); buildScenarios();
   document.getElementById('tourBtn').addEventListener('click', function () { tour.start(); });
   document.getElementById('introBtn').addEventListener('click', function () { intro.open(); });
   document.getElementById('langBtn').addEventListener('click', function () { CK.setLang(EN ? 'ko' : 'en', { S: S, scn: active && active.id, modified: modified }, STATE_KEY); });

@@ -47,7 +47,7 @@
     { id: 'coning', group: 'plume', name: T('원추형', 'Coning'), en: T('Coning', 'near neutral'), set: mix(INC, { u10: 7, T: [15, 14, 12.5, 11, 9] }),
       title: T('원추형 (Coning) — 중립에 가까운 대기', 'Coning: a near-neutral atmosphere'),
       text: T('흐리고 바람이 강한 날에는 기온감률이 건조단열감률과 비슷한 중립 상태가 됩니다. 연기는 원뿔 모양으로 고르게 퍼지고, 지표 최고 농도는 굴뚝에서 비교적 먼 곳에 나타납니다.', 'On an overcast, windy day the lapse rate is close to the dry adiabatic rate, so the atmosphere is neutral. The plume spreads evenly as a cone, and the ground-level maximum appears fairly far from the stack.'),
-      q: T('풍속 레버를 올리면 지표 최고 농도와 그 위치가 어떻게 바뀌나요? 희석 효과와 연기 상승 감소 중 어느 쪽이 더 큰가요?', 'Raise the wind speed lever. How do the maximum ground-level concentration and its location change? Which wins: extra dilution or the lower plume rise?') },
+      q: T('풍속 슬라이더를 올리면 지표 최고 농도와 그 위치가 어떻게 바뀌나요? 희석 효과와 연기 상승 감소 중 어느 쪽이 더 큰가요?', 'Raise the wind speed slider. How do the maximum ground-level concentration and its location change? Which wins: extra dilution or the lower plume rise?') },
     { id: 'fanning', group: 'plume', name: T('부채형', 'Fanning'), en: T('Fanning', 'strong inversion'), set: mix(INC, { u10: 2, T: [8, 9.6, 12, 12.8, 13.8] }),
       title: T('부채형 (Fanning) — 역전층으로 매우 안정', 'Fanning: a very stable inversion'),
       text: T('맑고 바람이 약한 밤, 지면이 식으면서 위로 갈수록 기온이 오르는 역전층이 생깁니다. 연직 방향의 섞임이 억제되어 연기는 얇은 띠처럼 수평으로만 퍼지고 지면에는 거의 닿지 않습니다.', 'On a clear, calm night the ground cools and temperature increases with height: an inversion. Vertical mixing is suppressed, so the plume spreads only sideways as a thin ribbon and hardly reaches the ground.'),
@@ -306,12 +306,12 @@
   function TIPS(key) {
     var r = R || {}, rise = r.rise || {};
     var t = {
-      inputs: ['조건 바꾸기', ['기온의 연직 분포와 레버로 기상 조건과 굴뚝 조건을 바꿉니다. 바꾸는 즉시 오른쪽 결과가 다시 계산됩니다.',
+      inputs: ['조건 바꾸기', ['기온의 연직 분포와 슬라이더로 기상 조건과 굴뚝 조건을 바꿉니다. 바꾸는 즉시 오른쪽 결과가 다시 계산됩니다.',
         '<b>굴뚝 종류</b> 버튼은 굴뚝 높이·지름·배출가스 온도·배출 속도·배출량을 그 시설의 대표값으로 한꺼번에 바꿉니다.']],
       profile: ['기온의 연직 분포', ['지면부터 600 m까지 다섯 지점의 기온으로 네 개 층을 만듭니다. 점을 좌우로 끌거나, 점을 선택한 뒤 방향키로 0.1 °C씩(Shift: 1 °C) 조절합니다.',
         '<b>점선</b>은 건조단열선(−0.98 °C/100 m)입니다. 층의 기울기가 이보다 가파르면(높이에 따라 더 빨리 식으면) 불안정, 비슷하면 중립, 덜 식거나 오히려 따뜻해지면(역전) 안정입니다.',
         '오른쪽 숫자는 각 층의 기온감률(°C/100 m), 글자는 Pasquill–Gifford 안정도 등급(A 매우 불안정 ~ F 안정)입니다. <b>H</b> 점선은 연기가 퍼지기 시작하는 높이입니다.']],
-      levers: ['바람 · 굴뚝 · 배출', ['레버의 손잡이를 끌거나, 레버를 선택한 뒤 방향키로 조절합니다(Shift: 10배).',
+      levers: ['바람 · 굴뚝 · 배출', ['슬라이더를 끌거나, 선택한 뒤 방향키로 조절합니다(Shift: 10배).',
         '굴뚝 지름은 굴뚝 종류에 따라 정해지며 지금은 <b>' + S.d.toFixed(1) + ' m</b>입니다.']],
       lever_u10: ['풍속 (지상 10 m)', ['지상 10 m 높이의 풍속입니다. 위로 갈수록 바람이 강해지며, 계산에는 굴뚝 높이의 풍속이 쓰입니다.',
         '풍속이 강하면 연기가 더 많이 희석되지만, 연기가 빨리 누워 연기 상승은 줄어듭니다.']],
@@ -340,16 +340,16 @@
         '기온감률 기준은 미국 환경청(EPA)의 ΔT/Δz 방법을 따랐습니다. 원래 Pasquill 방식은 지상 풍속, 낮의 일사량, 밤의 구름양으로 등급을 정합니다.']],
       chart: ['지표 농도', ['바람이 불어가는 방향 중심선에서 지표 농도(µg/m³)가 거리에 따라 어떻게 변하는지 보여 줍니다.',
         '<b>현재 곡선 고정</b>: 지금 곡선을 점선으로 남겨 다음 조건과 비교합니다. <b>세로축 고정</b>: 눈금을 고정해 시나리오끼리 크기를 비교합니다.']],
-      scn: activeScn ? [activeScn.title, [activeScn.text]] : ['사용 방법', ['① 시나리오 버튼을 눌러 연기 모양이 어떻게 달라지는지 확인하고, ② 왼쪽에서 기온 분포의 점이나 레버를 움직여 조건을 바꾼 뒤, ③ 오른쪽 결과를 살펴보세요.',
+      scn: activeScn ? [activeScn.title, [activeScn.text]] : ['사용 방법', ['① 시나리오 버튼을 눌러 연기 모양이 어떻게 달라지는지 확인하고, ② 왼쪽에서 기온 분포의 점이나 슬라이더를 움직여 조건을 바꾼 뒤, ③ 오른쪽 결과를 살펴보세요.',
         '층의 색은 대기 안정도입니다. <b style="color:#ff9d7e">빨강</b> 불안정, 회색 중립, <b style="color:#8fb8e8">파랑</b> 안정(역전).']]
     };
     if (EN) t = {
-      inputs: ['Change the conditions', ['Set the weather and the stack with the temperature profile and the levers. The results on the right are recalculated immediately.',
+      inputs: ['Change the conditions', ['Set the weather and the stack with the temperature profile and the sliders. The results on the right are recalculated immediately.',
         'The <b>stack type</b> buttons set stack height, diameter, exit temperature, exit velocity and emission rate to typical values for that kind of plant.']],
       profile: ['Temperature profile', ['Five temperatures from the ground to 600 m define four layers. Drag a point left or right, or select it and use the arrow keys (0.1 °C; Shift: 1 °C).',
         'The <b>dashed lines</b> are dry adiabats (−0.98 °C/100 m). A layer that cools faster with height than this is unstable, about the same is neutral, and one that cools more slowly or warms with height (an inversion) is stable.',
         'The numbers on the right are each layer’s lapse rate (°C/100 m) and the letters are Pasquill–Gifford stability classes (A very unstable to F stable). The <b>H</b> line is the height where the plume starts to spread.']],
-      levers: ['Wind · stack · emission', ['Drag a lever handle, or select a lever and use the arrow keys (Shift: ×10).',
+      levers: ['Wind · stack · emission', ['Drag a slider, or select it and use the arrow keys (Shift: ×10).',
         'The stack diameter is set by the stack type and is now <b>' + S.d.toFixed(1) + ' m</b>.']],
       lever_u10: ['Wind speed (10 m above ground)', ['Wind speed 10 m above the ground. Wind increases with height; the calculation uses the wind at stack height.',
         'A stronger wind dilutes the plume more, but it also bends the plume over sooner, so plume rise is smaller.']],
@@ -378,7 +378,7 @@
         'The lapse-rate limits follow the US EPA ΔT/Δz method. Pasquill’s original scheme uses surface wind speed, daytime sunshine and night-time cloud cover.']],
       chart: ['Ground-level concentration', ['How ground-level concentration (µg/m³) on the plume centreline changes with distance downwind.',
         '<b>Pin this curve</b> keeps the current curve as a dashed line for comparison. <b>Lock y-axis</b> fixes the scale so scenarios can be compared.']],
-      scn: activeScn ? [activeScn.title, [activeScn.text]] : ['How to use', ['① Press a scenario button to see how the plume shape changes, ② change the temperature points or levers on the left, ③ read the results on the right.',
+      scn: activeScn ? [activeScn.title, [activeScn.text]] : ['How to use', ['① Press a scenario button to see how the plume shape changes, ② change the temperature points or sliders on the left, ③ read the results on the right.',
         'Layer colours show stability: <b style="color:#ff9d7e">red</b> unstable, grey neutral, <b style="color:#8fb8e8">blue</b> stable (inversion).']]
     };
     return t[key];
@@ -436,50 +436,30 @@
 
   /* ---------------- levers ---------------- */
   var lev = {};
+  // input sliders (inputs look like controls; computed results stay in the dark stat tiles)
   function buildLevers() {
     var wrap = document.getElementById('levers');
     LEVERS.forEach(function (L) {
       var box = document.createElement('div'); box.className = 'lever';
-      var lab = document.createElement('div'); lab.className = 'lever-label'; lab.textContent = L.label;
-      box.appendChild(lab); info(lab, 'lever_' + L.k, L.label);
-      var svg = el('svg', { viewBox: '0 0 130 96', tabindex: 0, role: 'slider', 'aria-label': L.label,
-        'aria-valuemin': L.min, 'aria-valuemax': L.max }, box);
-      var defs = el('defs', {}, svg);
-      var gr = el('linearGradient', { id: 'br-' + L.k, x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
-      el('stop', { offset: 0, 'stop-color': '#e9cd8b' }, gr); el('stop', { offset: 1, 'stop-color': '#9c7128' }, gr);
-      var px = 65, py = 84, R0 = 62;
-      // base plate (half disc)
-      el('path', { d: 'M' + (px - R0 - 4) + ',' + py + ' A' + (R0 + 4) + ',' + (R0 + 4) + ' 0 0 1 ' + (px + R0 + 4) + ',' + py + ' Z', fill: '#3a3530' }, svg);
-      el('path', { d: 'M' + (px - R0) + ',' + py + ' A' + R0 + ',' + R0 + ' 0 0 1 ' + (px + R0) + ',' + py + ' Z', fill: 'url(#br-' + L.k + ')' }, svg);
-      for (var a = -60; a <= 60; a += 10) {
-        var rad = a * Math.PI / 180, r1 = R0 - 3, r2 = a % 30 === 0 ? R0 - 12 : R0 - 8;
-        el('line', { x1: px + r1 * Math.sin(rad), y1: py - r1 * Math.cos(rad), x2: px + r2 * Math.sin(rad), y2: py - r2 * Math.cos(rad), stroke: '#4a3615', 'stroke-width': a % 30 === 0 ? 2 : 1 }, svg);
-      }
-      var arm = el('g', {}, svg);
-      el('rect', { x: px - 3, y: py - 64, width: 6, height: 64, rx: 3, fill: '#2b2723' }, arm);
-      el('circle', { cx: px, cy: py - 66, r: 9.5, fill: '#7a1f17', stroke: '#2b2723', 'stroke-width': 2 }, arm);
-      el('circle', { cx: px - 3, cy: py - 69, r: 3, fill: '#ffffff55' }, arm);
-      el('circle', { cx: px, cy: py, r: 8, fill: '#2b2723' }, svg);
-      el('circle', { cx: px, cy: py, r: 3.5, fill: '#c9a259' }, svg);
-      el('rect', { x: 0, y: py, width: 130, height: 12, fill: '#3a3530', rx: 2 }, svg);
-      var read = document.createElement('div'); read.className = 'lever-read'; box.appendChild(read);
+      var head = document.createElement('div'); head.className = 'lever-head'; box.appendChild(head);
+      var lab = document.createElement('span'); lab.className = 'lever-label'; lab.textContent = L.label;
+      head.appendChild(lab); info(lab, 'lever_' + L.k, L.label);
+      var read = document.createElement('output'); read.className = 'lever-read'; head.appendChild(read);
+      var tr = document.createElement('div'); tr.className = 'pl-sl'; tr.tabIndex = 0;
+      tr.setAttribute('role', 'slider'); tr.setAttribute('aria-label', L.label); tr.setAttribute('aria-valuemin', L.min); tr.setAttribute('aria-valuemax', L.max);
+      tr.innerHTML = '<div class="pl-sl-rail"><div class="pl-sl-fill"></div></div><div class="pl-sl-marks"></div><div class="pl-sl-thumb"></div>';
+      box.appendChild(tr);
+      var scale = document.createElement('div'); scale.className = 'pl-sl-scale'; box.appendChild(scale);
       wrap.appendChild(box);
-      lev[L.k] = { L: L, arm: arm, svg: svg, read: read };
-      function fromPointer(ev) {
-        var r = svg.getBoundingClientRect();
-        var x = (ev.clientX - r.left) / r.width * 130, y = (ev.clientY - r.top) / r.height * 96;
-        var ang = Math.atan2(x - px, py - y) * 180 / Math.PI;
-        ang = clamp(ang, -60, 60);
-        setLever(L, L.min + (ang + 60) / 120 * (L.max - L.min));
-      }
-      svg.addEventListener('pointerdown', function (e) {
-        e.preventDefault(); svg.focus(); svg.setPointerCapture(e.pointerId); svg.classList.add('drag');
-        fromPointer(e);
+      lev[L.k] = { L: L, tr: tr, read: read, fill: tr.querySelector('.pl-sl-fill'), thumb: tr.querySelector('.pl-sl-thumb'), mk: tr.querySelector('.pl-sl-marks'), scale: scale, key: null };
+      function fromPointer(ev) { var r = tr.getBoundingClientRect(); setLever(L, L.min + clamp((ev.clientX - r.left) / r.width, 0, 1) * (L.max - L.min)); }
+      tr.addEventListener('pointerdown', function (e) {
+        e.preventDefault(); tr.focus(); tr.setPointerCapture(e.pointerId); tr.classList.add('drag'); fromPointer(e);
         function mv(ev) { fromPointer(ev); }
-        function up() { svg.classList.remove('drag'); svg.removeEventListener('pointermove', mv); svg.removeEventListener('pointerup', up); svg.removeEventListener('pointercancel', up); }
-        svg.addEventListener('pointermove', mv); svg.addEventListener('pointerup', up); svg.addEventListener('pointercancel', up);
+        function up() { tr.classList.remove('drag'); tr.removeEventListener('pointermove', mv); tr.removeEventListener('pointerup', up); tr.removeEventListener('pointercancel', up); }
+        tr.addEventListener('pointermove', mv); tr.addEventListener('pointerup', up); tr.addEventListener('pointercancel', up);
       });
-      svg.addEventListener('keydown', function (e) {
+      tr.addEventListener('keydown', function (e) {
         var st = L.step * (e.shiftKey ? 10 : 1);
         if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { setLever(L, S[L.k] + st); e.preventDefault(); }
         if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { setLever(L, S[L.k] - st); e.preventDefault(); }
@@ -497,11 +477,24 @@
   function syncLevers() {
     LEVERS.forEach(function (L) {
       var o = lev[L.k]; if (!o) return;
-      var v = clamp(S[L.k], L.min, L.max), ang = -60 + 120 * (v - L.min) / (L.max - L.min);
-      o.arm.setAttribute('transform', 'rotate(' + ang.toFixed(2) + ' 65 84)');
-      o.read.textContent = S[L.k].toFixed(L.dec) + ' ' + L.unit;
-      o.svg.setAttribute('aria-valuenow', S[L.k].toFixed(L.dec));
-      o.svg.setAttribute('aria-valuetext', S[L.k].toFixed(L.dec) + ' ' + L.unit);
+      var pct = function (x) { return (clamp(x, L.min, L.max) - L.min) / (L.max - L.min) * 100; }, p = pct(S[L.k]);
+      var txt = S[L.k].toFixed(L.dec) + ' ' + L.unit;
+      o.fill.style.width = p + '%'; o.thumb.style.left = p + '%'; o.read.textContent = txt;
+      o.tr.setAttribute('aria-valuenow', S[L.k].toFixed(L.dec)); o.tr.setAttribute('aria-valuetext', txt);
+      // reference mark: the value set by the selected scenario
+      var ref = activeScn && activeScn.set[L.k] != null ? activeScn.set[L.k] : null, key = String(ref);
+      if (key !== o.key) {
+        o.key = key; o.mk.innerHTML = ''; o.scale.innerHTML = '';
+        [[L.min, 'l'], [L.max, 'r']].forEach(function (e) {
+          if (ref != null && Math.abs(pct(ref) - pct(e[0])) < 30) return;
+          var s = document.createElement('span'); s.className = 'end ' + e[1]; s.textContent = e[0] + ' ' + L.unit; o.scale.appendChild(s);
+        });
+        if (ref != null) {
+          var rp = pct(ref), t = document.createElement('i'); t.style.left = rp + '%'; o.mk.appendChild(t);
+          var s = document.createElement('span'); s.className = 'mark' + (rp < 12 ? ' l' : rp > 88 ? ' r' : ''); s.style.left = rp + '%';
+          s.textContent = T('시나리오 값', 'scenario'); o.scale.appendChild(s);
+        }
+      }
     });
   }
 

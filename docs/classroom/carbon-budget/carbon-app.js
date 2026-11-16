@@ -41,7 +41,7 @@
     { id: 'return', name: T('1.5 °C 복귀', 'Back to 1.5 °C'), sub: T('초과 후 CO₂ 제거', 'overshoot, then removal'), pts: [21, 0, -3, -5, -5, -5], lev: { start: 2025, nz: 2040, cdr: 5, nc: 2 },
       sum: T('2040년 탄소중립 + 이후 CO₂ 제거 → 1.5 °C를 잠시 넘었다가 다시 내려옵니다.', 'Net zero by 2040 plus CO₂ removal afterwards → warming briefly passes 1.5 °C, then comes back down.'),
       text: T('매우 빠르게 줄여 2040년에 탄소중립에 도달하고, 이후 대기에서 CO₂를 매년 제거(음의 배출)합니다. 누적 배출이 줄어들면 기온도 천천히 내려갑니다. 다만 대규모 CO₂ 제거는 아직 검증되지 않은 기술입니다.', 'Very fast cuts reach net zero in 2040, then CO₂ is removed from the air every year (negative emissions). As cumulative emissions shrink, warming slowly declines. Large-scale CO₂ removal is not yet proven at this scale.'),
-      q: T('CO₂ 제거 레버를 0으로 내리면 기온이 어떻게 달라지나요? 제거에 기대는 전략의 위험은 무엇일까요?', 'Set the CO₂ removal lever to 0. How does warming change? What is the risk of relying on removal?') }
+      q: T('CO₂ 제거 슬라이더를 0으로 내리면 기온이 어떻게 달라지나요? 제거에 기대는 전략의 위험은 무엇일까요?', 'Set the CO₂ removal slider to 0. How does warming change? What is the risk of relying on removal?') }
   ];
 
   /* ---------------- state ---------------- */
@@ -53,7 +53,7 @@
 
   function recompute() {
     R = M.run(S.pts, S.nc);
-    drawEmis(); drawKr(); drawT(); drawStats(); drawShare(); syncLevers();
+    drawEmis(); drawKr(); drawT(); drawStats(); drawShare(); syncSliders();
   }
   function userChanged() { if (active && !modified) { modified = true; renderCard(); } recompute(); }
 
@@ -253,7 +253,7 @@
       var dt = document.createElement('dt'); dt.textContent = d[2]; var dd = document.createElement('dd');
       box.appendChild(dt); box.appendChild(dd); dl.appendChild(box); CK.info(dt, 'stat_' + d[0], d[2]); statDD[d[0]] = dd;
     });
-    document.getElementById('sceneTitle').textContent = S.mode === 'world' ? T('서울의 하늘과 탄소예산 욕조', 'Seoul’s sky and the carbon budget bathtub') : T('서울의 하늘과 한국 몫의 탄소예산 (인구 비례)', 'Seoul’s sky and Korea’s population share of the budget');
+    document.getElementById('sceneTitle').textContent = S.mode === 'world' ? T('온난화 수준과 탄소예산 욕조', 'Warming level and the carbon budget bathtub') : T('온난화 수준과 한국 몫의 탄소예산 (인구 비례)', 'Warming level and Korea’s population share of the budget');
   }
   function drawStats() {
     if (!R) return;
@@ -272,16 +272,16 @@
     }
   }
 
-  /* ---------------- levers ---------------- */
+  /* ---------------- sliders ---------------- */
   var LEV = [
     { k: 'start', label: T('감축 시작 연도', 'Cuts begin'), min: 2025, max: 2045, step: 1, dec: 0, tip: 'lev_start' },
-    { k: 'nz', label: T('순배출 0 연도', 'Net-zero year'), min: 2035, max: 2100, step: 1, dec: 0, tip: 'lev_nz' },
-    { k: 'cdr', label: T('CO₂ 제거', 'CO₂ removal'), min: 0, max: 15, step: 0.5, dec: 1, unit: 'Gt/yr', tip: 'lev_cdr' },
-    { k: 'nc', label: T('비CO₂ 감축', 'Non-CO₂ cuts'), min: 0, max: 2, step: 1, fmt: function (v) { return NC_NAMES[v]; }, tip: 'lev_nc' },
-    { k: 'prob', label: T('예산 확률', 'Budget likelihood'), min: 0, max: 2, step: 1, fmt: function () { return S.prob + '%'; }, tip: 'lev_prob' }
+    { k: 'nz', label: T('순배출 0 연도', 'Net-zero year'), min: 2035, max: 2100, step: 1, dec: 0, tip: 'lev_nz', marks: [{ v: 2050, label: T('1.5 °C 경로', '1.5 °C paths') }, { v: 2070, label: T('2 °C 경로', '2 °C paths') }] },
+    { k: 'cdr', label: T('CO₂ 제거', 'CO₂ removal'), min: 0, max: 15, step: 0.5, dec: 1, unit: 'Gt/yr', tip: 'lev_cdr', marks: [{ v: 2, label: T('현재 약 2', 'today ≈2') }] },
+    { k: 'nc', label: T('비CO₂ 감축', 'Non-CO₂ cuts'), min: 0, max: 2, step: 1, seg: true, fmt: function (v) { return NC_NAMES[v]; }, tip: 'lev_nc' },
+    { k: 'prob', label: T('예산 확률', 'Budget likelihood'), min: 0, max: 2, step: 1, seg: true, fmt: function (v) { return PROBS[v] + '%'; }, tip: 'lev_prob' }
   ];
   var levs = [];
-  function buildLevers() {
+  function buildSliders() {
     var wrap = document.getElementById('levers');
     LEV.forEach(function (L) {
       var get = L.k === 'prob' ? function () { return PROBS.indexOf(S.prob); } : function () { return S[L.k]; };
@@ -294,7 +294,7 @@
       }));
     });
   }
-  function syncLevers() { levs.forEach(function (l) { l.sync(); }); }
+  function syncSliders() { levs.forEach(function (l) { l.sync(); }); }
 
   /* ---------------- scenarios ---------------- */
   function buildScenarios() {
@@ -359,7 +359,7 @@
       var i = S.year - M.Y0, world = S.mode === 'world', p = S.prob;
       var budgets = [1.5, 1.7, 2.0].map(function (d) { var v = M.RCB[p][d] * (world ? 1 : KR.pop); return { deg: d, val: v, label: d.toFixed(1) + ' °C' }; });
       var cum = world ? R.cum[i] : krCum(S.year);
-      scene.draw(ctx, { T: R.T['50'][i], year: S.year, cum: cum, budgets: budgets, top: budgets[2].val * 1.25, t: tAnim, dt: dt, motion: true,
+      scene.draw(ctx, { T: R.T['50'][i], year: S.year, ser: R.T['50'], serY0: M.Y0, cum: cum, budgets: budgets, top: budgets[2].val * 1.25, t: tAnim, dt: dt, motion: true,
         tankTitle: world ? T('남은 탄소예산', 'Remaining budget') : T('한국 몫 (인구 비례)', 'Korea’s share'),
         cumLabel: (world ? Math.round(cum) : cum.toFixed(1)) + ' GtCO₂', cumSub: T('2026년부터 누적 (' + p + '%)', 'cumulative since 2026 (' + p + '%)') });
     }
@@ -372,11 +372,11 @@
     var tbl = '<table><tr><th>' + T('목표', 'Target') + '</th><th>50%</th><th>67%</th><th>83%</th></tr>' + [1.5, 1.6, 1.7, 2.0].map(function (d) {
       return '<tr><td>' + d.toFixed(1) + ' °C</td><td>' + M.RCB[50][d] + '</td><td>' + M.RCB[67][d] + '</td><td>' + M.RCB[83][d] + '</td></tr>'; }).join('') + '</table>';
     var t = {
-      inputs: [T('배출 경로', 'Emission pathway'), [T('세계 CO₂ 배출이 2025년부터 2100년까지 어떻게 변할지 정합니다. 그래프의 점을 끌거나 아래 레버로 경로를 만들 수 있습니다.', 'Set how global CO₂ emissions change from 2025 to 2100. Drag the points or use the levers below.'),
+      inputs: [T('배출 경로', 'Emission pathway'), [T('세계 CO₂ 배출이 2025년부터 2100년까지 어떻게 변할지 정합니다. 그래프의 점을 끌거나 아래 슬라이더로 경로를 만들 수 있습니다.', 'Set how global CO₂ emissions change from 2025 to 2100. Drag the points or use the sliders below.'),
         T('<b>한국</b> 탭에서는 한국의 온실가스 배출 경로를 만들고, 세계 탄소예산을 나누는 방식에 따라 한국 몫과 비교할 수 있습니다.', 'The <b>Korea</b> tab lets you draw Korea’s greenhouse gas pathway and compare it with possible shares of the global budget.')]],
       emis: [T('세계 CO₂ 배출량', 'Global CO₂ emissions'), [T('화석연료와 토지이용을 합친 세계 CO₂ 배출량입니다. 2025년 값은 약 <b>42 GtCO₂</b>(420억 톤)입니다. 0 아래는 대기에서 CO₂를 제거하는 <b>음의 배출</b>입니다.', 'Total global CO₂ from fossil fuels and land use. 2025: about <b>42 GtCO₂</b>. Below zero means <b>negative emissions</b> (CO₂ removed from the air).'),
         T('점은 2030·2040·2050·2060·2080·2100년 값이며 그 사이는 직선으로 잇습니다. 방향키로 0.5씩(Shift: 5) 조절할 수 있습니다.', 'Points are 2030, 2040, 2050, 2060, 2080 and 2100, joined by straight lines. Arrow keys move them by 0.5 (Shift: 5).')]],
-      levers: [T('조절 장치', 'Levers'), [T('앞의 세 레버는 배출 경로를 자동으로 그립니다: 감축 시작 연도까지 지금 수준을 유지하고, 순배출 0 연도까지 직선으로 줄인 뒤, 그 후 CO₂ 제거량만큼 음의 배출을 합니다.', 'The first three levers draw the pathway: emissions stay at today’s level until cuts begin, fall in a straight line to net zero, then go negative by the CO₂ removal amount.')]],
+      levers: [T('조절 장치', 'Controls'), [T('앞의 세 슬라이더는 배출 경로를 자동으로 그립니다: 감축 시작 연도까지 지금 수준을 유지하고, 순배출 0 연도까지 직선으로 줄인 뒤, 그 후 CO₂ 제거량만큼 음의 배출을 합니다.', 'The first three sliders draw the pathway: emissions stay at today’s level until cuts begin, fall in a straight line to net zero, then go negative by the CO₂ removal amount.')]],
       lev_start: [T('감축 시작 연도', 'Cuts begin'), [T('이 해까지는 지금(42 GtCO₂/년) 수준으로 배출합니다.', 'Emissions stay at today’s 42 GtCO₂ per year until this year.')]],
       lev_nz: [T('순배출 0 연도', 'Net-zero year'), [T('배출량과 흡수·제거량이 같아져 <b>순배출이 0</b>이 되는 해입니다. 이때부터 누적 배출이 늘지 않아 기온 상승이 거의 멈춥니다.', 'The year emissions and removals balance (<b>net zero</b>). From then on cumulative emissions stop growing and warming nearly stops.')]],
       lev_cdr: [T('CO₂ 제거', 'CO₂ removal'), [T('순배출 0 이후 대기에서 매년 제거하는 CO₂ 양입니다(조림, 직접공기포집 등). 10년에 걸쳐 이 값까지 늘어납니다. 대규모 제거는 아직 실현되지 않은 기술입니다.', 'CO₂ removed from the air each year after net zero (forests, direct air capture…), ramping up over ten years. Removal at this scale does not exist yet.')]],
@@ -392,7 +392,8 @@
       stat_kpop: [T('인구 비례 몫 대비', 'vs population share'), [T('세계 1.7 °C 예산을 인구 비율(한국 약 0.63%)로 나눈 몫에 대해 한국 누적 배출이 몇 %인지 나타냅니다. 100%를 넘으면 몫을 초과합니다.', 'Korea’s cumulative emissions as a percentage of a population-based share (about 0.63%) of the 1.7 °C budget. Above 100% means the share is exceeded.')]],
       stat_kemis: [T('배출 비례 몫 대비', 'vs emission share'), [T('현재 세계 배출에서 한국이 차지하는 비율(약 1.4%)로 나눈 몫에 대한 비율입니다. 이 방식은 지금 많이 배출하는 나라에 유리해 형평성 논란이 있습니다.', 'Compared with a share based on Korea’s part of current global emissions (about 1.4%). This favours today’s large emitters and is contested on fairness grounds.')]],
       stat_k2035: [T('2035년 감축률', '2035 cut'), [T('2018년 순배출 742.3 백만 톤 대비 2035년 감축률입니다. 정부의 2035 NDC는 53–61%입니다.', 'Cut in 2035 relative to 2018 net emissions (742.3 Mt). Korea’s 2035 NDC is 53–61%.')]],
-      scene: [T('서울의 하늘과 욕조', 'Seoul and the bathtub'), [T('왼쪽 서울 풍경(잠실과 롯데월드타워, 실제 사진)은 그래프에서 고른 연도의 기온 수준에 따라 하늘빛과 열기·아지랑이가 바뀝니다. <b>분위기를 위한 연출</b>이며 실제 서울의 기후 예측이 아닙니다.', 'The Seoul scene (a real photo of Jamsil and Lotte World Tower) changes its sky, haze and heat shimmer with the warming level of the selected year. The effect is <b>illustrative</b>, not a forecast for Seoul.'),
+      scene: [T('온난화 수준과 욕조', 'Warming level and the bathtub'), [T('배경은 잠실과 롯데월드타워의 실제 사진이며 색을 바꾸지 않습니다. 고른 연도의 지구 기온 상승에 따라 <b>산업화 이전에 10년에 한 번 오던 폭염·폭우가 몇 배 자주 오는지</b>를 IPCC 제6차 평가보고서(2021, 전 지구 육지 평균; 1·1.5·2·4 °C 값 사이는 직선 보간)로 보여 줍니다. 서울만의 예측은 아닙니다.', 'The background is an unaltered photo of Jamsil and Lotte World Tower. For the global warming of the selected year it shows <b>how many times more often a 10-year heat or heavy-rain extreme of the pre-industrial climate occurs</b>, from the IPCC Sixth Assessment Report (2021; global land; linear between the 1, 1.5, 2 and 4 °C values). It is not a forecast for Seoul.'),
+        T('사진 아래 <b>줄무늬</b>는 1850–2100년 지구 기온(2024년까지 Berkeley Earth 관측, 이후 선택한 경로)을 파랑(낮음)–빨강(높음)으로 칠한 온난화 줄무늬이고, 흰 표시가 고른 연도입니다.', 'The <b>stripes</b> under the photo colour global temperature from 1850 to 2100 (Berkeley Earth observations to 2024, then the selected pathway) from blue (cool) to red (warm); the white mark is the selected year.'),
         T('오른쪽 <b>욕조</b>는 2026년부터의 누적 배출입니다. 눈금은 1.5·1.7·2.0 °C의 남은 예산으로, 물이 눈금을 넘으면 그 목표의 예산을 다 쓴 것입니다. 배출을 멈추지 않는 한 물은 계속 차오릅니다.', 'The <b>bathtub</b> fills with cumulative emissions since 2026. Marks are the remaining budgets for 1.5, 1.7 and 2.0 °C; when the water passes a mark, that budget is used up. It keeps filling until emissions stop.')]],
       tchart: [T('지구 기온 상승', 'Global warming'), [T('회색 선은 Berkeley Earth 관측(1850–2024), 붉은 선은 선택한 경로의 기온(중앙값), 옅은 띠는 불확실성 범위입니다.', 'Grey: observed (Berkeley Earth, 1850–2024). Red: warming for the selected pathway (central). Shaded: uncertainty range.'),
         T('그래프를 끌거나 방향키로 <b>보고 있는 연도</b>를 바꾸면 서울 풍경과 욕조가 그 해 상태로 바뀝니다. 2025년 출발값은 인간 활동에 의한 온난화 1.37 °C입니다.', 'Drag the chart or use the arrow keys to change the <b>year shown</b>; the scene and bathtub follow. The 2025 start is the human-induced warming of 1.37 °C.')]],
@@ -418,14 +419,14 @@
       { kicker: T('2026년 1월 기준', 'As of January 2026'), title: T('남은 예산, 약 3년', 'About three years left'),
         text: T('1.5 °C(50% 확률)까지 남은 CO₂는 약 <b>1,300억 톤</b>입니다. 세계는 1년에 약 420억 톤을 배출하므로, 지금 속도라면 약 3년 만에 바닥납니다.', 'The CO₂ left for 1.5 °C (50% likelihood) is about <b>130 billion tonnes</b>. The world emits about 42 billion tonnes a year, so at today’s rate it runs out in about three years.') },
       { kicker: 'CCRL Classroom', title: T('탄소예산과 배출 경로', 'Carbon budget and emission pathways'),
-        text: T('언제부터, 얼마나 빨리 줄이느냐에 따라 우리가 맞을 기온이 달라집니다. 배출 경로를 직접 그려 보고 서울의 하늘이 어떻게 바뀌는지 확인해 보세요.', 'When and how fast we cut decides how warm the world becomes. Draw a pathway and see how Seoul’s sky changes.') }
+        text: T('언제부터, 얼마나 빨리 줄이느냐에 따라 우리가 맞을 기온이 달라집니다. 배출 경로를 직접 그려 보고 폭염과 폭우가 얼마나 잦아지는지 확인해 보세요.', 'When and how fast we cut decides how warm the world becomes. Draw a pathway and see how much more often heatwaves and downpours come.') }
     ],
     resize: function (w, h) { iDpr = Math.min(2, devicePixelRatio || 1); iScene.layout(w, h, iDpr); },
     draw: function (c, w, h, t, dt, page) {
       var p = M.RCB[50], budgets = [1.5, 1.7, 2.0].map(function (d) { return { deg: d, val: p[d], label: d.toFixed(1) + ' °C' }; });
       var cum = page === 0 ? 0 : page === 1 ? (t * 60) % 1300 : page === 2 ? Math.min(130, (t % 6) * 42) : 0;
       var temp = page === 0 ? 1.1 : page === 3 ? 1.4 : 1.37 + 0.5434 * cum / 1000;
-      iScene.draw(c, { T: temp, year: page === 0 ? 2015 : 2026 + Math.floor(cum / 42), cum: cum, budgets: budgets, top: 1300, t: t, dt: dt, motion: true,
+      iScene.draw(c, { impacts: w >= 700, T: temp, year: page === 0 ? 2015 : 2026 + Math.floor(cum / 42), cum: cum, budgets: budgets, top: 1300, t: t, dt: dt, motion: true,
         tankTitle: T('남은 탄소예산', 'Remaining budget'), cumLabel: Math.round(cum) + ' GtCO₂', cumSub: T('2026년부터 누적', 'cumulative since 2026') });
       c.fillStyle = 'rgba(8,16,22,.18)'; c.fillRect(0, 0, w, h);
     },
@@ -436,10 +437,10 @@
     steps: [
       { sel: '#pScn', title: T('① 시나리오', '① Scenarios'), text: T('대표적인 배출 경로 다섯 가지입니다. 누르면 그 경로로 바뀌고 2025–2100년이 재생됩니다.', 'Five typical pathways. Each one loads and plays 2025–2100.') },
       { sel: '#pEmis', title: T('② 배출 경로 그리기', '② Draw the pathway'), text: T('점을 위아래로 끌어 연도별 세계 CO₂ 배출량을 바꿔 보세요. 0 아래로 내리면 CO₂ 제거(음의 배출)입니다.', 'Drag the points up or down to set global CO₂ emissions. Below zero means CO₂ removal.') },
-      { sel: '#pLev', title: T('레버', 'Levers'), text: T('감축 시작 연도, 순배출 0 연도, CO₂ 제거량으로 경로를 한 번에 만들고, 비CO₂ 감축과 예산 확률도 바꿀 수 있습니다.', 'Build a pathway from the start of cuts, the net-zero year and CO₂ removal; also set non-CO₂ cuts and the budget likelihood.') },
+      { sel: '#pLev', title: T('조절 장치', 'Controls'), text: T('감축 시작 연도, 순배출 0 연도, CO₂ 제거량으로 경로를 한 번에 만들고, 비CO₂ 감축과 예산 확률도 바꿀 수 있습니다.', 'Build a pathway from the start of cuts, the net-zero year and CO₂ removal; also set non-CO₂ cuts and the budget likelihood.') },
       { sel: '.cb-tabs', title: T('한국 모드', 'Korea mode'), text: T('“한국” 탭에서 한국 배출 경로를 그리고, 세계 예산을 나누는 방식에 따른 한국 몫과 비교해 보세요.', 'Use the “Korea” tab to draw Korea’s pathway and compare it with shares of the global budget.') },
       { sel: '#pStats', title: T('③ 결과', '③ Results'), text: T('2100년 기온, 최고 기온, 1.5 °C 예산 소진 연도, 누적 배출이 바로 계산됩니다. ⓘ에 자세한 설명이 있습니다.', 'Warming in 2100, peak warming, the year the 1.5 °C budget runs out and cumulative emissions update instantly. See ⓘ for details.') },
-      { sel: '#pScene', title: T('서울과 탄소예산 욕조', 'Seoul and the bathtub'), text: T('서울의 하늘은 그 해의 기온 수준을, 욕조는 쌓인 배출량을 보여 줍니다. 물이 눈금을 넘으면 그 목표의 예산을 다 쓴 것입니다.', 'Seoul’s sky shows the warming level; the bathtub shows accumulated emissions. Passing a mark means that budget is gone.') },
+      { sel: '#pScene', title: T('서울과 탄소예산 욕조', 'Seoul and the bathtub'), text: T('왼쪽 카드는 그 해의 온난화에서 폭염·폭우가 몇 배 잦아지는지, 아래 줄무늬는 1850–2100년 기온 변화를, 욕조는 쌓인 배출량을 보여 줍니다. 물이 눈금을 넘으면 그 목표의 예산을 다 쓴 것입니다.', 'The card shows how much more often heat and rain extremes come at that year’s warming, the stripes show 1850–2100 warming, and the bathtub shows accumulated emissions. Passing a mark means that budget is gone.') },
       { sel: '#pTemp', title: T('기온 그래프', 'Temperature chart'), text: T('관측 기온 위에 선택한 경로의 기온이 이어집니다. 그래프를 끌면 보고 싶은 연도로 이동합니다.', 'Your pathway continues the observed record. Drag the chart to move to any year.') },
       { sel: '.ck-top-tools', title: T('언제든 다시', 'Any time'), text: T('사용법과 인트로를 다시 보거나 언어를 바꿀 수 있습니다.', 'Replay the guide or intro, or switch language.') }
     ]
@@ -447,7 +448,7 @@
 
   /* ---------------- init ---------------- */
   CK.initTips(tips);
-  buildScenarios(); buildLevers();
+  buildScenarios(); buildSliders();
   document.getElementById('tabWorld').addEventListener('click', function () { setMode('world'); });
   document.getElementById('tabKorea').addEventListener('click', function () { setMode('korea'); });
   document.getElementById('tourBtn').addEventListener('click', function () { tour.start(); });
