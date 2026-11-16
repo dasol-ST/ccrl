@@ -73,3 +73,4 @@ Emblem navigation paths transcribed from user-supplied BS-105 emblem EPS, main m
 2026-11-16  Plume simulator: guided tour now follows the intro on every visit (sessionStorage).
 2026-11-16  Classroom: added Carbon budget and emission pathways simulator (docs/classroom/carbon-budget/; IGCC 2025 budgets CC BY 4.0, Berkeley Earth CC BY 4.0, photo "Han River and Lotte World Tower" by mauveine.kim CC0) and Greenhouse gas inventory calculator (docs/classroom/ghg-inventory/; IPCC 2006 Tier 1; intro photos from Wikimedia Commons: Rik Schuiling/TropCrop-TCS CC BY-SA 4.0, Shixart1985 CC BY 2.0, mycrefun CC0, Arturbraun CC BY-SA 4.0). Two list cards, sitemap, README.
 2026-11-16  Homepage #classroom teaser: added carbon budget and GHG inventory cards (now all four materials, 2x2). README: homepage card is part of every Classroom update.
+2026-11-16  Classroom card order (homepage teaser + list): radiative model, carbon budget, GHG inventory, plume simulator (PI request).
