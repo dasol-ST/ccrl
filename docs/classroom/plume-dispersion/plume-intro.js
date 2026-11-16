@@ -1,6 +1,6 @@
 /* CCRL Classroom — plume simulator intro: the Great Smog of London, December 1952.
- * Four storybook pages over an animated canvas: chimneys smoke, a temperature inversion
- * caps the city, smog thickens, then a wind clears it and the simulator begins. */
+ * Four storybook pages over real photographs (Wikimedia Commons, credits on screen and in media/CREDITS.txt):
+ * London in fog, smoke trapped under an inversion, Tower Bridge in fog, then clean plumes on a clear day. */
 (function () {
   'use strict';
   var T = window.PL.T;
@@ -29,7 +29,20 @@
   var elK = document.getElementById('introKicker'), elT = document.getElementById('introTitle'), elX = document.getElementById('introText');
   var dots = document.getElementById('introDots'), next = document.getElementById('introNext'), skip = document.getElementById('introSkip');
   var page = 0, running = false, last = 0, t = 0, W = 0, H = 0, dpr = 1;
-  var cur = { smog: 0.2, lid: 0, clear: 0 }, parts = [], scene = null, walkers = [];
+  var cur = { smog: 0.2, lid: 0, clear: 0 }, grain = null, gOff = null;
+  // one real photograph per page (Wikimedia Commons), slow push-in, crossfade on page change
+  var PH = [
+    { src: 'media/london-victoria-fog.jpg', fx: 0.5, fy: 0.42, tint: 1,
+      s: 'Willem van de Poll · CC0', cr: T('안개 낀 런던 빅토리아 거리(연도 미상) · Willem van de Poll / Nationaal Archief · CC0', 'Fog in Victoria, London (undated) · Willem van de Poll / Nationaal Archief · CC0') },
+    { src: 'media/lochcarron-inversion.jpg', fx: 0.56, fy: 0.5, tint: 0, lidY: 0.43,
+      s: 'JohanTheGhost · CC BY-SA 3.0', cr: T('역전층 아래 갇힌 연기, 스코틀랜드 로카론의 1월 오후 · JohanTheGhost · CC BY-SA 3.0', 'Smoke trapped under an inversion, Lochcarron, Scotland, a January afternoon · JohanTheGhost · CC BY-SA 3.0') },
+    { src: 'media/tower-bridge-fog.jpg', fx: 0.36, fy: 0.36, tint: 1,
+      s: 'Willem van de Poll · CC0', cr: T('안개에 잠긴 런던 타워브리지(연도 미상) · Willem van de Poll / Nationaal Archief · CC0', 'Tower Bridge in fog, London (undated) · Willem van de Poll / Nationaal Archief · CC0') },
+    { src: 'media/tomakomai-plume.jpg', fx: 0.42, fy: 0.55, tint: 0,
+      s: 'ejstanz · CC BY 2.0', cr: T('맑은 날 굴뚝 연기, 일본 도마코마이 제지공장 · ejstanz · CC BY 2.0', 'Chimney plumes on a clear day, Tomakomai paper mill, Japan · ejstanz · CC BY 2.0') }
+  ];
+  PH.forEach(function (p) { p.img = new Image(); p.img.src = p.src; });
+  var iCur = -1, iPrev = -1, iSwitch = 0, cardEl = document.querySelector('.intro-card');
 
   function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var x = Math.imul(seed ^ seed >>> 15, 1 | seed); x = x + Math.imul(x ^ x >>> 7, 61 | x) ^ x; return ((x ^ x >>> 14) >>> 0) / 4294967296; }; }
 
@@ -37,134 +50,68 @@
     dpr = Math.min(2, window.devicePixelRatio || 1);
     W = cv.clientWidth; H = cv.clientHeight;
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
-    build();
-  }
-  // London silhouette: terraces with chimney pots, St Paul's-like dome, a Gothic clock tower, a power station
-  function build() {
-    var r = rng(1952), U = Math.max(0.75, H / 620), g = H * 0.8, p = new Path2D(), far = new Path2D(), chim = [], x = -10;
-    while (x < W + 20) {                                   // far row
-      var fw = (30 + r() * 60) * U, fh = (40 + r() * 50) * U;
-      far.rect(x, g - fh, fw, fh); x += fw + r() * 8 * U;
+    if (!grain) {
+      var r = rng(1952), gcv = document.createElement('canvas'); gcv.width = gcv.height = 180;
+      var gc = gcv.getContext('2d'), img = gc.createImageData(180, 180);
+      for (var gi = 0; gi < img.data.length; gi += 4) { var gv = r() * 255 | 0; img.data[gi] = img.data[gi + 1] = img.data[gi + 2] = gv; img.data[gi + 3] = 16; }
+      gc.putImageData(img, 0, 0); grain = gcv;
     }
-    var dome = W * 0.5, tower = W * 0.69, power = W * 0.87;
-    far.rect(dome - 34 * U, g - 92 * U, 68 * U, 92 * U);          // cathedral drum + dome + lantern
-    far.moveTo(dome - 28 * U, g - 92 * U); far.bezierCurveTo(dome - 28 * U, g - 152 * U, dome + 28 * U, g - 152 * U, dome + 28 * U, g - 92 * U); far.closePath();
-    far.rect(dome - 4 * U, g - 152 * U, 8 * U, 14 * U); far.moveTo(dome - 3 * U, g - 152 * U); far.lineTo(dome, g - 166 * U); far.lineTo(dome + 3 * U, g - 152 * U); far.closePath();
-    p.rect(tower - 10 * U, g - 170 * U, 20 * U, 170 * U);         // clock tower
-    p.moveTo(tower - 12 * U, g - 170 * U); p.lineTo(tower, g - 210 * U); p.lineTo(tower + 12 * U, g - 170 * U); p.closePath();
-    p.rect(tower - 1, g - 222 * U, 2, 14 * U);
-    p.rect(power - 64 * U, g - 70 * U, 128 * U, 70 * U);          // power station with two chimneys
-    [power - 44 * U, power + 44 * U].forEach(function (cx) { p.moveTo(cx - 9 * U, g - 70 * U); p.lineTo(cx - 6.5 * U, g - 175 * U); p.lineTo(cx + 6.5 * U, g - 175 * U); p.lineTo(cx + 9 * U, g - 70 * U); p.closePath(); chim.push([cx, g - 175 * U, 3]); });
-    x = -6;
-    while (x < W + 10) {                                    // near terraces
-      if (Math.abs(x - tower) < 40 * U || Math.abs(x - power) < 90 * U) { x += 12; continue; }
-      var n = 4 + (r() * 6 | 0), hw = (17 + r() * 4) * U, eave = (40 + r() * 16) * U, rw = n * hw;
-      p.moveTo(x, g); p.lineTo(x, g - eave); p.lineTo(x + 6 * U, g - eave - 9 * U); p.lineTo(x + rw - 6 * U, g - eave - 9 * U); p.lineTo(x + rw, g - eave); p.lineTo(x + rw, g); p.closePath();
-      for (var j = 1; j < n; j += 2) { var sx = x + j * hw - 3 * U; p.rect(sx, g - eave - 17 * U, 6 * U, 9 * U); p.rect(sx + 0.5 * U, g - eave - 20 * U, 2 * U, 3 * U); p.rect(sx + 3.5 * U, g - eave - 20 * U, 2 * U, 3 * U); chim.push([sx + 3 * U, g - eave - 20 * U, 1]); }
-      x += rw + (2 + r() * 10) * U;
-    }
-    scene = { g: g, near: p, far: far, chim: chim, tower: tower, clockY: g - 150 * U, U: U, lamps: [] };
-    // charcoal-sketch rendering of the near city, done once: fill, clipped hatching, doubled outline
-    var nc = document.createElement('canvas'); nc.width = Math.ceil(W * dpr); nc.height = Math.ceil(H * dpr);
-    var c2 = nc.getContext('2d'); c2.scale(dpr, dpr);
-    c2.fillStyle = '#19171b'; c2.fill(p);
-    c2.save(); c2.clip(p); c2.lineWidth = 0.8;
-    for (var hx = -H; hx < W; hx += 3.4 + r() * 1.6) { c2.strokeStyle = 'rgba(120,108,90,' + (0.05 + r() * 0.07) + ')'; c2.beginPath(); c2.moveTo(hx, g); c2.lineTo(hx + 260 * U, g - 260 * U); c2.stroke(); }
-    c2.restore();
-    c2.strokeStyle = 'rgba(150,135,110,.25)'; c2.lineWidth = 0.9;
-    c2.save(); c2.translate(0.7, -0.5); c2.stroke(p); c2.restore(); c2.save(); c2.translate(-0.5, 0.4); c2.stroke(p); c2.restore();
-    scene.nearCv = nc;
-    var gcv = document.createElement('canvas'); gcv.width = gcv.height = 180;
-    var gc = gcv.getContext('2d'), img = gc.createImageData(180, 180);
-    for (var gi = 0; gi < img.data.length; gi += 4) { var gv = r() * 255 | 0; img.data[gi] = img.data[gi + 1] = img.data[gi + 2] = gv; img.data[gi + 3] = 18; }
-    gc.putImageData(img, 0, 0); scene.grain = gcv;
-    for (var lx = 40; lx < W; lx += (160 + r() * 80) * U) scene.lamps.push(lx);
-    walkers = [];
-    for (var k = 0; k < Math.max(3, W / 260 | 0); k++) walkers.push({ x: r() * W, dir: r() < 0.5 ? -1 : 1, sp: 8 + r() * 8, ph: r() * 6 });
   }
-  function drawSky() {
-    var c = ctx, k = cur.clear;
-    var g = c.createLinearGradient(0, 0, 0, scene.g);
-    g.addColorStop(0, mix([36, 33, 30], [104, 114, 126], k)); g.addColorStop(1, mix([88, 76, 56], [212, 196, 165], k));
-    c.fillStyle = g; c.fillRect(0, 0, W, scene.g);
+  // cover-fit with a slow push-in around the focus point; returns the mapping so overlays can follow the photo
+  function photo(c, p, age, alpha) {
+    var im = p.img; if (!im.complete || !im.naturalWidth) return null;
+    var s = Math.max(W / im.naturalWidth, H / im.naturalHeight) * (1.04 + Math.min(age, 20) * 0.006);
+    var dw = im.naturalWidth * s, dh = im.naturalHeight * s;
+    var x = Math.min(0, Math.max(W - dw, W / 2 - p.fx * dw)), y = Math.min(0, Math.max(H - dh, H / 2 - p.fy * dh));
+    c.globalAlpha = alpha; c.drawImage(im, x, y, dw, dh); c.globalAlpha = 1;
+    return { x: x, y: y, w: dw, h: dh };
   }
-  function mix(a, b, f) { return 'rgb(' + (a[0] + (b[0] - a[0]) * f | 0) + ',' + (a[1] + (b[1] - a[1]) * f | 0) + ',' + (a[2] + (b[2] - a[2]) * f | 0) + ')'; }
 
   function frame(now) {
     if (!running) return;
     var dt = last ? Math.min(0.05, (now - last) / 1000) : 0.016; last = now; t += dt;
     var tg = PAGES[page], kk = 1 - Math.exp(-dt * 1.2);
     cur.smog += (tg.smog - cur.smog) * kk; cur.lid += (tg.lid - cur.lid) * kk; cur.clear += (tg.clear - cur.clear) * kk * 0.8;
+    if (page !== iCur) { iPrev = iCur; iCur = page; iSwitch = t; }
+    var age = t - iSwitch, k = Math.min(1, age / 0.9);
     var c = ctx; c.setTransform(dpr, 0, 0, dpr, 0, 0);
-    drawSky();
-    var lidY = H * 0.5, wind = cur.clear * 90;
-    // far city
-    c.fillStyle = 'rgba(30,27,26,.55)'; c.fill(scene.far);
-    // smoke from every chimney; trapped below the inversion unless the wind clears it
-    scene.chim.forEach(function (ch) { if (Math.random() < dt * (ch[2] > 1 ? 14 : 2.2)) parts.push({ x: ch[0], y: ch[1], vx: (Math.random() - 0.5) * 4, vy: -(ch[2] > 1 ? 26 : 14), a: 0, s: (ch[2] > 1 ? 10 : 6) * scene.U }); });
-    for (var i = parts.length - 1; i >= 0; i--) {
-      var q = parts[i]; q.a += dt;
-      if (q.y < lidY + 20 && cur.clear < 0.5) { q.vy *= 0.94; q.vx += (Math.random() - 0.5) * 6 * dt; }
-      q.vx += wind * dt * 0.6;
-      q.x += q.vx * dt; q.y += q.vy * dt; q.s += dt * 4.5 * scene.U;
-      if (q.y < lidY - 10 && cur.clear < 0.5) q.y = lidY - 10;
-      var life = cur.clear > 0.5 ? 6 : 22;
-      if (q.a > life || q.x > W + 60) { parts.splice(i, 1); continue; }
-      var al = Math.min(1, q.a * 1.5) * (1 - q.a / life) * 0.34;
-      var gr = c.createRadialGradient(q.x, q.y, 0, q.x, q.y, q.s);
-      gr.addColorStop(0, 'rgba(48,42,34,' + al + ')'); gr.addColorStop(1, 'rgba(48,42,34,0)');
-      c.fillStyle = gr; c.fillRect(q.x - q.s, q.y - q.s, q.s * 2, q.s * 2);
+    c.fillStyle = '#17151a'; c.fillRect(0, 0, W, H);
+    if (iPrev >= 0 && k < 1) photo(c, PH[iPrev], age + 6, 1);
+    var m = photo(c, PH[iCur], age, iPrev >= 0 ? k : 1), P = PH[iCur];
+    // old London prints: warm sepia-yellow smog cast that thickens with the story
+    if (P.tint) {
+      c.globalCompositeOperation = 'multiply'; c.fillStyle = 'rgba(214,184,128,' + (0.55 + 0.35 * cur.smog) * k + ')'; c.fillRect(0, 0, W, H);
+      c.globalCompositeOperation = 'source-over';
+      var sg = c.createLinearGradient(0, H * 0.3, 0, H);
+      sg.addColorStop(0, 'rgba(150,128,78,0)'); sg.addColorStop(1, 'rgba(120,102,62,' + 0.45 * cur.smog * k + ')');
+      c.fillStyle = sg; c.fillRect(0, 0, W, H);
     }
-    if (parts.length > 900) parts.splice(0, parts.length - 900);
-    // near city + clock face + lit windows
-    c.drawImage(scene.nearCv, 0, 0, W, H);
-    c.fillStyle = 'rgba(240,214,150,.75)'; c.beginPath(); c.arc(scene.tower, scene.clockY, 5.5 * scene.U, 0, 7); c.fill();
-    // inversion lid
-    if (cur.lid > 0.02) {
-      var lg = c.createLinearGradient(0, lidY - 26, 0, lidY + 6);
-      lg.addColorStop(0, 'rgba(214,150,96,0)'); lg.addColorStop(1, 'rgba(214,150,96,' + 0.32 * cur.lid + ')');
-      c.fillStyle = lg; c.fillRect(0, lidY - 26, W, 32);
-      c.strokeStyle = 'rgba(232,170,110,' + 0.8 * cur.lid + ')'; c.setLineDash([8, 6]); c.lineWidth = 1.4;
-      c.beginPath(); c.moveTo(0, lidY + 6); c.lineTo(W, lidY + 6); c.stroke(); c.setLineDash([]);
-      c.font = '600 14px "Gowun Batang", Georgia, serif'; c.textAlign = 'left';
-      c.fillStyle = 'rgba(245,205,150,' + cur.lid + ')';
-      c.fillText(T('역전층 — 따뜻한 공기의 뚜껑', 'Inversion: a lid of warm air'), 24, lidY - 4);
-      c.textAlign = 'left';
+    // inversion lid traced on the real smoke ceiling
+    if (P.lidY && m && cur.lid > 0.02) {
+      var ly = m.y + P.lidY * m.h, la = cur.lid * Math.min(1, Math.max(0, (age - 0.8) / 0.8));
+      var lg = c.createLinearGradient(0, ly - 40, 0, ly);
+      lg.addColorStop(0, 'rgba(214,150,96,0)'); lg.addColorStop(1, 'rgba(214,150,96,' + 0.3 * la + ')');
+      c.fillStyle = lg; c.fillRect(0, ly - 40, W, 40);
+      c.strokeStyle = 'rgba(240,180,115,' + 0.9 * la + ')'; c.setLineDash([8, 6]); c.lineWidth = 1.6;
+      c.beginPath(); c.moveTo(0, ly); c.lineTo(W, ly); c.stroke(); c.setLineDash([]);
+      c.font = '700 15px "Gowun Batang", Georgia, serif'; c.textAlign = 'left';
+      var lw = c.measureText(T('역전층 — 따뜻한 공기의 뚜껑', 'Inversion: a lid of warm air')).width;
+      c.fillStyle = 'rgba(28,20,14,' + 0.62 * la + ')'; c.beginPath(); if (c.roundRect) c.roundRect(14, ly - 32, lw + 20, 26, 4); else c.rect(14, ly - 32, lw + 20, 26); c.fill();
+      c.fillStyle = 'rgba(255,214,160,' + la + ')'; c.fillText(T('역전층 — 따뜻한 공기의 뚜껑', 'Inversion: a lid of warm air'), 24, ly - 10);
     }
-    // smog veil, densest near the ground
-    var sg = c.createLinearGradient(0, lidY - 30, 0, H);
-    sg.addColorStop(0, 'rgba(150,128,78,0)'); sg.addColorStop(0.25, 'rgba(150,128,78,' + 0.55 * cur.smog + ')'); sg.addColorStop(1, 'rgba(120,102,62,' + 0.9 * cur.smog + ')');
-    c.fillStyle = sg; c.fillRect(0, lidY - 30, W, H);
-    // street, gas lamps, walkers with handkerchiefs
-    var g0 = scene.g;
-    c.fillStyle = '#1b1917'; c.fillRect(0, g0, W, H - g0);
-    scene.lamps.forEach(function (lx) {
-      var gl = c.createRadialGradient(lx, g0 - 34, 0, lx, g0 - 34, 70);
-      gl.addColorStop(0, 'rgba(250,206,120,' + (0.35 + 0.3 * cur.smog) + ')'); gl.addColorStop(1, 'rgba(250,206,120,0)');
-      c.fillStyle = gl; c.fillRect(lx - 70, g0 - 104, 140, 140);
-      c.fillStyle = '#121014'; c.fillRect(lx - 1.5, g0 - 34, 3, 34); c.fillRect(lx - 5, g0 - 42, 10, 8);
-      c.fillStyle = 'rgba(255,224,160,.9)'; c.fillRect(lx - 3, g0 - 40, 6, 5);
-    });
-    walkers.forEach(function (w) {
-      w.x += w.dir * w.sp * dt; w.ph += w.sp * dt * 0.25;
-      if (w.x < -20) w.x = W + 20; if (w.x > W + 20) w.x = -20;
-      person(c, w.x, g0 + 2, w.dir, w.ph, cur.smog > 0.45, scene.U);
-    });
-    // film grain + vignette
-    if (!scene.gOff || t - scene.gOff.t > 0.12) scene.gOff = { t: t, x: Math.random() * 180 | 0, y: Math.random() * 180 | 0 };
-    c.save(); c.translate(scene.gOff.x, scene.gOff.y); c.fillStyle = c.createPattern(scene.grain, 'repeat'); c.fillRect(-180, -180, W + 360, H + 360); c.restore();
+    // keep the card legible: darken the lower left, then grain + vignette
+    var dg = c.createLinearGradient(0, H * 0.4, 0, H); dg.addColorStop(0, 'rgba(10,8,6,0)'); dg.addColorStop(1, 'rgba(10,8,6,.45)');
+    c.fillStyle = dg; c.fillRect(0, 0, W, H);
+    if (!gOff || t - gOff.t > 0.12) gOff = { t: t, x: Math.random() * 180 | 0, y: Math.random() * 180 | 0 };
+    c.save(); c.translate(gOff.x, gOff.y); c.fillStyle = c.createPattern(grain, 'repeat'); c.fillRect(-180, -180, W + 360, H + 360); c.restore();
     var vg = c.createRadialGradient(W / 2, H * 0.55, Math.min(W, H) * 0.3, W / 2, H * 0.55, Math.max(W, H) * 0.75);
-    vg.addColorStop(0, 'rgba(10,8,6,0)'); vg.addColorStop(1, 'rgba(10,8,6,.55)'); c.fillStyle = vg; c.fillRect(0, 0, W, H);
+    vg.addColorStop(0, 'rgba(10,8,6,0)'); vg.addColorStop(1, 'rgba(10,8,6,.5)'); c.fillStyle = vg; c.fillRect(0, 0, W, H);
+    // photo credit, bottom right
+    var narrow = W < 760, crT = T('사진: ', 'Photo: ') + (narrow ? P.s : P.cr), cy = narrow ? Math.max(8, cardEl.getBoundingClientRect().top - 18) : H - 12;   // phones: short credit just above the card
+    c.font = '500 ' + (narrow ? 10 : 11) + 'px "Pretendard Variable", Pretendard, sans-serif'; c.textAlign = 'right'; c.textBaseline = narrow ? 'top' : 'alphabetic';
+    c.fillStyle = 'rgba(0,0,0,.5)'; c.fillText(crT, W - 13, cy + 1);
+    c.fillStyle = 'rgba(255,248,235,.8)'; c.fillText(crT, W - 14, cy); c.textBaseline = 'alphabetic';
     requestAnimationFrame(frame);
-  }
-  function person(c, x, feet, dir, ph, mask, U) {
-    var sw = Math.sin(ph);
-    c.save(); c.translate(x, feet); c.scale(dir * 2 * U, 2 * U); c.fillStyle = '#0f0e11'; c.strokeStyle = '#0f0e11'; c.lineCap = 'round';
-    c.lineWidth = 1.6; c.beginPath(); c.moveTo(0, -11); c.lineTo(sw * 2.6, 0); c.moveTo(0, -11); c.lineTo(-sw * 2.6, 0); c.stroke();
-    c.beginPath(); c.moveTo(-2, -20); c.lineTo(2, -20); c.lineTo(2.6, -6); c.lineTo(-2.6, -6); c.closePath(); c.fill();
-    c.lineWidth = 1.2; c.beginPath(); c.moveTo(0.5, -19); if (mask) { c.lineTo(2.8, -16); c.lineTo(2.6, -21.5); } else c.lineTo(0.5 - sw * 2, -12); c.stroke();
-    c.beginPath(); c.arc(0.4, -22.5, 1.7, 0, 7); c.fill(); c.fillRect(-1.3, -28, 3.4, 4.2); c.fillRect(-2.4, -24.2, 5.6, 0.8);
-    c.restore();
   }
 
   function renderPage(fade) {
@@ -183,7 +130,7 @@
   }
   function open() {
     box.hidden = false; document.body.classList.add('intro-open');
-    page = 0; cur = { smog: 0.15, lid: 0, clear: 0 }; parts = [];
+    page = 0; cur = { smog: 0.15, lid: 0, clear: 0 }; iCur = -1; iPrev = -1;
     resize(); renderPage(false);
     running = true; last = 0; requestAnimationFrame(frame);
     setTimeout(function () { next.focus(); }, 50);

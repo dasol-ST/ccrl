@@ -7,3 +7,23 @@ smog-mortality-1952.jpg
   Weekly registered deaths in Greater London, winter 1951/2 vs 1952/3 ("Smog Incident, 1952").
   From: Committee on Air Pollution, Interim Report (HMSO, December 1953). Crown copyright expired — public domain.
   Source: Wikimedia Commons, File:1952_Great_London_Smog_mortality-2.png (resized to 1400 px).
+
+--- Intro background photos (photo version) ---
+london-victoria-fog.jpg
+  "Dubbeldekker trams in de mist. Op de achtergrond is Big Ben te zien" (Victoria, London; undated), Willem van de Poll.
+  Nationaal Archief, Fotocollectie Van de Poll, Bestanddeelnr 254-1953. License: CC0.
+  https://commons.wikimedia.org/wiki/File:Dubbeldekker_trams_in_de_mist_Op_de_achtergrond_is_Big_Ben_te_zien,_Bestanddeelnr_254-1953.jpg
+  Resized, greyscale; sepia tint added on screen.
+
+tower-bridge-fog.jpg
+  "Tower Bridge in de mist" (London; undated), Willem van de Poll. Nationaal Archief, Bestanddeelnr 254-1957. License: CC0.
+  https://commons.wikimedia.org/wiki/File:Tower_Bridge_in_de_mist,_Bestanddeelnr_254-1957.jpg
+
+lochcarron-inversion.jpg
+  "SmokeCeilingInLochcarron" by JohanTheGhost — smoke forming a ceiling under a temperature inversion, Lochcarron, Scotland, January.
+  License: CC BY-SA 3.0 — https://creativecommons.org/licenses/by-sa/3.0/
+  https://commons.wikimedia.org/wiki/File:SmokeCeilingInLochcarron.jpg  (resized; dashed inversion line drawn over it on screen)
+
+tomakomai-plume.jpg
+  "White smoke from Oji Paper Tomakomai Mill chimney" by ejstanz. License: CC BY 2.0 — https://creativecommons.org/licenses/by/2.0/
+  https://commons.wikimedia.org/wiki/File:White_smoke_from_Oji_Paper_Tomakomai_Mill_chimney.jpg  (film border cropped, resized)
