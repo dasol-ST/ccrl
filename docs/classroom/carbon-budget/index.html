@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>탄소예산과 배출 경로 | CCRL Classroom</title>
+<meta name="description" content="배출 경로를 직접 그려 남은 탄소예산과 지구 기온 상승을 확인하는 교육용 시뮬레이터 (CCRL, 서울과학기술대학교)." data-en="Draw an emission pathway and see how fast the remaining carbon budget runs out and how much the world warms (CCRL, SeoulTech).">
+<link rel="canonical" href="https://dasol-st.github.io/ccrl/classroom/carbon-budget/">
+<meta property="og:title" content="Carbon budget and emission pathways | CCRL Classroom">
+<meta property="og:image" content="https://dasol-st.github.io/ccrl/classroom/carbon-budget-card.jpg">
+<link rel="icon" href="../../assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="kit.css?v=1">
+<link rel="stylesheet" href="carbon.css?v=1">
+</head>
+<body data-en-title="Carbon budget and emission pathways | CCRL Classroom">
+<header class="ck-top">
+  <div class="wrap ck-top-in">
+    <a class="ck-brand" href="https://dasol-st.github.io/ccrl/classroom/" aria-label="CCRL Classroom"><img src="https://dasol-st.github.io/ccrl/assets/ccrl-logo-color.png" alt="CCRL" width="894" height="229"></a>
+    <div class="ck-titles">
+      <h1 data-en="Carbon budget and emission pathways">탄소예산과 배출 경로</h1>
+      <p data-en="CCRL Classroom · a simplified teaching model">CCRL Classroom · 교육용 단순화 모델</p>
+    </div>
+    <div class="ck-top-tools">
+      <button type="button" class="ck-top-btn" id="tourBtn" data-en="How to use">사용법</button>
+      <button type="button" class="ck-top-btn" id="introBtn" data-en="Replay intro">인트로 다시 보기</button>
+      <button type="button" class="ck-top-btn" id="langBtn" lang="en" data-en="한국어" aria-label="View in English" data-en-label="한국어로 보기">EN</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap ck-app cb-app">
+  <section class="ck-panel ck-strip" id="pScn" aria-labelledby="scn-h">
+    <div class="ck-strip-row">
+      <h2 id="scn-h"><span class="ck-step">1</span><span data-en="Scenarios">시나리오</span></h2>
+      <div class="ck-scn-list" id="scnList" role="group" aria-label="시나리오" data-en-label="Scenarios"></div>
+      <button type="button" class="ck-tool" id="resetBtn" data-en="↺ Reset">↺ 처음 상태로</button>
+    </div>
+    <div class="ck-card" id="scnCard" aria-live="polite"></div>
+  </section>
+
+  <section class="ck-panel cb-inputs" aria-labelledby="in-h">
+    <div class="ck-head" data-head><h2 id="in-h"><span class="ck-step">2</span><span data-en="Emission pathway">배출 경로</span></h2><span class="ck-ih" data-tip="inputs"></span>
+      <div class="ck-right cb-tabs" role="tablist" aria-label="범위" data-en-label="Scope">
+        <button type="button" role="tab" class="ck-tool" id="tabWorld" aria-selected="true" data-en="World">세계</button>
+        <button type="button" role="tab" class="ck-tool" id="tabKorea" aria-selected="false" data-en="Korea">한국</button>
+      </div>
+    </div>
+    <div id="worldIn">
+      <div id="pEmis">
+        <div class="ck-sub" data-head><h3 data-en="Global CO₂ emissions (GtCO₂ per year)">세계 CO₂ 배출량 (GtCO₂/년)</h3><span class="ck-ih" data-tip="emis"></span><span class="ck-right ck-hint" data-en="Drag the points up or down">점을 위아래로 끌어 보세요</span></div>
+        <svg id="emisChart" class="cb-chart" role="group" aria-label="배출 경로 편집" data-en-label="Edit the emission pathway"></svg>
+      </div>
+      <div id="pLev">
+        <div class="ck-sub" data-head><h3 data-en="Levers">조절 장치</h3><span class="ck-ih" data-tip="levers"></span></div>
+        <div class="ck-levers" id="levers" style="--lev-n:5"></div>
+      </div>
+    </div>
+    <div id="koreaIn" hidden>
+      <div class="ck-sub" data-head><h3 data-en="Korea’s greenhouse gas emissions (MtCO₂eq per year)">한국 온실가스 배출량 (백만 톤 CO₂eq/년)</h3><span class="ck-ih" data-tip="korea"></span><span class="ck-right ck-hint" data-en="Drag the points">점을 끌어 보세요</span></div>
+      <svg id="krChart" class="cb-chart" role="group" aria-label="한국 배출 경로 편집" data-en-label="Edit Korea’s pathway"></svg>
+      <div class="ck-sub" data-head><h3 data-en="Korean pathways">한국 경로</h3><span class="ck-ih" data-tip="krpaths"></span></div>
+      <div class="cb-krbtns" id="krBtns"></div>
+      <div class="ck-sub" data-head><h3 data-en="How to share the global budget">세계 예산을 나누는 방식</h3><span class="ck-ih" data-tip="share"></span></div>
+      <div id="shareTable" class="cb-share"></div>
+    </div>
+  </section>
+
+  <section class="ck-panel cb-results" aria-labelledby="out-h">
+    <div class="ck-head" id="pStats" data-head><h2 id="out-h"><span class="ck-step">3</span><span data-en="Results">결과</span></h2><span class="ck-ih" data-tip="results"></span>
+      <dl class="ck-stats" id="stats"></dl>
+    </div>
+    <div id="pScene">
+      <div class="ck-sub" data-head><h3 id="sceneTitle"></h3><span class="ck-ih" data-tip="scene"></span>
+        <span class="ck-right"><button type="button" class="ck-tool" id="playBtn" data-en="▶ Play 2025–2100">▶ 2025–2100 재생</button></span></div>
+      <div class="cb-stage"><canvas id="scene" aria-label="서울 풍경과 탄소예산 욕조" data-en-label="Seoul scene and carbon budget bathtub"></canvas></div>
+    </div>
+    <div id="pTemp">
+      <div class="ck-sub" data-head><h3 data-en="Global warming since 1850–1900 (°C)">지구 기온 상승 (1850–1900년 대비, °C)</h3><span class="ck-ih" data-tip="tchart"></span>
+        <span class="ck-right"><button type="button" class="ck-tool" id="pinBtn" aria-pressed="false" data-en="Pin this curve">현재 곡선 고정</button></span></div>
+      <svg id="tChart" class="cb-chart cb-tchart" role="img" aria-label="기온 그래프" data-en-label="Temperature chart"></svg>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap ck-foot">
+  <p data-en="A simplified teaching model of the carbon budget concept. It is not a climate projection.">탄소예산 개념을 보여주는 교육용 단순화 모델로, 기후 전망이 아닙니다.</p>
+  <details>
+    <summary data-en="Data, credits and licences">자료·출처와 라이선스</summary>
+    <ul>
+      <li>Remaining carbon budgets (from the start of 2026), human-induced warming 2025 (1.37 °C), 2025 CO₂ emissions (42 GtCO₂): P. M. Forster et al., <a href="https://doi.org/10.5194/essd-18-3889-2026" target="_blank" rel="noopener">Indicators of Global Climate Change 2025</a>, Earth Syst. Sci. Data 18, 3889–3933 (2026), Table 8, CC BY 4.0.</li>
+      <li>Global CO₂ emissions 2025: Global Carbon Project, <a href="https://globalcarbonbudget.org/" target="_blank" rel="noopener">Global Carbon Budget 2025</a>.</li>
+      <li>Observed temperature 1850–2024: <a href="https://berkeleyearth.org/data/" target="_blank" rel="noopener">Berkeley Earth</a> Land + Ocean, global annual mean computed by CCRL, CC BY 4.0. Data: Berkeley Earth.</li>
+      <li data-en="Korea: 2018 net emissions 742.3 MtCO₂eq and 2035 NDC (53–61% below 2018), 2030 NDC (40%), 2050 carbon neutrality — Government of the Republic of Korea; 2024 provisional emissions — Greenhouse Gas Inventory and Research Center.">한국: 2018년 순배출 742.3 백만 톤 CO₂eq, 2035 NDC(2018년 대비 53–61% 감축), 2030 NDC(40%), 2050 탄소중립 — 대한민국 정부. 2024년 잠정배출량 — 온실가스종합정보센터.</li>
+      <li>Photo of Seoul (Jamsil and Lotte World Tower across the Han River): <a href="https://commons.wikimedia.org/wiki/File:Han_River_and_Lotte_World_Tower.jpg" target="_blank" rel="noopener">“Han River and Lotte World Tower”</a> by mauveine.kim, via Wikimedia Commons, CC0 1.0. Sky colour and haze are added by the simulator.</li>
+      <li data-en="Model, illustrations and code: Climate Crisis Response Lab (CCRL), SeoulTech. Font: Pretendard (SIL OFL 1.1).">모델·그림·코드: 서울과학기술대학교 기후위기대응연구실(CCRL). 글꼴: Pretendard (SIL OFL 1.1).</li>
+    </ul>
+  </details>
+  <p>© 2026 Climate Crisis Response Lab, Seoul National University of Science and Technology</p>
+</footer>
+
+<script src="kit.js?v=1"></script>
+<script src="data/gmst.js?v=1"></script>
+<script src="carbon-model.js?v=1"></script>
+<script src="carbon-scene.js?v=3"></script>
+<script src="carbon-app.js?v=3"></script>
+</body>
+</html>

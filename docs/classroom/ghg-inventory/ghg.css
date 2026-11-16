@@ -1,0 +1,48 @@
+/* GHG inventory calculator — ledger palette */
+:root{
+  --bg:#f1efe8; --panel:#fffdf8; --ink:#1f2620; --ink2:#3e4a40; --muted:#6c766c; --line:#ddd8cb;
+  --accent:#2e6b4a; --accent-ink:#ffffff; --accent-text:#285e41; --btn:#faf8f2; --q-bg:#e7f0e7; --hot:#b8452f;
+  --top-bg:#fffdf8; --top-line:#ddd8cb; --top-ink:#1f2620; --top-muted:#6c766c; --top-hover:#f2f5ef;
+  --stat-bg:#1f3527; --stat-line:#1f3527; --stat-ink:#ffffff; --stat-muted:#a9c2b0;
+  --tip-bg:#1f3527; --tip-ink:#eef3ee; --tip-head:#9fdcb4; --foot:#6c766c; --intro-bg:#15241a;
+  --ck-dial-hi:#f3f1ea; --ck-dial-lo:#c7cbbd; --ck-dial-rim:#2c3b30; --ck-dial-tick:#33433a; --ck-dial-arm:#223127; --ck-knob:#2e6b4a;
+  --c-co2:#4b5d6b; --c-ch4:#c9822f; --c-n2o:#8a5aa8; --c-hfc:#2f8fb0;
+}
+.gh-app{grid-template-columns:minmax(0,0.95fr) minmax(0,1.05fr)}
+.gh-inputs,.gh-results{display:flex;flex-direction:column}
+.gh-rows{display:flex;flex-direction:column;gap:2px}
+.gh-row{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) 112px;align-items:center;gap:8px;padding:2px 6px;line-height:1.25;border-radius:6px;cursor:pointer}
+.gh-row:hover{background:#f4f2ea}
+.gh-row.sel{background:var(--q-bg);box-shadow:inset 3px 0 0 var(--accent)}
+.gh-row .nm{display:flex;align-items:center;gap:2px;font-size:.86rem;font-weight:600;min-width:0}
+.gh-row .nm small{display:block;font-weight:400;font-size:.7rem;color:var(--muted)}
+.gh-row .sc{font-size:.62rem;font-weight:700;color:#fff;background:var(--accent);border-radius:3px;padding:0 4px;margin-right:6px;flex:none}
+.gh-row .sc.s2{background:#5a6b8a}
+.gh-row input[type=range]{width:100%;accent-color:var(--accent)}
+.gh-row .num{display:flex;align-items:center;gap:4px}
+.gh-row input[type=number]{width:100%;min-width:0;border:1px solid var(--line);border-radius:5px;padding:3px 5px;font:inherit;font-size:.84rem;text-align:right;background:#fff}
+.gh-row .u{font-size:.72rem;color:var(--muted);white-space:nowrap;width:34px}
+.gh-group{font-size:.72rem;font-weight:700;color:var(--muted);letter-spacing:.04em;margin:6px 6px 2px}
+#pLev{margin-top:auto;border-top:1px solid var(--line);padding-top:8px}
+.gh-bars{width:100%;display:block;height:clamp(230px,30vh,330px)}
+.gh-legend{gap:10px;font-size:.74rem;color:var(--muted)}
+.gh-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.gh-bottom{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px;margin-top:6px;flex:1}
+.gh-trace{font-size:.84rem;line-height:1.6;background:#faf8f2;border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-height:150px}
+.gh-trace h4{margin:0 0 4px;font-size:.92rem}
+.gh-trace .eq{font-variant-numeric:tabular-nums;display:grid;grid-template-columns:auto 1fr auto;gap:2px 8px}
+.gh-trace .eq span:nth-child(3n){text-align:right;font-weight:700}
+.gh-trace .tot{border-top:1px solid var(--line);margin-top:6px;padding-top:4px;font-weight:700;display:flex;justify-content:space-between}
+.gh-trace .g{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px}
+.gh-pine-box{display:flex;flex-direction:column}
+.gh-pine-box canvas{width:100%;height:150px;display:block;border-radius:8px}
+.gh-pine-text{margin:6px 0 0;font-size:.82rem;color:var(--ink2)}
+.gh-pine-text b{color:var(--accent-text);font-size:1rem}
+.bar-lab{font-size:11.5px;fill:var(--ink2)}
+.bar-val{font-size:11px;font-weight:700;fill:var(--ink)}
+.bar-hit{fill:transparent;cursor:pointer}
+.bar-sel{fill:var(--q-bg)}
+.ax{fill:var(--muted);font-size:11px}
+.grid{stroke:#ebe7dc;stroke-width:1}
+@media (max-width:1100px){ .gh-app{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:760px){ .gh-bottom{grid-template-columns:1fr} .gh-row{grid-template-columns:minmax(0,1fr) 110px} .gh-row input[type=range]{grid-column:1/-1;order:3} }

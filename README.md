@@ -294,6 +294,10 @@ npm run check
   - 구성: `plume-core.js`(확산 계산), `plume-app.js`(화면), `plume-art.js`(배경 그림), `plume-intro.js`(런던 스모그 인트로), `plume-tour.js`(사용법 안내), `plume-i18n.js`(한/영 전환, 문구는 `T('한국어', 'English')` 형태).
   - 인트로 사진(N T Stobbs, CC BY-SA 2.0)과 사망자 그래프(1953년 보고서, 퍼블릭 도메인)의 출처는 페이지 하단 "출처와 라이선스"와 `media/CREDITS.txt`에 있으니 지우지 마세요.
   - 주소 끝에 `?intro=1`(인트로 다시), `?lang=en`(영어)을 붙일 수 있습니다.
+- 탄소예산과 배출 경로 시뮬레이터(`carbon-budget/`), 온실가스 인벤토리 계산기(`ghg-inventory/`)(2026-11-16): 원본 작업 폴더는 저장소 바깥 `D:\Dropbox\My\CCRL_hompage\classroom\<폴더>\`입니다. 거기서 고친 뒤 `index.html`, `*.js`, `*.css`, `media/`, (탄소예산은 `data/`도)를 `docs/classroom/<폴더>/`로 **복사**하고 `?v=` 숫자를 올립니다.
+  - 두 자료는 공통 부품 `kit.js`/`kit.css`(원본: `classroom\_kit\`)를 각 폴더에 복사해 씁니다(한/영 전환, ⓘ 설명, 레버, 인트로, 사용법 안내).
+  - 탄소예산: 남은 예산은 IGCC 2025(Table 8, 2026년 초 기준), 관측 기온은 Berkeley Earth(CC BY 4.0). 서울 사진(잠실·롯데월드타워, CC0)과 하늘 마스크는 `media/`에 있습니다. 한국 2024년 순배출 약 6.5억 톤은 추정값입니다.
+  - 인벤토리: IPCC 2006 Tier 1 계수, 2023 국가 전력배출계수. 인트로 사진 4장(CC0/CC BY/CC BY-SA)의 출처는 페이지 하단과 `media/CREDITS.txt`에 있으니 지우지 마세요.
 - 새 자료 추가 순서
   1. `docs/classroom/<영문-이름>/index.html`(+ 필요한 라이선스 파일)을 넣습니다. 외부 코드·그림을 썼다면 라이선스와 출처를 자료 안에 표기합니다.
   2. 카드 이미지(가로 1600px JPG, 약 2:1)를 `docs/classroom/<영문-이름>-card.jpg`로 넣습니다.
